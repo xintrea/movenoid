@@ -77,6 +77,13 @@
      <widget class="QGraphicsView" name="graphicsView"/>
     </item>
     <item>
+     <widget class="QLabel" name="graphicsPixmapLabel">
+      <property name="text">
+       <string>TextLabel</string>
+      </property>
+     </widget>
+    </item>
+    <item>
      <widget class="QDialogButtonBox" name="buttonBox">
       <property name="orientation">
        <enum>Qt::Horizontal</enum>
