@@ -18,10 +18,8 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::on_settingsButton_clicked()
+void MainWindow::onSettingsButtonClicked()
 {
-    qDebug() << "Click to settings button";
-
     SettingsWindow settingsWindow;
     settingsWindow.exec();
 }
