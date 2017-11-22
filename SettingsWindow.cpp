@@ -1,3 +1,4 @@
+#include <QDebug>
 #include "SettingsWindow.h"
 #include "ui_SettingsWindow.h"
 
@@ -12,3 +13,5 @@ SettingsWindow::~SettingsWindow()
 {
     delete ui;
 }
+
+

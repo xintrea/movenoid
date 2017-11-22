@@ -16,7 +16,7 @@ public:
     ~MainWindow();
 
 private slots:
-    void on_settingsButton_clicked();
+    void onSettingsButtonClicked();
 
 private:
     Ui::MainWindow *ui;

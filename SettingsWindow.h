@@ -2,6 +2,7 @@
 #define SETTINGSWINDOW_H
 
 #include <QDialog>
+#include <QString>
 
 namespace Ui {
 class SettingsWindow;
@@ -17,6 +18,9 @@ public:
 
 private:
     Ui::SettingsWindow *ui;
+
+protected:
+    QString deviceFileName;
 };
 
 #endif // SETTINGSWINDOW_H

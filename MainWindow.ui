@@ -182,7 +182,7 @@
    <sender>settingsButton</sender>
    <signal>clicked()</signal>
    <receiver>MainWindow</receiver>
-   <slot>on_settingsButton_clicked()</slot>
+   <slot>onSettingsButtonClicked()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>391</x>
@@ -196,6 +196,6 @@
   </connection>
  </connections>
  <slots>
-  <slot>on_settingsButton_clicked()</slot>
+  <slot>onSettingsButtonClicked()</slot>
  </slots>
 </ui>
