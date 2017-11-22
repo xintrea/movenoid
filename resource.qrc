@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/">
+        <file>bin/pic/GameView.png</file>
+    </qresource>
+</RCC>
