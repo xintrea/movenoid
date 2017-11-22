@@ -79,6 +79,7 @@ void SettingsWindow::init(void)
     sceneItem->setPos(QPoint(10, 10));
     */
 
+    ui->graphicsPixmapLabel->setMinimumSize(sizeOfFrame.width, sizeOfFrame.height);
     ui->graphicsPixmapLabel->setPixmap(QPixmap::fromImage( img ));
 
 }
