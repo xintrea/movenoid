@@ -177,5 +177,25 @@
  <resources>
   <include location="resource.qrc"/>
  </resources>
- <connections/>
+ <connections>
+  <connection>
+   <sender>settingsButton</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>on_settingsButton_clicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>391</x>
+     <y>385</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>593</x>
+     <y>387</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>on_settingsButton_clicked()</slot>
+ </slots>
 </ui>
