@@ -107,8 +107,25 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>captureDeviceDefaultButton</sender>
+   <signal>clicked()</signal>
+   <receiver>SettingsWindow</receiver>
+   <slot>onCaptureDeviceDefaultButtonClicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>492</x>
+     <y>23</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>520</x>
+     <y>31</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>on_buttonBox_rejected()</slot>
+  <slot>onCaptureDeviceDefaultButtonClicked()</slot>
  </slots>
 </ui>

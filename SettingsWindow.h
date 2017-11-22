@@ -22,6 +22,10 @@ private:
 
 protected:
     QString deviceFileName;
+
+private slots:
+    void onCaptureDeviceDefaultButtonClicked();
+    void onCaptureDeviceApplyButtonClicked();
 };
 
 #endif // SETTINGSWINDOW_H

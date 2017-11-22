@@ -23,7 +23,27 @@ SettingsWindow::~SettingsWindow()
 
 void SettingsWindow::init(void)
 {
-    ui->captureDeviceFileName->setText( appConfig.getParameter("captureDeviceFileName") );
+    // На экране устанавливается значение, считанное из конфига
+    ui->captureDeviceFileName->setText(appConfig.getParameter("captureDeviceFileName"));
+
+    ui->brigthnessTrashholdSlider->setMinimum(0);
+    ui->brigthnessTrashholdSlider->setMaximum(100);
+    ui->brigthnessTrashholdSlider->setSliderPosition(appConfig.getParameter("brigthnessTrashhold").toInt());
 
 }
 
+
+// Клик по кнопке Reset to default
+void SettingsWindow::onCaptureDeviceDefaultButtonClicked()
+{
+    ui->captureDeviceFileName->setText("default");
+    appConfig.setParameter("captureDeviceFileName", "default");
+
+}
+
+
+// Клик по кнопке Apply
+void SettingsWindow::onCaptureDeviceApplyButtonClicked()
+{
+
+}
