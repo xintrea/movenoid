@@ -1,14 +1,19 @@
 #include <QApplication>
 #include <QDebug>
 #include <QMessageBox>
+
 #include <iostream>
+
 #include "MainWindow.h"
+#include "AppConfig.h"
 
 using namespace std;
 
 // Указатель на основное окно программы
 QObject *pMainWindow;
 
+// Конфигурация программы (считанная из файла конфигурации)
+AppConfig appConfig;
 
 void criticalError(QString message)
 {

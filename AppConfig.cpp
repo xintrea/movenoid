@@ -44,7 +44,7 @@ QString AppConfig::getParameter(QString name)
 
         if( name=="captureDeviceFileName" ) {
             paramName=name;
-            paramValue="";
+            paramValue="default";
         }
         if( name=="brigthnessTrashhold" ) {
             paramName=name;

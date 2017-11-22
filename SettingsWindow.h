@@ -18,6 +18,7 @@ public:
 
 private:
     Ui::SettingsWindow *ui;
+    void init(void);
 
 protected:
     QString deviceFileName;
