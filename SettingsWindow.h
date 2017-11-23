@@ -4,6 +4,9 @@
 #include <QDialog>
 #include <QString>
 
+#include "main.h"
+
+
 namespace Ui {
 class SettingsWindow;
 }
@@ -19,9 +22,13 @@ public:
 private:
     Ui::SettingsWindow *ui;
     void init(void);
+    void initCaptureDevice(void);
+    QImage getCurrentImage(void);
 
 protected:
     QString deviceFileName;
+    cv::VideoCapture captureDevice;
+    cv::Mat currentFrame;
 
 private slots:
     void onCaptureDeviceDefaultButtonClicked();

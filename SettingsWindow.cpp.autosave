@@ -108,7 +108,7 @@ QImage SettingsWindow::getCurrentImage(void)
     qDebug() << "Capture W: " << sizeOfFrame.width << " H: " << sizeOfFrame.height;
 
     QImage img((uchar*)currentFrame.data, currentFrame.cols, currentFrame.rows, currentFrame.step, QImage::Format_RGB888);
-    // img=img.rgbSwapped(); // Преобразование цветов из BGR (OpenCV) в RGB (Qt)
+    img=img.rgbSwapped(); // Преобразование цветов из BGR (OpenCV) в RGB (Qt)
 
     qDebug() << "Finish getCurrentImage time: "<< QDateTime::currentDateTime();
 
