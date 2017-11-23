@@ -30,6 +30,7 @@ protected:
     QString deviceFileName;
     cv::VideoCapture captureDevice;
     cv::Mat currentFrame;
+    cv::Mat currentBwFrame;
 
     QTimer *timer;
 
@@ -37,6 +38,7 @@ private slots:
     void onCaptureDeviceDefaultButtonClicked();
     void onCaptureDeviceApplyButtonClicked();
     void onTimerFinish();
+    void onBrigthnessThresholdSliderMoved(int position);
 };
 
 #endif // SETTINGSWINDOW_H

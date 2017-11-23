@@ -188,6 +188,22 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>exitButton</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>444</x>
+     <y>414</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>546</x>
+     <y>419</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>onSettingsButtonClicked()</slot>

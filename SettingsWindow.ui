@@ -61,14 +61,14 @@
          <item>
           <layout class="QHBoxLayout" name="brigthnessGroupLayout">
            <item>
-            <widget class="QLabel" name="brigthnessTrashholdLabel">
+            <widget class="QLabel" name="brigthnessThresholdLabel">
              <property name="text">
-              <string>Mark detect trashhold</string>
+              <string>Markers threshold</string>
              </property>
             </widget>
            </item>
            <item>
-            <widget class="QSlider" name="brigthnessTrashholdSlider">
+            <widget class="QSlider" name="brigthnessThresholdSlider">
              <property name="orientation">
               <enum>Qt::Horizontal</enum>
              </property>
@@ -148,8 +148,8 @@
    <slot>onCaptureDeviceDefaultButtonClicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>492</x>
-     <y>23</y>
+     <x>453</x>
+     <y>26</y>
     </hint>
     <hint type="destinationlabel">
      <x>520</x>
@@ -157,9 +157,43 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>captureDeviceApplyButton</sender>
+   <signal>clicked()</signal>
+   <receiver>SettingsWindow</receiver>
+   <slot>onCaptureDeviceApplyButtonClicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>318</x>
+     <y>23</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>487</x>
+     <y>5</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>brigthnessThresholdSlider</sender>
+   <signal>sliderMoved(int)</signal>
+   <receiver>SettingsWindow</receiver>
+   <slot>onBrigthnessThresholdSliderMoved(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>367</x>
+     <y>51</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>479</x>
+     <y>47</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>on_buttonBox_rejected()</slot>
   <slot>onCaptureDeviceDefaultButtonClicked()</slot>
+  <slot>onCaptureDeviceApplyButtonClicked()</slot>
+  <slot>onBrigthnessThresholdSliderMoved(int)</slot>
  </slots>
 </ui>

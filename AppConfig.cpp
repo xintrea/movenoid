@@ -46,7 +46,7 @@ QString AppConfig::getParameter(QString name)
             paramName=name;
             paramValue="default";
         }
-        if( name=="brigthnessTrashhold" ) {
+        if( name=="brigthnessThreshold" ) {
             paramName=name;
             paramValue="50";
         }
