@@ -28,14 +28,16 @@ SOURCES += \
         MainWindow.cpp \
     SettingsWindow.cpp \
     AppConfig.cpp \
-    GameWindow.cpp
+    GameWindow.cpp \
+    Ball.cpp
 
 HEADERS += \
         MainWindow.h \
     SettingsWindow.h \
     AppConfig.h \
     main.h \
-    GameWindow.h
+    GameWindow.h \
+    Ball.h
 
 FORMS += \
         MainWindow.ui \

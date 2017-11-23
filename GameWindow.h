@@ -1,6 +1,7 @@
 #ifndef GAMEWINDOW_H
 #define GAMEWINDOW_H
 
+#include <QGraphicsScene>
 #include <QDialog>
 
 namespace Ui {
@@ -17,6 +18,8 @@ public:
 
 private:
     Ui::GameWindow *ui;
+
+    QGraphicsScene scene;
 };
 
 #endif // GAMEWINDOW_H
