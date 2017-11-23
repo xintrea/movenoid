@@ -96,16 +96,16 @@ QImage SettingsWindow::getCurrentImage(void)
     */
 
     double thresholdLevel=(double) ui->brigthnessThresholdSlider->sliderPosition();
+
     cv::cvtColor(currentFrame, currentBwFrame, CV_BGR2GRAY);
     cv::GaussianBlur(currentBwFrame, currentBwFrame, cv::Size(7,7), 1.5, 1.5);
     cv::threshold(currentBwFrame, currentBwFrame, thresholdLevel, 254.0, cv::THRESH_BINARY);
     cv::flip(currentBwFrame, currentBwFrame, 1);
 
     // QImage img;
-    QImage img((uchar*)currentFrame.data, currentFrame.cols, currentFrame.rows, currentFrame.step, QImage::Format_Grayscale8);
+    QImage img((uchar*)currentBwFrame.data, currentBwFrame.cols, currentBwFrame.rows, currentBwFrame.step, QImage::Format_Grayscale8);
 
-    cv::imshow("Source frame", currentBwFrame);
-
+    // cv::imshow("Source frame", currentBwFrame);
     // qDebug() << "Finish getCurrentImage time: "<< QDateTime::currentDateTime();
 
     return img;
@@ -136,7 +136,6 @@ void SettingsWindow::onCaptureDeviceDefaultButtonClicked()
     timer->stop();
     initCaptureDevice();
     timer->start();
-
 }
 
 
