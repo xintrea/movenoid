@@ -27,17 +27,20 @@ SOURCES += \
         main.cpp \
         MainWindow.cpp \
     SettingsWindow.cpp \
-    AppConfig.cpp
+    AppConfig.cpp \
+    GameWindow.cpp
 
 HEADERS += \
         MainWindow.h \
     SettingsWindow.h \
     AppConfig.h \
-    main.h
+    main.h \
+    GameWindow.h
 
 FORMS += \
         MainWindow.ui \
-    SettingsWindow.ui
+    SettingsWindow.ui \
+    GameWindow.ui
 
 CONFIG += mobility
 MOBILITY = 

@@ -204,8 +204,25 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>playButton</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>onPlayButtonClicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>476</x>
+     <y>357</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>561</x>
+     <y>357</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>onSettingsButtonClicked()</slot>
+  <slot>onPlayButtonClicked()</slot>
  </slots>
 </ui>

@@ -3,6 +3,7 @@
 #include "MainWindow.h"
 #include "ui_MainWindow.h"
 #include "SettingsWindow.h"
+#include "GameWindow.h"
 
 using namespace std;
 
@@ -13,13 +14,22 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
 }
 
+
 MainWindow::~MainWindow()
 {
     delete ui;
 }
 
+
 void MainWindow::onSettingsButtonClicked()
 {
     SettingsWindow settingsWindow;
     settingsWindow.exec();
+}
+
+
+void MainWindow::onPlayButtonClicked()
+{
+    GameWindow gameWindow;
+    gameWindow.exec();
 }

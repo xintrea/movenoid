@@ -17,6 +17,7 @@ public:
 
 private slots:
     void onSettingsButtonClicked();
+    void onPlayButtonClicked();
 
 private:
     Ui::MainWindow *ui;
