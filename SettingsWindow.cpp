@@ -69,7 +69,8 @@ void SettingsWindow::init(void)
 
     // QImage img((uchar*)src.data, src.cols, src.rows, src.step, QImage::Format_RGB32);
     QImage img((uchar*)src.data, src.cols, src.rows, src.step, QImage::Format_RGB888);
-    cv::imshow("Source frame", src);
+    img=img.rgbSwapped(); // Преобразование цветов из BGR (OpenCV) в RGB (Qt)
+    // cv::imshow("Source frame", src);
 
     /*
     QGraphicsScene *scene = new QGraphicsScene();
@@ -79,8 +80,20 @@ void SettingsWindow::init(void)
     sceneItem->setPos(QPoint(10, 10));
     */
 
+    /*
     ui->graphicsPixmapLabel->setMinimumSize(sizeOfFrame.width, sizeOfFrame.height);
     ui->graphicsPixmapLabel->setPixmap(QPixmap::fromImage( img ));
+
+    this->setMinimumSize(sizeOfFrame.width, sizeOfFrame.height);
+    this->adjustSize();
+    */
+
+    // int enabledWidth=ui->graphicsPixmapLabel->width();
+    // int enabledWidth=ui->graphicsPixmapLabel->sizeHint().width();
+    // int enabledWidth=ui->graphicsPixmapLabel->geometry().width();
+    int enabledWidth=ui->mainVerticalLayout->sizeHint().width();
+    qDebug() << "Enabled width label: " << enabledWidth;
+    ui->graphicsPixmapLabel->setPixmap(QPixmap::fromImage( img ).scaledToWidth(enabledWidth));
 
 }
 

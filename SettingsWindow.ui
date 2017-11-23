@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>525</width>
+    <width>527</width>
     <height>499</height>
    </rect>
   </property>
@@ -28,54 +28,75 @@
      <height>481</height>
     </rect>
    </property>
-   <layout class="QVBoxLayout" name="verticalLayout">
+   <layout class="QVBoxLayout" name="mainVerticalLayout">
     <item>
-     <layout class="QHBoxLayout" name="horizontalLayout">
+     <layout class="QHBoxLayout" name="toolsAsHeaderLayout">
       <item>
-       <widget class="QLabel" name="captureDeviceLabel">
-        <property name="text">
-         <string>Capture device file</string>
-        </property>
-       </widget>
+       <layout class="QVBoxLayout" name="toolsGroupLayout">
+        <item>
+         <layout class="QHBoxLayout" name="captureGroupLayout">
+          <item>
+           <widget class="QLabel" name="captureDeviceLabel">
+            <property name="text">
+             <string>Capture device file</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="captureDeviceFileName">
+            <property name="text">
+             <string comment="Set if defaul device not working"/>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="captureDeviceApplyButton">
+            <property name="text">
+             <string>Apply</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="captureDeviceDefaultButton">
+            <property name="text">
+             <string>Reset to default</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="brigthnessGroupLayout">
+          <item>
+           <widget class="QLabel" name="brigthnessTrashholdLabel">
+            <property name="text">
+             <string>Mark detect trashhold</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QSlider" name="brigthnessTrashholdSlider">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
       </item>
       <item>
-       <widget class="QLineEdit" name="captureDeviceFileName">
-        <property name="text">
-         <string comment="Set if defaul device not working"/>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="captureDeviceApplyButton">
-        <property name="text">
-         <string>Apply</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="captureDeviceDefaultButton">
-        <property name="text">
-         <string>Reset to default</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </item>
-    <item>
-     <layout class="QHBoxLayout" name="horizontalLayout_2">
-      <item>
-       <widget class="QLabel" name="brigthnessTrashholdLabel">
-        <property name="text">
-         <string>Mark detect trashhold</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QSlider" name="brigthnessTrashholdSlider">
+       <spacer name="horizontalSpacer">
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
         </property>
-       </widget>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
       </item>
      </layout>
     </item>
