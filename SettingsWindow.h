@@ -24,15 +24,19 @@ private:
     void init(void);
     void initCaptureDevice(void);
     QImage getCurrentImage(void);
+    void updateCaptureImage(void);
 
 protected:
     QString deviceFileName;
     cv::VideoCapture captureDevice;
     cv::Mat currentFrame;
 
+    QTimer *timer;
+
 private slots:
     void onCaptureDeviceDefaultButtonClicked();
     void onCaptureDeviceApplyButtonClicked();
+    void onTimerFinish();
 };
 
 #endif // SETTINGSWINDOW_H

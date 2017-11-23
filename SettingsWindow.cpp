@@ -5,6 +5,7 @@
 #include <QLabel>
 #include <QProgressDialog>
 #include <QDateTime>
+#include <QTimer>
 
 #include "SettingsWindow.h"
 #include "ui_SettingsWindow.h"
@@ -20,6 +21,11 @@ SettingsWindow::SettingsWindow(QWidget *parent) :
     ui->setupUi(this);
 
     init();
+
+    // Таймер обновления картинки
+    timer = new QTimer();
+    connect(timer, SIGNAL(timeout()), this, SLOT(onTimerFinish()));
+    timer->start(100);
 }
 
 SettingsWindow::~SettingsWindow()
@@ -39,29 +45,7 @@ void SettingsWindow::init(void)
     ui->brigthnessTrashholdSlider->setSliderPosition(appConfig.getParameter("brigthnessTrashhold").toInt());
 
     initCaptureDevice();
-
-    /*
-    QGraphicsScene *scene = new QGraphicsScene();
-    ui->graphicsView->setScene(scene);
-    ui->graphicsView->setSceneRect(QRect(0,0, sizeOfFrame.width, sizeOfFrame.height));
-    QGraphicsItem * sceneItem = scene->addPixmap(QPixmap::fromImage( img ));
-    sceneItem->setPos(QPoint(10, 10));
-    */
-
-    /*
-    ui->graphicsPixmapLabel->setMinimumSize(sizeOfFrame.width, sizeOfFrame.height);
-    ui->graphicsPixmapLabel->setPixmap(QPixmap::fromImage( img ));
-
-    this->setMinimumSize(sizeOfFrame.width, sizeOfFrame.height);
-    this->adjustSize();
-    */
-
-    // int enabledWidth=ui->graphicsPixmapLabel->width();
-    // int enabledWidth=ui->graphicsPixmapLabel->sizeHint().width();
-    // int enabledWidth=ui->graphicsPixmapLabel->geometry().width();
-    int enabledWidth=ui->mainVerticalLayout->sizeHint().width();
-    qDebug() << "Enabled width label: " << enabledWidth;
-    ui->graphicsPixmapLabel->setPixmap(QPixmap::fromImage( getCurrentImage() ).scaledToWidth(enabledWidth));
+    updateCaptureImage(); // Устанавливается первая картинка с камеры
 }
 
 
@@ -108,11 +92,27 @@ QImage SettingsWindow::getCurrentImage(void)
     qDebug() << "Capture W: " << sizeOfFrame.width << " H: " << sizeOfFrame.height;
 
     QImage img((uchar*)currentFrame.data, currentFrame.cols, currentFrame.rows, currentFrame.step, QImage::Format_RGB888);
-    // img=img.rgbSwapped(); // Преобразование цветов из BGR (OpenCV) в RGB (Qt)
+    img=img.rgbSwapped(); // Преобразование цветов из BGR (OpenCV) в RGB (Qt)
 
     qDebug() << "Finish getCurrentImage time: "<< QDateTime::currentDateTime();
 
     return img;
+}
+
+
+void SettingsWindow::updateCaptureImage(void)
+{
+    int enabledWidth=ui->mainVerticalLayout->sizeHint().width();
+    qDebug() << "Enabled width label: " << enabledWidth;
+    ui->graphicsPixmapLabel->setPixmap(QPixmap::fromImage( getCurrentImage() ).scaledToWidth(enabledWidth, Qt::FastTransformation));
+}
+
+
+// Слот, срабатывающий по таймеру
+void SettingsWindow::onTimerFinish(void)
+{
+    updateCaptureImage();
+    qDebug() << "Image update time: "<< QDateTime::currentDateTime();
 }
 
 
