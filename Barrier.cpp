@@ -60,12 +60,12 @@ QPainterPath Barrier::shape() const
 void Barrier::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
 {
     // Filling
-    painter->setBrush(QColor(qrand() % 256, qrand() % 256, qrand() % 256));
+    painter->setBrush(QColor(87, 113, 140));
 
     // Edges
     QPen pen;
     pen.setWidth(0.1);
-    pen.setBrush(Qt::blue);
+    pen.setBrush(Qt::white);
     painter->setPen(pen);
 
     painter->drawPolygon( this->polygon() );
