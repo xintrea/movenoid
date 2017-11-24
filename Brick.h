@@ -9,7 +9,7 @@
 class Brick : public QGraphicsItem
 {
 public:
-    Brick();
+    Brick(QGraphicsItem *parent = Q_NULLPTR);
 
     QRectF boundingRect() const override;
     QPainterPath shape() const override;

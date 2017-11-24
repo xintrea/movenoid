@@ -1,21 +1,25 @@
 #ifndef BARRIER_H
 #define BARRIER_H
 
-#include <QGraphicsItem>
+#include <QGraphicsPolygonItem>
 #include <QPainter>
 #include <QStyleOptionGraphicsItem>
 #include <QWidget>
 
-class Barrier : public QGraphicsItem
+class Barrier : public QGraphicsPolygonItem
 {
 public:
-    Barrier();
+    Barrier(QGraphicsItem *parent = Q_NULLPTR);
+    Barrier(const QPolygonF &polygon, QGraphicsItem *parent = Q_NULLPTR);
 
     QRectF boundingRect() const override;
     QPainterPath shape() const override;
     void paint(QPainter *painter,
                const QStyleOptionGraphicsItem *option,
                QWidget *widget) override;
+protected:
+
+
 };
 
 #endif // BARRIER_H

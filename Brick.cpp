@@ -1,8 +1,8 @@
 #include "Brick.h"
 
-Brick::Brick()
+Brick::Brick(QGraphicsItem *parent)
 {
-
+    QGraphicsItem::setParentItem(parent);
 }
 
 QRectF Brick::boundingRect() const

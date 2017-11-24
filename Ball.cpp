@@ -1,7 +1,8 @@
 #include "Ball.h"
 
-Ball::Ball()
+Ball::Ball(QGraphicsItem *parent)
 {
+  QGraphicsItem::setParentItem(parent);
 
 }
 

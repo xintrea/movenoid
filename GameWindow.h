@@ -4,6 +4,8 @@
 #include <QGraphicsScene>
 #include <QDialog>
 
+#include "GameField.h"
+
 namespace Ui {
 class GameWindow;
 }
@@ -19,7 +21,7 @@ public:
 private:
     Ui::GameWindow *ui;
 
-    QGraphicsScene scene;
+    GameField *gameField;
 };
 
 #endif // GAMEWINDOW_H

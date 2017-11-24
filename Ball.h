@@ -9,7 +9,7 @@
 class Ball : public QGraphicsItem
 {
 public:
-    Ball();
+    Ball(QGraphicsItem *parent = Q_NULLPTR);
 
     QRectF boundingRect() const override;
     QPainterPath shape() const override;

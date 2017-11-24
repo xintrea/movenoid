@@ -19,11 +19,13 @@ GameWindow::GameWindow(QWidget *parent) :
     QBrush brush(gradient);
     ui->graphicsView->setBackgroundBrush(brush);
 
-    scene.addText("Start game");
-    ui->graphicsView->setScene(&scene);
+    gameField=new GameField();
+    gameField->addText("Start game");
+    ui->graphicsView->setScene(gameField);
 }
 
 GameWindow::~GameWindow()
 {
+    delete gameField;
     delete ui;
 }

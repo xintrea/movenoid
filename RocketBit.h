@@ -10,7 +10,7 @@
 class RocketBit : public QGraphicsItem
 {
 public:
-    RocketBit();
+    RocketBit(QGraphicsItem *parent = Q_NULLPTR);
 
     QRectF boundingRect() const override;
     QPainterPath shape() const override;

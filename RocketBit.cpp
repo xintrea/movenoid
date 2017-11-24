@@ -1,8 +1,8 @@
 #include "RocketBit.h"
 
-RocketBit::RocketBit()
+RocketBit::RocketBit(QGraphicsItem *parent)
 {
-
+    QGraphicsItem::setParentItem(parent);
 }
 
 
