@@ -32,7 +32,8 @@ SOURCES += \
     Ball.cpp \
     GameField.cpp \
     Barrier.cpp \
-    RocketBit.cpp
+    RocketBit.cpp \
+    Brick.cpp
 
 HEADERS += \
         MainWindow.h \
@@ -43,7 +44,8 @@ HEADERS += \
     Ball.h \
     GameField.h \
     Barrier.h \
-    RocketBit.h
+    RocketBit.h \
+    Brick.h
 
 FORMS += \
         MainWindow.ui \

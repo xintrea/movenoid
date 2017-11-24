@@ -6,6 +6,7 @@
 #include <Box2D/Box2D.h>
 
 #include "Barrier.h"
+#include "Brick.h"
 #include "RocketBit.h"
 #include "Ball.h"
 
@@ -13,10 +14,14 @@ class GameField : public QGraphicsScene
 {
 public:
     GameField();
+    virtual ~GameField();
+
+    void clearLevel();
+    void loadLevel(int levelNum);
 
 protected:
-    // QList<Barrier> Barriers;
-    Barrier barriers;
+    QList<Barrier*> barriers;
+    QList<Brick*> bricks;
     RocketBit rocketBit;
     Ball ball;
 
