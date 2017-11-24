@@ -17,6 +17,12 @@ public:
                const QStyleOptionGraphicsItem *option,
                QWidget *widget) override;
 
+    void setRadius(const qreal iRadius);
+
+protected:
+
+    qreal radius;
+
 };
 
 #endif // BALL_H

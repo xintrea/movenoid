@@ -10,6 +10,7 @@ GameField::GameField()
 
 GameField::~GameField()
 {
+    clearLevel();
     delete physicsWorld;
 }
 
@@ -24,7 +25,7 @@ void GameField::clearLevel()
     barriers.clear();
 
     // Удаляются кирпичи
-    foreach( Barrier *currentBrick, barriers ) {
+    foreach( Brick *currentBrick, bricks ) {
         this->removeItem(currentBrick);
         delete currentBrick;
     }
@@ -70,9 +71,19 @@ void GameField::loadLevel(int levelNum)
 
 
         // Создание кирпичей
+        /*
         Brick *brick=new Brick;
         brick->setPos(3.0, 4.0);
         bricks.append( brick ); // Запоминается указатель на кирпич
         this->addItem(brick); // Кирпич кладется на поле
+        */
+
+
+        // Установки мячика
+        ball.setRadius(0.15);
+        ball.setPos(5.0, 7.0);
+        this->addItem(&ball); // Мячик кладется на поле
+
+
     }
 }
