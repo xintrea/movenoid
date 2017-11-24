@@ -33,7 +33,7 @@ GameWindow::GameWindow(QWidget *parent) :
     ui->graphicsView->centerOn(5.0, 5.0);
     ui->graphicsView->fitInView(0.0, 0.0, 5.0, 5.0);
 
-
+    gameField->runGame();
 
 }
 

@@ -96,3 +96,12 @@ void GameField::loadLevel(int levelNum)
 
     }
 }
+
+void GameField::runGame()
+{
+    for(int i=0; i<100; i++) {
+        physicsWorld->Step(1.0/60.0, 6, 2);
+
+        ball.updatePosByPhysicsWorld();
+    }
+}

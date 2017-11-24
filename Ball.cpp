@@ -24,6 +24,16 @@ void Ball::putToPhysicsWorld()
     shape.m_radius=radius;
 
     body->CreateFixture(&shape, 1.0);
+
+    // Запоминается настроенное тело
+    physicsBody=body;
+}
+
+
+void Ball::updatePosByPhysicsWorld()
+{
+    this->setX( physicsBody->GetPosition().x );
+    this->setY( physicsBody->GetPosition().y );
 }
 
 

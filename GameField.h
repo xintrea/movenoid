@@ -19,6 +19,8 @@ public:
     void clearLevel();
     void loadLevel(int levelNum);
 
+    void runGame();
+
 protected:
     QList<Barrier*> barriers;
     QList<Brick*> bricks;

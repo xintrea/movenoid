@@ -5,8 +5,7 @@
 #include <QPainter>
 #include <QStyleOptionGraphicsItem>
 #include <QWidget>
-
-#include <GraphicsPhysicsItem.h>
+#include "GraphicsPhysicsItem.h"
 
 class Ball : public GraphicsPhysicsItem
 {
@@ -21,11 +20,11 @@ public:
 
     void setRadius(const qreal iRadius);
     void putToPhysicsWorld();
+    void updatePosByPhysicsWorld();
 
 protected:
 
     qreal radius;
-
 };
 
 #endif // BALL_H

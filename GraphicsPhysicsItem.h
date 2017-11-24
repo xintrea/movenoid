@@ -15,6 +15,7 @@ public:
 
 protected:
     b2World *physicsWorld;
+    b2Body *physicsBody;
 
 };
 
