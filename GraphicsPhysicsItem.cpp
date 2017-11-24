@@ -1,3 +1,4 @@
+#include <QDebug>
 #include "GraphicsPhysicsItem.h"
 
 GraphicsPhysicsItem::GraphicsPhysicsItem(QGraphicsItem *parent)
@@ -17,10 +18,12 @@ GraphicsPhysicsItem::~GraphicsPhysicsItem()
 void GraphicsPhysicsItem::setPhysicsWorld(b2World *iPhysicsWorld)
 {
     physicsWorld=iPhysicsWorld;
+
+    putToPhysicsWorld();
 }
 
 
 void GraphicsPhysicsItem::putToPhysicsWorld()
 {
-
+    qDebug() << "It is empty method putToPhysicsWorld()";
 }

@@ -1,4 +1,5 @@
 #include <QDebug>
+#include <Box2D/Box2D.h>
 #include "Ball.h"
 
 Ball::Ball(QGraphicsItem *parent)
@@ -12,34 +13,36 @@ void Ball::setRadius(const qreal iRadius)
     radius=iRadius;
 }
 
+
 void Ball::putToPhysicsWorld()
 {
+    b2BodyDef bodyDef;
+    bodyDef.type=b2_dynamicBody;
 
+    b2Body *body=physicsWorld->CreateBody(&bodyDef);
+    b2CircleShape shape;
+    shape.m_radius=radius;
+
+    body->CreateFixture(&shape, 1.0);
 }
 
 
 QRectF Ball::boundingRect() const
 {
-    qDebug() << "Call ball boundingRect, radius:" << radius << " size: " << radius*2.0;
     return QRectF(-radius, -radius, radius*2.0, radius*2.0);
 }
 
 
 QPainterPath Ball::shape() const
 {
-    qDebug() << "Call ball shape, radius:" << radius << " size: " << radius*2.0;
-
     QPainterPath path;
     path.addEllipse(-radius, -radius, radius*2.0, radius*2.0);
-    // path.addRect(-radius, -radius, radius*2.0, radius*2.0);
     return path;
 }
 
 
 void Ball::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
 {
-    qDebug() << "Call ball paint, radius:" << radius << " size: " << radius*2.0;
-
     // Filling
     painter->setBrush(QColor(199, 104, 2));
 
