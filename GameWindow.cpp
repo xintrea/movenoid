@@ -13,15 +13,22 @@ GameWindow::GameWindow(QWidget *parent) :
 
     this->showFullScreen();
 
+    // Устанавливается граидент заднего плана
     QLinearGradient gradient(0, 0, 0, ui->graphicsView->size().height());
     gradient.setColorAt(0, QColor::fromRgbF(0.87, 0.89, 0.94, 1));
     gradient.setColorAt(1, QColor::fromRgbF(0.69, 0.79, 0.97, 1));
     QBrush brush(gradient);
     ui->graphicsView->setBackgroundBrush(brush);
 
+    // Задается сцена в виде игрового поля
     gameField=new GameField();
-    gameField->addText("Start game");
+    // gameField->addText("Start game");
+
     ui->graphicsView->setScene(gameField);
+    // ui->graphicsView->ensureVisible(0.0, 0.0, 10.0, 10.0, 0, 0);
+    ui->graphicsView->fitInView(0.0, 0.0, 5.0, 5.0);
+    ui->graphicsView->centerOn(2.5, 2.5);
+
 }
 
 GameWindow::~GameWindow()

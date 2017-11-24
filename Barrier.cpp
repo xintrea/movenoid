@@ -1,5 +1,6 @@
 #include <QDebug>
 #include "Barrier.h"
+#include "main.h"
 
 Barrier::Barrier(QGraphicsItem *parent)
 {
@@ -16,22 +17,32 @@ Barrier::Barrier(const QPolygonF &polygon, QGraphicsItem *parent)
 
 QRectF Barrier::boundingRect() const
 {
-    qreal minByX=10000.0;
-    qreal maxByX=-100000.0;
-    qreal minByY=10000.0;
-    qreal maxByY=-100000.0;
+    static bool isInit=false;
 
-    foreach (QPointF point, this->polygon() ) {
-        qDebug() << "Polygon Coord: " << point.x() << point.y();
+    static qreal cmp=10000.0;
+    static qreal minByX=cmp;
+    static qreal maxByX=-cmp;
+    static qreal minByY=cmp;
+    static qreal maxByY=-cmp;
 
-        if(point.x()<minByX) minByX=point.x();
-        if(point.x()>maxByX) maxByX=point.x();
+    if(!isInit) {
+        foreach (QPointF point, this->polygon() ) {
+            qDebug() << "Polygon Coord: " << point.x() << point.y();
 
-        if(point.y()<minByY) minByY=point.y();
-        if(point.y()>maxByY) maxByY=point.y();
+            if(point.x()<minByX) minByX=point.x();
+            if(point.x()>maxByX) maxByX=point.x();
+
+            if(point.y()<minByY) minByY=point.y();
+            if(point.y()>maxByY) maxByY=point.y();
+        }
+
+        if(minByX==cmp || maxByX==-cmp || minByY==cmp || maxByY==-cmp)
+            criticalError("Bad barrier polygon: "+QString::number(minByX)+" "+QString::number(minByY)+" "+QString::number(maxByX)+" "+QString::number(maxByY));
+
+        isInit=true;
+
+        qDebug() << "Bounding Rect: " << minByX << minByY << maxByX << maxByY;
     }
-
-    qDebug() << "Bounding Rect: " << minByX << minByY << maxByX << maxByY;
 
     return QRectF( QPointF(minByX, minByY), QPointF(maxByX, maxByY) );
 }
@@ -48,7 +59,14 @@ QPainterPath Barrier::shape() const
 
 void Barrier::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
 {
-    // Body
+    // Filling
     painter->setBrush(QColor(qrand() % 256, qrand() % 256, qrand() % 256));
+
+    // Edges
+    QPen pen;
+    pen.setWidth(0.1);
+    pen.setBrush(Qt::blue);
+    painter->setPen(pen);
+
     painter->drawPolygon( this->polygon() );
 }
