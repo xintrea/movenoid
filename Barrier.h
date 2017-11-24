@@ -21,6 +21,7 @@ public:
                QWidget *widget) override;
 
     void setPolygon(const QPolygonF &iPolygon);
+    void putToPhysicsWorld();
 
 protected:
 

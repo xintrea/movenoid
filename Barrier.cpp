@@ -13,6 +13,11 @@ void Barrier::setPolygon(const QPolygonF &iPolygon)
     polygon=iPolygon;
 }
 
+void Barrier::putToPhysicsWorld()
+{
+
+}
+
 
 QRectF Barrier::boundingRect() const
 {

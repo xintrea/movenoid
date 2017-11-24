@@ -22,10 +22,15 @@ QPainterPath RocketBit::shape() const
 }
 
 
-
 void RocketBit::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
 {
     // Body
     painter->setBrush(QColor(qrand() % 256, qrand() % 256, qrand() % 256));
     painter->drawEllipse(-0.025, -0.025, 0.05, 0.05);
+}
+
+
+void RocketBit::putToPhysicsWorld()
+{
+
 }

@@ -12,6 +12,11 @@ void Ball::setRadius(const qreal iRadius)
     radius=iRadius;
 }
 
+void Ball::putToPhysicsWorld()
+{
+
+}
+
 
 QRectF Ball::boundingRect() const
 {

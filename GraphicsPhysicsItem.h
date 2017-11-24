@@ -8,9 +8,10 @@ class GraphicsPhysicsItem : public QGraphicsItem
 {
 public:
     GraphicsPhysicsItem(QGraphicsItem *parent = Q_NULLPTR);
+    virtual ~GraphicsPhysicsItem();
 
     void setPhysicsWorld(b2World *iPhysicsWorld);
-    virtual void putToPhysicsWord();
+    virtual void putToPhysicsWorld();
 
 protected:
     b2World *physicsWorld;

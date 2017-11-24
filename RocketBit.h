@@ -19,6 +19,8 @@ public:
                const QStyleOptionGraphicsItem *option,
                QWidget *widget) override;
 
+    void putToPhysicsWorld();
+
 };
 
 #endif // ROCKETBIT_H

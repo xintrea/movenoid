@@ -20,6 +20,7 @@ public:
                QWidget *widget) override;
 
     void setRadius(const qreal iRadius);
+    void putToPhysicsWorld();
 
 protected:
 
