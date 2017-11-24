@@ -6,7 +6,9 @@
 #include <QStyleOptionGraphicsItem>
 #include <QWidget>
 
-class Brick : public QGraphicsItem
+#include <GraphicsPhysicsItem.h>
+
+class Brick : public GraphicsPhysicsItem
 {
 public:
     Brick(QGraphicsItem *parent = Q_NULLPTR);

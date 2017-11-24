@@ -7,8 +7,6 @@ GameField::GameField()
     b2Vec2 gravity(0.0, 5.0);
     physicsWorld=new b2World(gravity);
 
-    ball=NULL;
-
     loadLevel(1);
 }
 
@@ -36,9 +34,7 @@ void GameField::clearLevel()
     bricks.clear();
 
     rocketBit.setPos(5.0, 8.0);
-
-    // ball.setPos(5.0, 6.0);
-    delete ball;
+    ball.setPos(5.0, 6.0);
 }
 
 
@@ -92,12 +88,10 @@ void GameField::loadLevel(int levelNum)
         this->addItem(brick); // Кирпич кладется на поле
         */
 
-
         // Установки мячика
-        Ball *ball=new Ball();
-        ball->setRadius(0.15);
-        ball->setPos(4.0, 7.0);
-        this->addItem(ball); // Мячик кладется на поле
+        ball.setRadius(0.15);
+        ball.setPos(5.0, 7.0);
+        this->addItem(&ball); // Мячик кладется на поле
 
 
     }

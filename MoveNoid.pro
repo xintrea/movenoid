@@ -33,7 +33,8 @@ SOURCES += \
     GameField.cpp \
     Barrier.cpp \
     RocketBit.cpp \
-    Brick.cpp
+    Brick.cpp \
+    GraphicsPhysicsItem.cpp
 
 HEADERS += \
         MainWindow.h \
@@ -45,7 +46,8 @@ HEADERS += \
     GameField.h \
     Barrier.h \
     RocketBit.h \
-    Brick.h
+    Brick.h \
+    GraphicsPhysicsItem.h
 
 FORMS += \
         MainWindow.ui \

@@ -6,7 +6,9 @@
 #include <QStyleOptionGraphicsItem>
 #include <QWidget>
 
-class Ball : public QGraphicsItem
+#include <GraphicsPhysicsItem.h>
+
+class Ball : public GraphicsPhysicsItem
 {
 public:
     Ball(QGraphicsItem *parent = Q_NULLPTR);

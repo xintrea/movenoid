@@ -6,8 +6,9 @@
 #include <QStyleOptionGraphicsItem>
 #include <QWidget>
 
+#include "GraphicsPhysicsItem.h"
 
-class RocketBit : public QGraphicsItem
+class RocketBit : public GraphicsPhysicsItem
 {
 public:
     RocketBit(QGraphicsItem *parent = Q_NULLPTR);

@@ -7,7 +7,9 @@
 #include <QWidget>
 #include <QPolygonF>
 
-class Barrier : public QGraphicsItem
+#include "GraphicsPhysicsItem.h"
+
+class Barrier : public GraphicsPhysicsItem
 {
 public:
     Barrier(QGraphicsItem *parent = Q_NULLPTR);
