@@ -45,22 +45,25 @@ void GameField::loadLevel(int levelNum)
         QPolygonF polygon;
 
         // Левая стена
+        Barrier *barrierLeft=new Barrier();
         polygon << QPointF(0.0, 0.0) << QPointF(0.0, 10.0) << QPointF(0.05, 10.0) << QPointF(0.05, 0.0);
-        Barrier *barrierLeft=new Barrier(polygon);
+        barrierLeft->setPolygon(polygon);
         barrierLeft->setPos(0.0, 0.0);
         barriers.append( barrierLeft ); // Запоминается указатель на препятствие
         this->addItem(barrierLeft); // Препятствие кладется на поле
 
         // Правая стена
-        Barrier *barrierRight=new Barrier(polygon);
+        Barrier *barrierRight=new Barrier();
+        barrierRight->setPolygon(polygon);
         barrierRight->setPos(10.0-0.049, 0.0);
         barriers.append( barrierRight );
         this->addItem(barrierRight);
 
         // Верхняя стена
+        Barrier *barrierTop=new Barrier();
         polygon.clear();
         polygon << QPointF(0.0, 0.0) << QPointF(0.0, 0.05) << QPointF(10.0, 0.05) << QPointF(10.0, 0.0);
-        Barrier *barrierTop=new Barrier(polygon);
+        barrierTop->setPolygon(polygon);
         barrierTop->setPos(0.0, 0.0);
         barriers.append( barrierTop );
         this->addItem(barrierTop);

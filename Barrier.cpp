@@ -4,14 +4,13 @@
 
 Barrier::Barrier(QGraphicsItem *parent)
 {
-    QGraphicsPolygonItem::setParentItem(parent);
+    QGraphicsItem::setParentItem(parent);
 }
 
 
-Barrier::Barrier(const QPolygonF &polygon, QGraphicsItem *parent)
+void Barrier::setPolygon(const QPolygonF &iPolygon)
 {
-    QGraphicsPolygonItem::setParentItem(parent);
-    QGraphicsPolygonItem::setPolygon(polygon);
+    polygon=iPolygon;
 }
 
 
@@ -26,7 +25,7 @@ QRectF Barrier::boundingRect() const
     static qreal maxByY=-cmp;
 
     if(!isInit) {
-        foreach (QPointF point, this->polygon() ) {
+        foreach (QPointF point, polygon ) {
             qDebug() << "Polygon Coord: " << point.x() << point.y();
 
             if(point.x()<minByX) minByX=point.x();
@@ -51,7 +50,7 @@ QRectF Barrier::boundingRect() const
 QPainterPath Barrier::shape() const
 {
     QPainterPath path;
-    path.addPolygon( this->polygon() );
+    path.addPolygon( polygon );
     return path;
 }
 
@@ -68,5 +67,5 @@ void Barrier::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget
     pen.setBrush(Qt::white);
     painter->setPen(pen);
 
-    painter->drawPolygon( this->polygon() );
+    painter->drawPolygon( polygon );
 }
