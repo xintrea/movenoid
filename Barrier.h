@@ -1,22 +1,21 @@
-#ifndef BALL_H
-#define BALL_H
+#ifndef BARRIER_H
+#define BARRIER_H
 
 #include <QGraphicsItem>
 #include <QPainter>
 #include <QStyleOptionGraphicsItem>
 #include <QWidget>
 
-class Ball : public QGraphicsItem
+class Barrier : public QGraphicsItem
 {
 public:
-    Ball();
+    Barrier();
 
     QRectF boundingRect() const override;
     QPainterPath shape() const override;
     void paint(QPainter *painter,
                const QStyleOptionGraphicsItem *option,
                QWidget *widget) override;
-
 };
 
-#endif // BALL_H
+#endif // BARRIER_H

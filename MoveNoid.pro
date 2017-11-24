@@ -29,7 +29,10 @@ SOURCES += \
     SettingsWindow.cpp \
     AppConfig.cpp \
     GameWindow.cpp \
-    Ball.cpp
+    Ball.cpp \
+    GameField.cpp \
+    Barrier.cpp \
+    RocketBit.cpp
 
 HEADERS += \
         MainWindow.h \
@@ -37,7 +40,10 @@ HEADERS += \
     AppConfig.h \
     main.h \
     GameWindow.h \
-    Ball.h
+    Ball.h \
+    GameField.h \
+    Barrier.h \
+    RocketBit.h
 
 FORMS += \
         MainWindow.ui \
@@ -54,4 +60,5 @@ RESOURCES += \
 unix {
     CONFIG += link_pkgconfig
     PKGCONFIG += opencv
+    PKGCONFIG += box2d
 }

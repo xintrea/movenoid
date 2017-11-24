@@ -1,11 +1,12 @@
-#include "Ball.h"
+#include "RocketBit.h"
 
-Ball::Ball()
+RocketBit::RocketBit()
 {
 
 }
 
-QRectF Ball::boundingRect() const
+
+QRectF RocketBit::boundingRect() const
 {
     qreal adjust = 0.5;
     return QRectF(-18 - adjust, -22 - adjust,
@@ -13,7 +14,7 @@ QRectF Ball::boundingRect() const
 }
 
 
-QPainterPath Ball::shape() const
+QPainterPath RocketBit::shape() const
 {
     QPainterPath path;
     path.addRect(-0.025, -0.025, 0.05, 0.05);
@@ -22,7 +23,7 @@ QPainterPath Ball::shape() const
 
 
 
-void Ball::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
+void RocketBit::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
 {
     // Body
     painter->setBrush(QColor(qrand() % 256, qrand() % 256, qrand() % 256));

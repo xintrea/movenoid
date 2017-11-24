@@ -1,15 +1,16 @@
-#ifndef BALL_H
-#define BALL_H
+#ifndef ROCKETBIT_H
+#define ROCKETBIT_H
 
 #include <QGraphicsItem>
 #include <QPainter>
 #include <QStyleOptionGraphicsItem>
 #include <QWidget>
 
-class Ball : public QGraphicsItem
+
+class RocketBit : public QGraphicsItem
 {
 public:
-    Ball();
+    RocketBit();
 
     QRectF boundingRect() const override;
     QPainterPath shape() const override;
@@ -19,4 +20,4 @@ public:
 
 };
 
-#endif // BALL_H
+#endif // ROCKETBIT_H
