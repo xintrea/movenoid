@@ -23,7 +23,7 @@ protected:
     QList<Barrier*> barriers;
     QList<Brick*> bricks;
     RocketBit rocketBit;
-    Ball ball;
+    Ball *ball;
 
     b2World *physicsWorld;
 };

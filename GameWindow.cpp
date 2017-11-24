@@ -26,8 +26,14 @@ GameWindow::GameWindow(QWidget *parent) :
 
     ui->graphicsView->setScene(gameField);
     // ui->graphicsView->ensureVisible(0.0, 0.0, 10.0, 10.0, 0, 0);
+
+    // ui->graphicsView->centerOn(2.5, 2.5);
+
+    ui->graphicsView->ensureVisible(0.0, 0.0, 10.0, 10.0, 0, 0);
+    ui->graphicsView->centerOn(5.0, 5.0);
     ui->graphicsView->fitInView(0.0, 0.0, 5.0, 5.0);
-    ui->graphicsView->centerOn(2.5, 2.5);
+
+
 
 }
 

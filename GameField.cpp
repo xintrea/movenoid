@@ -2,8 +2,12 @@
 
 GameField::GameField()
 {
+    this->setSceneRect(0.0, 0.0, 10.0, 10.0);
+
     b2Vec2 gravity(0.0, 5.0);
     physicsWorld=new b2World(gravity);
+
+    ball=NULL;
 
     loadLevel(1);
 }
@@ -32,7 +36,9 @@ void GameField::clearLevel()
     bricks.clear();
 
     rocketBit.setPos(5.0, 8.0);
-    ball.setPos(5.0, 6.0);
+
+    // ball.setPos(5.0, 6.0);
+    delete ball;
 }
 
 
@@ -69,6 +75,14 @@ void GameField::loadLevel(int levelNum)
         barriers.append( barrierTop );
         this->addItem(barrierTop);
 
+        // Просто квадратик
+        Barrier *barrierSquare=new Barrier();
+        polygon.clear();
+        polygon << QPointF(0.0, 0.0) << QPointF(0.0, 0.15) << QPointF(0.15, 0.15) << QPointF(0.15, 0.0);
+        barrierSquare->setPolygon(polygon);
+        barrierSquare->setPos(5.5, 7.5);
+        barriers.append( barrierSquare );
+        this->addItem(barrierSquare);
 
         // Создание кирпичей
         /*
@@ -80,9 +94,10 @@ void GameField::loadLevel(int levelNum)
 
 
         // Установки мячика
-        ball.setRadius(0.15);
-        ball.setPos(5.0, 7.0);
-        this->addItem(&ball); // Мячик кладется на поле
+        Ball *ball=new Ball();
+        ball->setRadius(0.15);
+        ball->setPos(4.0, 7.0);
+        this->addItem(ball); // Мячик кладется на поле
 
 
     }
