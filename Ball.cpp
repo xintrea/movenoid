@@ -16,15 +16,27 @@ void Ball::setRadius(const qreal iRadius)
 
 void Ball::putToPhysicsWorld()
 {
+    // Общие параметры тела
     b2BodyDef bodyDef;
     bodyDef.type=b2_dynamicBody;
     bodyDef.position.Set(this->x(), this->y());
 
+    // Создается тело в физическом движке
     b2Body *body=physicsWorld->CreateBody(&bodyDef);
-    b2CircleShape shape;
-    shape.m_radius=radius;
 
-    body->CreateFixture(&shape, 1.0);
+    // Создается форма тела
+    b2CircleShape circleShape;
+    circleShape.m_radius=radius;
+
+    // Настройка физических параметров тела
+    b2FixtureDef fixture;
+    fixture.shape = &circleShape; // Форма
+    fixture.density = 1.0;        // Плотность (через нее и форму движек узнает массу тела)
+    fixture.friction = 0.0;       // Коэффициент трения ( 0.0 - нет трения, 1.0 - максимальное трение. Трение расчитывается "среднее" для двух контачащих тел)
+    fixture.restitution = 1.0;    // Коэффициент упругости (0.0 - нет отскока, 1.0 - максимальный отскок)
+    body->CreateFixture(&fixture);
+
+    qDebug() << "Ball mass: " << body->GetMass();
 
     // Запоминается настроенное тело
     physicsBody=body;
