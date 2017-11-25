@@ -56,6 +56,7 @@ void GameField::loadLevel(int levelNum)
         barrierLeft->setPos(0.0, 0.0);
         barriers.append( barrierLeft ); // Запоминается указатель на препятствие
         this->addItem(barrierLeft); // Препятствие кладется на поле
+        barrierLeft->setPhysicsWorld(physicsWorld);
 
         // Правая стена
         Barrier *barrierRight=new Barrier();
@@ -63,6 +64,7 @@ void GameField::loadLevel(int levelNum)
         barrierRight->setPos(10.0-0.049, 0.0);
         barriers.append( barrierRight );
         this->addItem(barrierRight);
+        barrierRight->setPhysicsWorld(physicsWorld);
 
         // Верхняя стена
         Barrier *barrierTop=new Barrier();
@@ -72,6 +74,7 @@ void GameField::loadLevel(int levelNum)
         barrierTop->setPos(0.0, 0.0);
         barriers.append( barrierTop );
         this->addItem(barrierTop);
+        barrierTop->setPhysicsWorld(physicsWorld);
 
         // Просто квадратик
         Barrier *barrierSquare=new Barrier();
@@ -82,6 +85,7 @@ void GameField::loadLevel(int levelNum)
         barrierSquare->setPos(1.5, 9.5);
         barriers.append( barrierSquare );
         this->addItem(barrierSquare);
+        barrierSquare->setPhysicsWorld(physicsWorld);
 
         // Создание кирпичей
         /*
@@ -94,8 +98,8 @@ void GameField::loadLevel(int levelNum)
         // Установки мячика
         ball.setRadius(0.15);
         ball.setPos(7.0, 2.0);
-        ball.setPhysicsWorld(physicsWorld);
         this->addItem(&ball); // Мячик кладется на поле
+        ball.setPhysicsWorld(physicsWorld);
 
 
     }
