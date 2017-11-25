@@ -22,6 +22,7 @@ GameWindow::GameWindow(QWidget *parent) :
 
     // Задается сцена в виде игрового поля
     gameField=new GameField();
+    gameField->setSceneRect(0.0, 0.0, 10.0, 10.0);
     // gameField->addText("Start game");
 
     ui->graphicsView->setScene(gameField);

@@ -1,7 +1,9 @@
 #include "GameField.h"
 
-GameField::GameField()
+GameField::GameField(QObject *parent) : QGraphicsScene(parent)
 {
+    connect(&updateWorldTimer, SIGNAL(timeout()), this, SLOT(updateWorld()));
+
     this->setSceneRect(0.0, 0.0, 10.0, 10.0);
 
     b2Vec2 gravity(0.0, 5.0);
@@ -74,9 +76,10 @@ void GameField::loadLevel(int levelNum)
         // Просто квадратик
         Barrier *barrierSquare=new Barrier();
         polygon.clear();
-        polygon << QPointF(0.0, 0.0) << QPointF(0.0, 0.15) << QPointF(0.15, 0.15) << QPointF(0.15, 0.0);
+        polygon << QPointF(0.0, 0.0) << QPointF(0.0, 0.15) << QPointF(8.0, 0.15) << QPointF(8.0, 0.0);
+        barrierSquare->setRotation(-30.0);
         barrierSquare->setPolygon(polygon);
-        barrierSquare->setPos(5.5, 7.5);
+        barrierSquare->setPos(1.5, 9.5);
         barriers.append( barrierSquare );
         this->addItem(barrierSquare);
 
@@ -90,18 +93,30 @@ void GameField::loadLevel(int levelNum)
 
         // Установки мячика
         ball.setRadius(0.15);
-        ball.setPos(5.0, 7.0);
+        ball.setPos(7.0, 2.0);
+        ball.setPhysicsWorld(physicsWorld);
         this->addItem(&ball); // Мячик кладется на поле
 
 
     }
 }
 
+
 void GameField::runGame()
 {
-    for(int i=0; i<100; i++) {
-        physicsWorld->Step(1.0/60.0, 6, 2);
-
-        ball.updatePosByPhysicsWorld();
-    }
+    updateWorldTimer.start(1000/60);
 }
+
+
+// Слот, срабатывающий по таймеру updateWorldTimer
+void GameField::updateWorld()
+{
+    physicsWorld->Step(1.0/60.0, 6, 2);
+
+    ball.updatePosByPhysicsWorld();
+
+    // Обновляется сцена
+    this->update();
+}
+
+

@@ -18,6 +18,7 @@ void Ball::putToPhysicsWorld()
 {
     b2BodyDef bodyDef;
     bodyDef.type=b2_dynamicBody;
+    bodyDef.position.Set(this->x(), this->y());
 
     b2Body *body=physicsWorld->CreateBody(&bodyDef);
     b2CircleShape shape;
@@ -34,6 +35,8 @@ void Ball::updatePosByPhysicsWorld()
 {
     this->setX( physicsBody->GetPosition().x );
     this->setY( physicsBody->GetPosition().y );
+
+    qDebug() << "Ball coordinats: " << this->x() << this->y();
 }
 
 
