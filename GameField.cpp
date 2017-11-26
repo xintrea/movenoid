@@ -9,6 +9,11 @@ GameField::GameField(QObject *parent) : QGraphicsScene(parent)
     b2Vec2 gravity(0.0, 5.0);
     physicsWorld=new b2World(gravity);
 
+    contactListener=new ContactListener;
+    contactListener->setBall(&ball);
+    contactListener->setBricks(&bricks);
+    physicsWorld->SetContactListener(contactListener);
+
     loadLevel(1);
 }
 
@@ -111,29 +116,22 @@ void GameField::loadLevel(int levelNum)
 // Метод удаляет кирпичи, с которыми столкнулся мячик
 void GameField::destroyBricks()
 {
-    // Перебор точек контакта мячика
-    for (b2ContactEdge* contactEdge = ball.getContactList(); contactEdge; contactEdge = contactEdge->next)
-    {
-        b2Contact* contact = contactEdge->contact;
+    // Перебор кирпичей и удаление тех, с которым столкнулся мячик
+    QList<Brick*>::iterator i = bricks.begin();
+    while (i != bricks.end()) {
+        Brick* brick=*i;
 
-        b2Body *bodyA=contact->GetFixtureA()->GetBody();
-        b2Body *bodyB=contact->GetFixtureB()->GetBody();
-
-        // Нахождение кирпича, с которым столкнулся мячик, и удаление этого кирпича
-        QList<Brick*>::iterator i = bricks.begin();
-        while (i != bricks.end()) {
-            Brick* brick=*i;
-
-            if( bodyA==brick->getPhysicsBody() || bodyB==brick->getPhysicsBody()) {
-                // this->removeItem(brick); // Кирпич убирается с графического игрового поля
-                physicsWorld->DestroyBody( brick->getPhysicsBody() ); // Кирпич удаяется из физического мира
-                delete brick; // Кирпич удаляется как объект
-                i = bricks.erase(i); // Кирпич удаляется из списка кирпичей
-            }
-            else
-                ++i;
+        if( brick->isToRemove() ) {
+            // this->removeItem(brick); // Кирпич убирается с графического игрового поля
+            physicsWorld->DestroyBody( brick->getPhysicsBody() ); // Кирпич удаяется из физического мира
+            delete brick; // Кирпич удаляется как объект
+            i = bricks.erase(i); // Кирпич удаляется из списка кирпичей
         }
+        else
+            ++i;
     }
+
+
 }
 
 

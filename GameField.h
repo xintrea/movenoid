@@ -7,6 +7,7 @@
 #include <QTimer>
 #include <Box2D/Box2D.h>
 
+#include "ContactListener.h"
 #include "Barrier.h"
 #include "Brick.h"
 #include "RocketBit.h"
@@ -37,6 +38,7 @@ protected:
     Ball ball;
 
     b2World *physicsWorld;
+    ContactListener *contactListener;
 
     QTimer updateWorldTimer;
 };

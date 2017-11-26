@@ -9,6 +9,8 @@ Brick::Brick(QGraphicsItem *parent)
 
     // color=QColor(qrand() % 256, qrand() % 256, qrand() % 256);
     color=QColor(156, 44, 44);
+
+    flagToRemove=false;
 }
 
 QRectF Brick::boundingRect() const
@@ -64,3 +66,16 @@ void Brick::setSize(qreal iWidth, qreal iHeight)
     width=iWidth;
     height=iHeight;
 }
+
+
+void Brick::setToRemove()
+{
+    flagToRemove=true;
+}
+
+
+bool Brick::isToRemove()
+{
+    return flagToRemove;
+}
+

@@ -22,12 +22,16 @@ public:
     void putToPhysicsWorld();
 
     void setSize(qreal iWidth, qreal iHeight);
+    void setToRemove();
+    bool isToRemove();
 
 protected:
     qreal width;
     qreal height;
 
     QColor color;
+
+    bool flagToRemove;
 };
 
 #endif // BRICK_H
