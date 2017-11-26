@@ -88,16 +88,18 @@ void GameField::loadLevel(int levelNum)
         barrierSquare->setPhysicsWorld(physicsWorld);
 
         // Создание кирпичей
-        /*
-        Brick *brick=new Brick;
-        brick->setPos(3.0, 4.0);
-        bricks.append( brick ); // Запоминается указатель на кирпич
-        this->addItem(brick); // Кирпич кладется на поле
-        */
+        for(int i=0; i<5; i++) {
+            Brick *brick=new Brick;
+            brick->setPos((qreal) i*2+1.0, 4.0);
+            bricks.append( brick ); // Запоминается указатель на кирпич
+            this->addItem(brick); // Кирпич кладется на поле
+            brick->setPhysicsWorld(physicsWorld);
+        }
 
         // Установки мячика
         ball.setRadius(0.15);
-        ball.setPos(7.0, 2.0);
+        // ball.setPos(7.0, 2.0);
+        ball.setPos(6.0, 2.0);
         this->addItem(&ball); // Мячик кладется на поле
         ball.setPhysicsWorld(physicsWorld);
 

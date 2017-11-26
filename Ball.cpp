@@ -5,6 +5,8 @@
 Ball::Ball(QGraphicsItem *parent)
 {
   QGraphicsItem::setParentItem(parent);
+
+  radius=0.0;
 }
 
 

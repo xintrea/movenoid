@@ -5,6 +5,8 @@
 Barrier::Barrier(QGraphicsItem *parent)
 {
     QGraphicsItem::setParentItem(parent);
+
+    polygon.clear();
 }
 
 

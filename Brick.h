@@ -20,6 +20,14 @@ public:
                QWidget *widget) override;
 
     void putToPhysicsWorld();
+
+    void setSize(qreal iWidth, qreal iHeight);
+
+protected:
+    qreal width;
+    qreal height;
+
+    QColor color;
 };
 
 #endif // BRICK_H
