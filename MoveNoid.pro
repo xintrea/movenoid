@@ -34,7 +34,8 @@ SOURCES += \
     Barrier.cpp \
     RocketBit.cpp \
     Brick.cpp \
-    GraphicsPhysicsItem.cpp
+    GraphicsPhysicsItem.cpp \
+    ContactListener.cpp
 
 HEADERS += \
         MainWindow.h \
@@ -47,7 +48,8 @@ HEADERS += \
     Barrier.h \
     RocketBit.h \
     Brick.h \
-    GraphicsPhysicsItem.h
+    GraphicsPhysicsItem.h \
+    ContactListener.h
 
 FORMS += \
         MainWindow.ui \

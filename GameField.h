@@ -29,6 +29,8 @@ private slots:
     void updateWorld();
 
 protected:
+    void destroyBricks();
+
     QList<Barrier*> barriers;
     QList<Brick*> bricks;
     RocketBit rocketBit;

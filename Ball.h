@@ -22,6 +22,8 @@ public:
     void putToPhysicsWorld();
     void updatePosByPhysicsWorld();
 
+    b2ContactEdge* getContactList(); // Точки столкновения мячика и других тел
+
 protected:
 
     qreal radius;

@@ -7,7 +7,8 @@ Brick::Brick(QGraphicsItem *parent)
     width=0.8;
     height=0.4;
 
-    color=QColor(qrand() % 256, qrand() % 256, qrand() % 256);
+    // color=QColor(qrand() % 256, qrand() % 256, qrand() % 256);
+    color=QColor(156, 44, 44);
 }
 
 QRectF Brick::boundingRect() const
@@ -45,7 +46,7 @@ void Brick::putToPhysicsWorld()
 {
     b2BodyDef bodyDef;
     bodyDef.type=b2_staticBody;
-    bodyDef.position.Set(this->x(), this->y()); // Подумать, может нужно (0.0, 0.0)
+    bodyDef.position.Set(this->x(), this->y());
     b2Body *body=physicsWorld->CreateBody(&bodyDef);
 
     b2PolygonShape polygonShape;

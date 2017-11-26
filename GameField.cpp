@@ -108,6 +108,35 @@ void GameField::loadLevel(int levelNum)
 }
 
 
+// Метод удаляет кирпичи, с которыми столкнулся мячик
+void GameField::destroyBricks()
+{
+    // Перебор точек контакта мячика
+    for (b2ContactEdge* contactEdge = ball.getContactList(); contactEdge; contactEdge = contactEdge->next)
+    {
+        b2Contact* contact = contactEdge->contact;
+
+        b2Body *bodyA=contact->GetFixtureA()->GetBody();
+        b2Body *bodyB=contact->GetFixtureB()->GetBody();
+
+        // Нахождение кирпича, с которым столкнулся мячик, и удаление этого кирпича
+        QList<Brick*>::iterator i = bricks.begin();
+        while (i != bricks.end()) {
+            Brick* brick=*i;
+
+            if( bodyA==brick->getPhysicsBody() || bodyB==brick->getPhysicsBody()) {
+                // this->removeItem(brick); // Кирпич убирается с графического игрового поля
+                physicsWorld->DestroyBody( brick->getPhysicsBody() ); // Кирпич удаяется из физического мира
+                delete brick; // Кирпич удаляется как объект
+                i = bricks.erase(i); // Кирпич удаляется из списка кирпичей
+            }
+            else
+                ++i;
+        }
+    }
+}
+
+
 void GameField::runGame()
 {
     updateWorldTimer.start(1000/60);
@@ -119,10 +148,13 @@ void GameField::updateWorld()
 {
     physicsWorld->Step(1.0/60.0, 6, 2);
 
+    destroyBricks();
+
     ball.updatePosByPhysicsWorld();
 
     // Обновляется сцена
     this->update();
 }
+
 
 

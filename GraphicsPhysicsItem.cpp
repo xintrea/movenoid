@@ -6,6 +6,7 @@ GraphicsPhysicsItem::GraphicsPhysicsItem(QGraphicsItem *parent)
     QGraphicsItem::setParentItem(parent);
 
     physicsWorld=nullptr;
+    physicsBody=nullptr;
 }
 
 
@@ -26,4 +27,10 @@ void GraphicsPhysicsItem::setPhysicsWorld(b2World *iPhysicsWorld)
 void GraphicsPhysicsItem::putToPhysicsWorld()
 {
     qDebug() << "It is empty method putToPhysicsWorld()";
+}
+
+
+b2Body *GraphicsPhysicsItem::getPhysicsBody()
+{
+    return physicsBody;
 }

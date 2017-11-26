@@ -12,6 +12,7 @@ public:
 
     void setPhysicsWorld(b2World *iPhysicsWorld);
     virtual void putToPhysicsWorld();
+    b2Body* getPhysicsBody();
 
 protected:
     b2World *physicsWorld;

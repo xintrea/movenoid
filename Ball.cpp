@@ -54,6 +54,12 @@ void Ball::updatePosByPhysicsWorld()
 }
 
 
+b2ContactEdge *Ball::getContactList()
+{
+    return physicsBody->GetContactList();
+}
+
+
 QRectF Ball::boundingRect() const
 {
     return QRectF(-radius, -radius, radius*2.0, radius*2.0);
