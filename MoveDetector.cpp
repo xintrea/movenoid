@@ -14,6 +14,12 @@ MoveDetector::MoveDetector()
 }
 
 
+Marker MoveDetector::detectMarker()
+{
+
+}
+
+
 // Координаты ракетки
 QPointF MoveDetector::getRocketBitPos()
 {

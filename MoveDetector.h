@@ -25,12 +25,14 @@ struct Marker{
 
 };
 
+
 class MoveDetector
 {
 public:
     MoveDetector();
     QPointF getRocketBitPos();
     qreal getRocketBitAngle();
+    Marker detectMarker();
 
 protected:
     QPointF getFakeRocketBitPos();
