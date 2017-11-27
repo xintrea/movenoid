@@ -109,6 +109,10 @@ void GameField::loadLevel(int levelNum)
         ball.setPhysicsWorld(physicsWorld);
 
 
+        // Установки ракетки
+        rocketBit.setPos(5.0, 8.0);
+        this->addItem(&rocketBit); // Ракетка кладется на поле
+        rocketBit.setPhysicsWorld(physicsWorld);
     }
 }
 

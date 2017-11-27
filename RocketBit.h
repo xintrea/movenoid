@@ -21,6 +21,12 @@ public:
 
     void putToPhysicsWorld();
 
+protected:
+
+    qreal width;
+    qreal height;
+    QColor color;
+
 };
 
 #endif // ROCKETBIT_H

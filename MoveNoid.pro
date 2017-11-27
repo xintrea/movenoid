@@ -36,7 +36,8 @@ SOURCES += \
     Brick.cpp \
     GraphicsPhysicsItem.cpp \
     ContactListener.cpp \
-    CaptureDevice.cpp
+    CaptureDevice.cpp \
+    MoveDetector.cpp
 
 HEADERS += \
         MainWindow.h \
@@ -51,7 +52,8 @@ HEADERS += \
     Brick.h \
     GraphicsPhysicsItem.h \
     ContactListener.h \
-    CaptureDevice.h
+    CaptureDevice.h \
+    MoveDetector.h
 
 FORMS += \
         MainWindow.ui \

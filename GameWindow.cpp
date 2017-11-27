@@ -13,7 +13,7 @@ GameWindow::GameWindow(QWidget *parent) :
 
     this->showFullScreen();
 
-    // Устанавливается граидент заднего плана
+    // Устанавливается градиент заднего плана
     QLinearGradient gradient(0, 0, 0, ui->graphicsView->size().height());
     gradient.setColorAt(0, QColor::fromRgbF(0.87, 0.89, 0.94, 1));
     gradient.setColorAt(1, QColor::fromRgbF(0.69, 0.79, 0.97, 1));
@@ -30,9 +30,9 @@ GameWindow::GameWindow(QWidget *parent) :
 
     // ui->graphicsView->centerOn(2.5, 2.5);
 
-    ui->graphicsView->ensureVisible(0.0, 0.0, 10.0, 10.0, 0, 0);
-    ui->graphicsView->centerOn(5.0, 5.0);
-    ui->graphicsView->fitInView(0.0, 0.0, 5.0, 5.0);
+    // ui->graphicsView->ensureVisible(0.0, 0.0, 10.0, 10.0, 0, 0);
+    // ui->graphicsView->centerOn(5.0, 5.0);
+    ui->graphicsView->fitInView(0.0, 0.0, 10.0, 10.0, Qt::KeepAspectRatio);
 
     gameField->runGame();
 

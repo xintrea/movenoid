@@ -1,6 +1,7 @@
 #ifndef CAPTUREDEVICE_H
 #define CAPTUREDEVICE_H
 
+#include <QString>
 #include "opencv2/opencv.hpp"
 
 class CaptureDevice
