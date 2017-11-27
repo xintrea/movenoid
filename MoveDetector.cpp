@@ -33,12 +33,14 @@ QPointF MoveDetector::getFakeRocketBitPos()
 {
     static qreal angleShiftX=0.0;
     static qreal angleShiftY=0.0;
+    static qreal anglePhase=0.0;
 
     angleShiftX+=0.025;
     angleShiftY+=0.015;
+    anglePhase+=0.0005;
 
-    qreal x=5.0+sin(angleShiftX)*4.0;
-    qreal y=8.0+sin(angleShiftX)*1.5;
+    qreal x=5.0+sin(angleShiftX+anglePhase)*4.0;
+    qreal y=8.0+cos(angleShiftX+anglePhase)*1.5;
 
     // qDebug() << "RocketBit fake coordinats: " << x << y;
 

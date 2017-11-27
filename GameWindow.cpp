@@ -32,7 +32,7 @@ GameWindow::GameWindow(QWidget *parent) :
 
     // ui->graphicsView->ensureVisible(0.0, 0.0, 10.0, 10.0, 0, 0);
     // ui->graphicsView->centerOn(5.0, 5.0);
-    ui->graphicsView->fitInView(0.0, 0.0, 10.0, 10.0, Qt::KeepAspectRatio);
+    ui->graphicsView->fitInView(0.0, 0.0, 5.0, 5.0, Qt::KeepAspectRatio);
 
     gameField->runGame();
 
