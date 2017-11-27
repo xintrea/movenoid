@@ -81,16 +81,16 @@ void GameField::loadLevel(int levelNum)
         this->addItem(barrierTop);
         barrierTop->setPhysicsWorld(physicsWorld);
 
-        // Просто квадратик
-        Barrier *barrierSquare=new Barrier();
+        // Временная балка снизу
+        Barrier *barrierBottom=new Barrier();
         polygon.clear();
         polygon << QPointF(0.0, 0.0) << QPointF(0.0, 0.15) << QPointF(8.0, 0.15) << QPointF(8.0, 0.0);
-        barrierSquare->setRotation(-30.0);
-        barrierSquare->setPolygon(polygon);
-        barrierSquare->setPos(1.5, 9.5);
-        barriers.append( barrierSquare );
-        this->addItem(barrierSquare);
-        barrierSquare->setPhysicsWorld(physicsWorld);
+        barrierBottom->setRotation(-10.0);
+        barrierBottom->setPolygon(polygon);
+        barrierBottom->setPos(1.5, 9.8);
+        barriers.append( barrierBottom );
+        this->addItem(barrierBottom);
+        barrierBottom->setPhysicsWorld(physicsWorld);
 
         // Создание кирпичей
         for(int i=0; i<5; i++) {

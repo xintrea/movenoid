@@ -62,9 +62,18 @@ void RocketBit::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidg
 
 void RocketBit::putToPhysicsWorld()
 {
+    // Ракетка при каждом обращении удаляется и снова создается в физическом мире
+
+    // Если ракетка уже была проинициализирована, она удаляется
+    if(physicsBody!=nullptr) {
+        physicsWorld->DestroyBody(physicsBody);
+    }
+
+    // Ракетка создается
     b2BodyDef bodyDef;
-    bodyDef.type=b2_staticBody;
+    bodyDef.type=b2_dynamicBody;
     bodyDef.position.Set(this->x(), this->y());
+    bodyDef.angle=degToRad(this->rotation());
     b2Body *body=physicsWorld->CreateBody(&bodyDef);
 
     b2PolygonShape polygonShape;
@@ -82,6 +91,8 @@ void RocketBit::updatePosByMovieDetector()
     this->setPos( moveDetector.getRocketBitPos() );
     this->setRotation( radToDeg(moveDetector.getRocketBitAngle()) );
 
+    putToPhysicsWorld(); // Чтобы ракетка пересоздавалась в новом месте
+
     // qDebug() << "RocketBit coordinats 1: " << moveDetector.getRocketBitPos();
-    qDebug() << "RocketBit coordinats 2: " << this->x() << this->y();
+    // qDebug() << "RocketBit coordinats 2: " << this->x() << this->y();
 }
