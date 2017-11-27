@@ -5,6 +5,9 @@
 #include "Ball.h"
 #include "Brick.h"
 
+// Данный класс подключается к физическому движку
+// для отслеживания событий контакта тел друг с другом
+
 class ContactListener : public b2ContactListener
 {
 public:
@@ -18,7 +21,7 @@ public:
 protected:
 
     Ball *ball;
-    QList<Brick*> *bricks;
+    QList<Brick*> *bricks; // В арканоидах имеет смысл отслеживать только события контакта мяча с кирпичами, чтобы кирпичи убирать
 
 };
 

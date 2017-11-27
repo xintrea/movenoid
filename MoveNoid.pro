@@ -35,7 +35,8 @@ SOURCES += \
     RocketBit.cpp \
     Brick.cpp \
     GraphicsPhysicsItem.cpp \
-    ContactListener.cpp
+    ContactListener.cpp \
+    CaptureDevice.cpp
 
 HEADERS += \
         MainWindow.h \
@@ -49,7 +50,8 @@ HEADERS += \
     RocketBit.h \
     Brick.h \
     GraphicsPhysicsItem.h \
-    ContactListener.h
+    ContactListener.h \
+    CaptureDevice.h
 
 FORMS += \
         MainWindow.ui \

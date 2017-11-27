@@ -1,5 +1,6 @@
 #include "ContactListener.h"
 
+
 ContactListener::ContactListener()
 {
     ball=nullptr;
@@ -17,7 +18,7 @@ void ContactListener::setBricks(QList<Brick *> *iBricks)
 }
 
 
-// Когда два тела перестают пересекаться
+// Метод обработки события когда два тела перестают пересекаться
 // Отскок мяча должен происходить только после того, как контакт пропал
 void ContactListener::EndContact(b2Contact* contact)
 {

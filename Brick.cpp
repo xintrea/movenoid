@@ -31,10 +31,10 @@ QPainterPath Brick::shape() const
 
 void Brick::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
 {
-    // Filling
+    // Заливка
     painter->setBrush(color);
 
-    // Edges
+    // Граница
     QPen pen;
     pen.setWidth(0.1);
     pen.setBrush(Qt::white);
@@ -70,7 +70,7 @@ void Brick::setSize(qreal iWidth, qreal iHeight)
 
 void Brick::setToRemove()
 {
-    flagToRemove=true;
+    flagToRemove=true; // Кирпич подготавливается к уничтожению с игрового поля
 }
 
 

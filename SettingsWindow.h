@@ -4,6 +4,7 @@
 #include <QDialog>
 #include <QString>
 
+#include "CaptureDevice.h"
 #include "main.h"
 
 
@@ -22,16 +23,12 @@ public:
 private:
     Ui::SettingsWindow *ui;
     void init(void);
-    void initCaptureDevice(void);
     QImage getCurrentImage(void);
     void updateCaptureImage(void);
 
 protected:
-    QString deviceFileName;
-    cv::VideoCapture captureDevice;
-    cv::Mat currentFrame;
-    cv::Mat currentBwFrame;
 
+    CaptureDevice captureDevice;
     QTimer *timer;
 
 private slots:

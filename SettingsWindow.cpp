@@ -45,69 +45,18 @@ void SettingsWindow::init(void)
     ui->brigthnessThresholdSlider->setMaximum(254);
     ui->brigthnessThresholdSlider->setSliderPosition(appConfig.getParameter("brigthnessThreshold").toInt());
 
-    initCaptureDevice();
+    // Инициализируется устройство захвата изображения
+    captureDevice.init( ui->captureDeviceFileName->text() );
+    captureDevice.setBrigthnessThreshold( ui->brigthnessThresholdSlider->sliderPosition() );
+
     updateCaptureImage(); // Устанавливается первая картинка с камеры
-}
-
-
-void SettingsWindow::initCaptureDevice(void)
-{
-    qDebug() << "Start init time: "<< QDateTime::currentDateTime();
-
-    if(ui->captureDeviceFileName->text()=="default") {
-        captureDevice.open(0); // Default камера
-        if(!captureDevice.isOpened()) {
-            QMessageBox msgBox;
-            msgBox.setText("Can't open default camera");
-            msgBox.exec();
-            return;
-        }
-    } else {
-        captureDevice.open( ui->captureDeviceFileName->text().toLocal8Bit().constData() );
-        if(!captureDevice.isOpened()) {
-            QMessageBox msgBox;
-            msgBox.setText("Can't open camera device file: "+ui->captureDeviceFileName->text());
-            msgBox.exec();
-            return;
-        }
-    }
-
-    qDebug() << "Finish init time: "<< QDateTime::currentDateTime();
 }
 
 
 QImage SettingsWindow::getCurrentImage(void)
 {
-    // qDebug() << "Start getCurrentImage time: "<< QDateTime::currentDateTime();
-
-    // Из потока берется один кадр
-    captureDevice >> currentFrame;
-    if (currentFrame.empty())
-        return QImage();
-    // cv::imshow("Source frame", src);
-
-    // cv::Size sizeOfFrame=currentFrame.size();
-    // qDebug() << "Capture W: " << sizeOfFrame.width << " H: " << sizeOfFrame.height;
-
-    /*
-    cv::flip(currentFrame, currentFrame, 1);
-    QImage img((uchar*)currentFrame.data, currentFrame.cols, currentFrame.rows, currentFrame.step, QImage::Format_RGB888); // Цветное изображение
-    img=img.rgbSwapped(); // Преобразование цветов из BGR (OpenCV) в RGB (Qt)
-    */
-
-    double thresholdLevel=(double) ui->brigthnessThresholdSlider->sliderPosition();
-
-    cv::cvtColor(currentFrame, currentBwFrame, CV_BGR2GRAY);
-    cv::GaussianBlur(currentBwFrame, currentBwFrame, cv::Size(7,7), 1.5, 1.5);
-    cv::threshold(currentBwFrame, currentBwFrame, thresholdLevel, 254.0, cv::THRESH_BINARY);
-    cv::flip(currentBwFrame, currentBwFrame, 1);
-
-    // QImage img;
-    QImage img((uchar*)currentBwFrame.data, currentBwFrame.cols, currentBwFrame.rows, currentBwFrame.step, QImage::Format_Grayscale8);
-
-    // cv::imshow("Source frame", currentBwFrame);
-    // qDebug() << "Finish getCurrentImage time: "<< QDateTime::currentDateTime();
-
+    cv::Mat* currentBwFrame=captureDevice.getBwFrame();
+    QImage img((uchar*)currentBwFrame->data, currentBwFrame->cols, currentBwFrame->rows, currentBwFrame->step, QImage::Format_Grayscale8);
     return img;
 }
 
@@ -123,18 +72,19 @@ void SettingsWindow::updateCaptureImage(void)
 void SettingsWindow::onTimerFinish(void)
 {
     updateCaptureImage();
-    // qDebug() << "Image update time: "<< QDateTime::currentDateTime();
 }
 
 
 // Клик по кнопке Reset to default
 void SettingsWindow::onCaptureDeviceDefaultButtonClicked()
 {
-    ui->captureDeviceFileName->setText("default");
-    appConfig.setParameter("captureDeviceFileName", "default");
+    QString deviceFileName="default";
+
+    ui->captureDeviceFileName->setText(deviceFileName);
+    appConfig.setParameter("captureDeviceFileName", deviceFileName);
 
     timer->stop();
-    initCaptureDevice();
+    captureDevice.init( deviceFileName );
     timer->start();
 }
 
@@ -146,7 +96,7 @@ void SettingsWindow::onCaptureDeviceApplyButtonClicked()
     appConfig.setParameter("captureDeviceFileName", deviceFileName);
 
     timer->stop();
-    initCaptureDevice();
+    captureDevice.init( deviceFileName );
     timer->start();
 }
 
@@ -154,6 +104,8 @@ void SettingsWindow::onCaptureDeviceApplyButtonClicked()
 void SettingsWindow::onBrigthnessThresholdSliderMoved(int position)
 {
     qDebug() << "In onBrigthnessThresholdSliderMoved slot";
+
+    captureDevice.setBrigthnessThreshold( position );
 
     QString n=QString::number( position );
     appConfig.setParameter("brigthnessThreshold", n);
