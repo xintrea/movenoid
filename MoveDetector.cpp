@@ -1,7 +1,8 @@
+#include <QPoint>
+#include <QDebug>
+
 #include "MoveDetector.h"
 #include "AppConfig.h"
-
-#include <QPoint>
 
 extern AppConfig appConfig;
 
@@ -14,32 +15,34 @@ MoveDetector::MoveDetector()
 
 
 // Координаты ракетки
-QPoint MoveDetector::getRocketBitPos()
+QPointF MoveDetector::getRocketBitPos()
 {
     return getFakeRocketBitPos();
 
 }
 
 
-// Наклон ракетки
+// Наклон ракетки, в радианах
 qreal MoveDetector::getRocketBitAngle()
 {
     return getFakeRocketBitAngle();
 }
 
 
-QPoint MoveDetector::getFakeRocketBitPos()
+QPointF MoveDetector::getFakeRocketBitPos()
 {
     static qreal angleShiftX=0.0;
     static qreal angleShiftY=0.0;
 
-    angleShiftX+=0.05;
-    angleShiftY+=0.025;
+    angleShiftX+=0.025;
+    angleShiftY+=0.015;
 
     qreal x=5.0+sin(angleShiftX)*4.0;
     qreal y=8.0+sin(angleShiftX)*1.5;
 
-    return QPoint(x, y);
+    // qDebug() << "RocketBit fake coordinats: " << x << y;
+
+    return QPointF(x, y);
 }
 
 

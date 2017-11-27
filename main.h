@@ -9,9 +9,10 @@
 #define APPLICATION_RELEASE_SUBVERSION      1
 #define APPLICATION_RELEASE_MICROVERSION    0
 
+#define PI 3.14159265358979323846264338327950288419717
 
-QImage Mat2QImage(const cv::Mat3b &src);
-QImage Mat2QImage(const cv::Mat_<double> &src);
+qreal radToDeg(qreal rad);
+qreal degToRad(qreal deg);
 
 void criticalError(QString message);
 

@@ -1,7 +1,7 @@
 #ifndef MOVEDETECTOR_H
 #define MOVEDETECTOR_H
 
-#include <QPoint>
+#include <QPointF>
 #include "opencv2/opencv.hpp"
 #include "CaptureDevice.h"
 
@@ -9,12 +9,11 @@ class MoveDetector
 {
 public:
     MoveDetector();
-    QPoint getRocketBitPos();
+    QPointF getRocketBitPos();
     qreal getRocketBitAngle();
 
 protected:
-
-    QPoint getFakeRocketBitPos();
+    QPointF getFakeRocketBitPos();
     qreal getFakeRocketBitAngle();
 
     qreal rocetBitX;

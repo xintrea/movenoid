@@ -153,6 +153,7 @@ void GameField::updateWorld()
     destroyBricks();
 
     ball.updatePosByPhysicsWorld();
+    rocketBit.updatePosByMovieDetector();
 
     // Обновляется сцена
     this->update();

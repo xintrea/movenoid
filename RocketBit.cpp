@@ -1,3 +1,6 @@
+#include <QDebug>
+
+#include "main.h"
 #include "RocketBit.h"
 
 RocketBit::RocketBit(QGraphicsItem *parent)
@@ -28,26 +31,31 @@ QPainterPath RocketBit::shape() const
 
 void RocketBit::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
 {
+    QPen pen; // Обводка
+
     // Корпус ракетки
     painter->setBrush(color); // Заливка
-    QPen pen; // Обводка
     pen.setWidth(0.1);
     pen.setBrush(Qt::white);
     painter->setPen(pen);
     painter->drawRect( boundingRect() );
 
+
     // Огонь из левой дюзы
-    painter->setBrush(Qt::yellow);
+    painter->setBrush(Qt::red); // Заливка
+    pen.setWidth(0.2);
+    pen.setBrush(Qt::yellow);
+
     QPolygonF polygon;
     qreal flameWidth=0.2;
     qreal flameHeight=0.25;
-    polygon << QPointF(-width/2.0*0.9, height/2+0.1)
-            << QPointF(-width/2.0*0.9-flameWidth/2.0, height/2+0.1+flameHeight)
-            << QPointF(-width/2.0*0.9+flameWidth/2.0, height/2+0.1+flameHeight);
+    polygon << QPointF(-width/2.0*0.8, height/2+0.1)
+            << QPointF(-width/2.0*0.8-flameWidth/2.0, height/2+0.1+flameHeight)
+            << QPointF(-width/2.0*0.8+flameWidth/2.0, height/2+0.1+flameHeight);
     painter->drawPolygon( polygon );
 
     // Огонь из правой дюзы
-    polygon.translate(width/2.0*0.9 * 2, 0.0);
+    polygon.translate(width/2.0*0.8 * 2, 0.0);
     painter->drawPolygon( polygon );
 }
 
@@ -66,4 +74,14 @@ void RocketBit::putToPhysicsWorld()
 
     // Запоминается настроенное тело
     physicsBody=body;
+}
+
+
+void RocketBit::updatePosByMovieDetector()
+{
+    this->setPos( moveDetector.getRocketBitPos() );
+    this->setRotation( radToDeg(moveDetector.getRocketBitAngle()) );
+
+    // qDebug() << "RocketBit coordinats 1: " << moveDetector.getRocketBitPos();
+    qDebug() << "RocketBit coordinats 2: " << this->x() << this->y();
 }

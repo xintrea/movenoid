@@ -7,6 +7,7 @@
 #include <QWidget>
 
 #include "GraphicsPhysicsItem.h"
+#include "MoveDetector.h"
 
 class RocketBit : public GraphicsPhysicsItem
 {
@@ -21,11 +22,15 @@ public:
 
     void putToPhysicsWorld();
 
+    void updatePosByMovieDetector();
+
 protected:
 
     qreal width;
     qreal height;
     QColor color;
+
+    MoveDetector moveDetector;
 
 };
 
