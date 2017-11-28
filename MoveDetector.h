@@ -56,6 +56,9 @@ protected:
     QVector<ContourData> removeBadAspectRatioContour(QVector<ContourData> contoursData);
     QVector<ContourData> removeNoiseContour(QVector<ContourData> contoursData);
 
+    static bool contourLessThan(const ContourData &c1, const ContourData &c2);
+    static bool contourMoreThan(const ContourData &c1, const ContourData &c2);
+
     qreal rocetBitX;
     qreal rocetBitY;
     qreal rocetBitAngle;

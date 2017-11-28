@@ -154,19 +154,34 @@ QVector<ContourData> MoveDetector::removeBadAspectRatioContour(QVector<ContourDa
 
 
 // Этап 4
-// Данный метод должен оставить только два самых больших контура
+// Данный метод должен оставить только два самых больших контура, остальное считается шумом
 QVector<ContourData> MoveDetector::removeNoiseContour(QVector<ContourData> contoursData)
 {
-    QMutableVectorIterator<ContourData> iterator(contoursData);
-    while(iterator.hasNext()) {
-        ContourData currentData=iterator.next();
-
-
-
-
+    // Сортировка по убыванию
+    qSort(contoursData.begin(), contoursData.end(), contourMoreThan);
+    foreach(ContourData contourData, contoursData) {
+        qDebug() << "Sorted area:" << contourData.area;
     }
 
+    // Оставляется только два элемента
+    if(contoursData.size()>2)
+        contoursData.remove(2, contoursData.size()-2);
+
     return contoursData;
+}
+
+
+// Для обычной сортировки от малых значений к большим
+bool MoveDetector::contourLessThan(const ContourData &c1, const ContourData &c2)
+{
+    return c1.area < c2.area;
+}
+
+
+// Для обратной сортировки от больших значений к малым
+bool MoveDetector::contourMoreThan(const ContourData &c1, const ContourData &c2)
+{
+    return c1.area > c2.area;
 }
 
 
