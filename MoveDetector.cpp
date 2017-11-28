@@ -24,6 +24,9 @@ MoveDetector::MoveDetector()
 
     dynamicAngleDispersion=8.0;
 
+    borderCaptureX=0.05;
+    borderCaptureY=0.05;
+
     // Инициализируется устройство захвата изображения
     captureDevice.init( appConfig.getParameter("captureDeviceFileName") );
     captureDevice.setBrigthnessThreshold( appConfig.getParameter("brigthnessThreshold").toInt() );
@@ -71,6 +74,7 @@ Marker MoveDetector::getMarker(QVector<ContourData> contours)
     marker.angleA=contours[0].box.angle;
     marker.sizeA=QSizeF(contours[0].box.size.width, contours[0].box.size.height);
     marker.areaA=contours[0].box.size.width*contours[0].box.size.height;
+    // marker.boundingBox=contours[0].box.boundingRect();
 
     if(contours.size()==1)
         return marker;

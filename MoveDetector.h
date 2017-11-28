@@ -2,9 +2,9 @@
 #define MOVEDETECTOR_H
 
 #include <QPointF>
+#include <QRectF>
 #include "opencv2/opencv.hpp"
 #include "CaptureDevice.h"
-
 
 // Итоговые сведения об обнаруженном маркере
 // Физически маркер состоит из двух белых прямоугольников
@@ -31,6 +31,8 @@ struct Marker{
 
     qreal areaA; // Площадь ограничивающего прямоугольника (чтобы повторно не высчитывать)
     qreal areaB;
+
+    QRectF boundingRect; // Ограничивающий прямоугольник с вертикальными и горизонтальными гранями
 };
 
 
@@ -83,7 +85,10 @@ protected:
     QList<qreal> enableAspectRatio; // Допустимые соотношения сторон для ограничивающих прямоугольников
     qreal enableAspectRatioDispersion; // Допустимая погрешность при проверке соотношения сторон ограничивающих прямоугольников
 
-    qreal dynamicAngleDispersion;
+    qreal dynamicAngleDispersion; // Не используется пока...
+
+    qreal borderCaptureX; // Границы безопасности от края кадра, за которыми не должно срабатывать распознавание маркера
+    qreal borderCaptureY;
 
 };
 
