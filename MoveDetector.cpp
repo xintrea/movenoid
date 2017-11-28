@@ -115,7 +115,7 @@ QVector<ContourData> MoveDetector::getSimplificatedContourData()
     vector<cv::Vec4i> hierarchy; // Массив иерархии, передается как формальный параметр потому что иерархия в данном случае не используется
 
     // Поиск контуров
-    cv::findContours(currentBwFrame->clone(),
+    cv::findContours(*currentBwFrame,
                      contours,
                      hierarchy,
                      CV_RETR_LIST,
