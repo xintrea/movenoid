@@ -88,6 +88,8 @@ void RocketBit::putToPhysicsWorld()
 
 void RocketBit::updatePosByMovieDetector()
 {
+    moveDetector.detectMarker();
+
     this->setPos( moveDetector.getRocketBitPos() );
     this->setRotation( radToDeg(moveDetector.getRocketBitAngle()) );
 

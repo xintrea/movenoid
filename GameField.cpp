@@ -20,6 +20,7 @@ GameField::GameField(QObject *parent) : QGraphicsScene(parent)
 GameField::~GameField()
 {
     clearLevel();
+    delete contactListener;
     delete physicsWorld;
 }
 

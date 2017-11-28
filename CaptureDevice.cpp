@@ -46,6 +46,12 @@ void CaptureDevice::setBrigthnessThreshold(int iBrigthnessThreshold)
 }
 
 
+QSize CaptureDevice::getFrameSize(void)
+{
+    return QSize(videoCaptureFlow.get(CV_CAP_PROP_FRAME_WIDTH), videoCaptureFlow.get(CV_CAP_PROP_FRAME_HEIGHT));
+}
+
+
 cv::Mat* CaptureDevice::getBwFrame(void)
 {
     // Из потока берется один кадр

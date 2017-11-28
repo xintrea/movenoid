@@ -50,7 +50,7 @@ void Ball::updatePosByPhysicsWorld()
     this->setX( physicsBody->GetPosition().x );
     this->setY( physicsBody->GetPosition().y );
 
-    qDebug() << "Ball coordinats: " << this->x() << this->y();
+    // qDebug() << "Ball coordinats: " << this->x() << this->y();
 }
 
 

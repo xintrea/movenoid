@@ -1,6 +1,7 @@
 #ifndef CAPTUREDEVICE_H
 #define CAPTUREDEVICE_H
 
+#include <QSize>
 #include <QString>
 #include "opencv2/opencv.hpp"
 
@@ -10,6 +11,8 @@ public:
     CaptureDevice();
     void init(QString iDeviceFileName);
     void setBrigthnessThreshold(int iBrigthnessThreshold);
+
+    QSize getFrameSize(void);
 
     cv::Mat* getBwFrame(void);
 
