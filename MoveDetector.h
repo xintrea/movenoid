@@ -46,7 +46,7 @@ public:
     MoveDetector();
     QPointF getRocketBitPos();
     qreal getRocketBitAngle();
-    Marker detectMarker();
+    void detectMarker();
 
 protected:
     QPointF getFakeRocketBitPos();
@@ -61,9 +61,10 @@ protected:
 
     static QList<QPointF> getBoxVertex(ContourData contour);
     static Marker getMarker(QVector<ContourData> contours);
+    void detectMarkerLocation(Marker marker);
 
-    qreal rocetBitX;
-    qreal rocetBitY;
+
+    QPointF rocetBitXY;
     qreal rocetBitAngle;
 
     CaptureDevice captureDevice;

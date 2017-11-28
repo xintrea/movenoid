@@ -10,6 +10,9 @@ extern AppConfig appConfig;
 
 MoveDetector::MoveDetector()
 {
+    rocetBitXY=QPointF(5.0, 8.0);
+    rocetBitAngle=0.0;
+
     enableBoxMinArea=0.0008333;
     enableBoxMaxArea=0.25;
     enableDispersionBoxBtwContour=0.15;
@@ -23,7 +26,7 @@ MoveDetector::MoveDetector()
 }
 
 
-Marker MoveDetector::detectMarker()
+void MoveDetector::detectMarker()
 {
     // Этап 1 - Получение упрощенных данных о контурах на картинке, дальше работа только с этими данными
     QVector<ContourData> contoursData=getSimplificatedContourData();
@@ -46,10 +49,12 @@ Marker MoveDetector::detectMarker()
     // cv::imshow("Binary", bin);
     // cv::imshow("Detect", image);
 
-    return getMarker(contoursData);
+    // Метод определяет местоположение и угол маркера на основе его частей и запоминает его как игровые координаты
+    detectMarkerLocation( getMarker(contoursData) );
 }
 
 
+// Конструирование маркера, описание его частей
 Marker MoveDetector::getMarker(QVector<ContourData> contours)
 {
     Marker marker;
@@ -232,18 +237,38 @@ bool MoveDetector::contourMoreThan(const ContourData &c1, const ContourData &c2)
 }
 
 
+// Упрощенный варинат - пока бегется центр масс одной или двух частей
+void MoveDetector::detectMarkerLocation(Marker marker)
+{
+    if(marker.chunks==1) {
+        qreal x=marker.massCenterA.x()*10.0/(qreal)captureDevice.getFrameSize().width(); // Где 10.0 - это размер игры, заменить на дефайн
+        qreal y=marker.massCenterA.y()*10.0/(qreal)captureDevice.getFrameSize().height();
+        rocetBitXY=QPointF(x, y);;
+    } else if(marker.chunks==2) {
+        qreal xMass=marker.massCenterA.x()+marker.massCenterB.x()/2;
+        qreal yMass=marker.massCenterA.y()+marker.massCenterB.y()/2;
+
+        qreal x=xMass*10.0/(qreal)captureDevice.getFrameSize().width(); // Где 10.0 - это размер игры, заменить на дефайн
+        qreal y=yMass*10.0/(qreal)captureDevice.getFrameSize().height();
+
+        rocetBitXY=QPointF(x, y);
+    }
+}
+
+
 // Координаты ракетки
 QPointF MoveDetector::getRocketBitPos()
 {
-    return getFakeRocketBitPos();
-
+    // return getFakeRocketBitPos();
+    return rocetBitXY;
 }
 
 
 // Наклон ракетки, в радианах
 qreal MoveDetector::getRocketBitAngle()
 {
-    return getFakeRocketBitAngle();
+    // return getFakeRocketBitAngle();
+    return rocetBitAngle;
 }
 
 
