@@ -42,7 +42,7 @@ void RocketBit::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidg
 
 
     // Огонь из левой дюзы
-    painter->setBrush(Qt::red); // Заливка
+    painter->setBrush(QColor(150+(qrand()%(254-150)), 50, 50)); // Заливка
     pen.setWidth(0.2);
     pen.setBrush(Qt::yellow);
 
@@ -91,7 +91,7 @@ void RocketBit::updatePosByMovieDetector()
     moveDetector.detectMarker();
 
     this->setPos( moveDetector.getRocketBitPos() );
-    this->setRotation( radToDeg(moveDetector.getRocketBitAngle()) );
+    this->setRotation( moveDetector.getRocketBitAngle() ); // radToDeg(moveDetector.getRocketBitAngle())
 
     putToPhysicsWorld(); // Чтобы ракетка пересоздавалась в новом месте
 

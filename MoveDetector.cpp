@@ -1,8 +1,10 @@
 #include <QPoint>
 #include <QDebug>
+#include <math.h>
 
 #include "MoveDetector.h"
 #include "AppConfig.h"
+#include "main.h"
 
 using namespace std;
 
@@ -19,6 +21,8 @@ MoveDetector::MoveDetector()
 
     enableAspectRatio << 1.0/1.0 << 2.0/1.0 << 10.0/3.0; // Прямоугольники 3x3, 6x3, 10x3
     enableAspectRatioDispersion=0.15;
+
+    dynamicAngleDispersion=8.0;
 
     // Инициализируется устройство захвата изображения
     captureDevice.init( appConfig.getParameter("captureDeviceFileName") );
@@ -44,10 +48,6 @@ void MoveDetector::detectMarker()
     // Этап 4 - в массиве должны остаться только два самых больших контура, остальные отбрасываются как помехи
     contoursData=removeNoiseContour(contoursData);
     // qDebug() << "Detect object stage 4: " << contoursData.size();
-
-    // показываем картинки
-    // cv::imshow("Binary", bin);
-    // cv::imshow("Detect", image);
 
     // Метод определяет местоположение и угол маркера на основе его частей и запоминает его как игровые координаты
     detectMarkerLocation( getMarker(contoursData) );
@@ -107,6 +107,9 @@ QList<QPointF> MoveDetector::getBoxVertex(ContourData contour)
 QVector<ContourData> MoveDetector::getSimplificatedContourData()
 {
     cv::Mat* currentBwFrame=captureDevice.getBwFrame();
+
+    // Картинка для отладки
+    // cv::imshow("Binary", *currentBwFrame);
 
     vector<vector<cv::Point> > contours; // Массив для нахождения вершин минимальных прямоугольников
     vector<cv::Vec4i> hierarchy; // Массив иерархии, передается как формальный параметр потому что иерархия в данном случае не используется
@@ -240,19 +243,40 @@ bool MoveDetector::contourMoreThan(const ContourData &c1, const ContourData &c2)
 // Упрощенный варинат - пока бегется центр масс одной или двух частей
 void MoveDetector::detectMarkerLocation(Marker marker)
 {
+    static Marker previousMarker=marker;
+
     if(marker.chunks==1) {
         qreal x=marker.massCenterA.x()*10.0/(qreal)captureDevice.getFrameSize().width(); // Где 10.0 - это размер игры, заменить на дефайн
         qreal y=marker.massCenterA.y()*10.0/(qreal)captureDevice.getFrameSize().height();
-        rocetBitXY=QPointF(x, y);;
+        rocetBitXY=QPointF(x, y);
+
+        rocetBitAngle=marker.angleA;
+        rocetBitAngle+=90;
+
     } else if(marker.chunks==2) {
-        qreal xMass=marker.massCenterA.x()+marker.massCenterB.x()/2;
-        qreal yMass=marker.massCenterA.y()+marker.massCenterB.y()/2;
+        qreal xA=marker.massCenterA.x();
+        qreal xB=marker.massCenterB.x();
+        qreal yA=marker.massCenterA.y();
+        qreal yB=marker.massCenterB.y();
+
+        qreal xMass=(xA+xB)/2.0;
+        qreal yMass=(yA+yB)/2.0;
 
         qreal x=xMass*10.0/(qreal)captureDevice.getFrameSize().width(); // Где 10.0 - это размер игры, заменить на дефайн
         qreal y=yMass*10.0/(qreal)captureDevice.getFrameSize().height();
 
         rocetBitXY=QPointF(x, y);
+
+        // qreal middleAngle=(marker.angleA+marker.angleB)/2.0;
+        qreal middleAngle=radToDeg( atan2( -(xA-xB), yA-yB) );
+        middleAngle-=90;
+        if(middleAngle < 0.0)
+            middleAngle = 360.0 + middleAngle;
+
+        rocetBitAngle=middleAngle;
     }
+
+    previousMarker=marker;
 }
 
 
@@ -264,7 +288,7 @@ QPointF MoveDetector::getRocketBitPos()
 }
 
 
-// Наклон ракетки, в радианах
+// Наклон ракетки, в градусах
 qreal MoveDetector::getRocketBitAngle()
 {
     // return getFakeRocketBitAngle();

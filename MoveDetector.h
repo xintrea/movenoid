@@ -83,6 +83,8 @@ protected:
     QList<qreal> enableAspectRatio; // Допустимые соотношения сторон для ограничивающих прямоугольников
     qreal enableAspectRatioDispersion; // Допустимая погрешность при проверке соотношения сторон ограничивающих прямоугольников
 
+    qreal dynamicAngleDispersion;
+
 };
 
 #endif // MOVEDETECTOR_H
