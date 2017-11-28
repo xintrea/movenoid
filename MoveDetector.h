@@ -17,19 +17,19 @@ struct Marker{
                 // 0 - нет маркера
                 // 1 - одна большая часть A (10:3) - для движущегося смазанного и потому "слипшегося" изображения
                 // 2 - две части A и B (1:1 и 2:1) - для четкого изображения
-    QList<QPointF> verticlesA;
-    QList<QPointF> verticlesB;
+    QList<QPointF> verticlesA; // Вершины ограничивающего прямоугольника A
+    QList<QPointF> verticlesB; // Вершины ограничивающего прямоугольника B
 
-    qreal massCenterA;
-    qreal massCenterB;
+    QPointF massCenterA;
+    QPointF massCenterB;
 
     qreal angleA;
     qreal angleB;
 
-    QSizeF sizeA;
+    QSizeF sizeA; // Размер ограничивающего прямоугольника
     QSizeF sizeB;
 
-    qreal areaA;
+    qreal areaA; // Площадь ограничивающего прямоугольника (чтобы повторно не высчитывать)
     qreal areaB;
 };
 
@@ -58,6 +58,9 @@ protected:
 
     static bool contourLessThan(const ContourData &c1, const ContourData &c2);
     static bool contourMoreThan(const ContourData &c1, const ContourData &c2);
+
+    static QList<QPointF> getBoxVertex(ContourData contour);
+    static Marker getMarker(QVector<ContourData> contours);
 
     qreal rocetBitX;
     qreal rocetBitY;

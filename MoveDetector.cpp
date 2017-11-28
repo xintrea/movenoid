@@ -27,27 +27,73 @@ Marker MoveDetector::detectMarker()
 {
     // Этап 1 - Получение упрощенных данных о контурах на картинке, дальше работа только с этими данными
     QVector<ContourData> contoursData=getSimplificatedContourData();
-    qDebug() << "Detect object etap1: " << contoursData.size();
+    // qDebug() << "Detect object stage 1: " << contoursData.size();
 
     // Этап 2 - удаление контуров со слишком большим или слишком маленьким ограничивающим прямоугольником
     // и контуров у которых разница с ограничивающим прямоугольником слишком большая
     contoursData=removeTooSmallBigCrookedContour(contoursData);
-    qDebug() << "Detect object etap2: " << contoursData.size();
+    // qDebug() << "Detect object stage 2: " << contoursData.size();
 
     // Этап 3 - удаление контуров с недопустимыми пропорциями
     contoursData=removeBadAspectRatioContour(contoursData);
-    qDebug() << "Detect object etap3: " << contoursData.size();
+    // qDebug() << "Detect object stage 3: " << contoursData.size();
 
     // Этап 4 - в массиве должны остаться только два самых больших контура, остальные отбрасываются как помехи
     contoursData=removeNoiseContour(contoursData);
-    qDebug() << "Detect object etap4: " << contoursData.size();
+    // qDebug() << "Detect object stage 4: " << contoursData.size();
 
     // показываем картинки
     // cv::imshow("Binary", bin);
     // cv::imshow("Detect", image);
 
+    return getMarker(contoursData);
+}
+
+
+Marker MoveDetector::getMarker(QVector<ContourData> contours)
+{
     Marker marker;
+
+    if(contours.size()==0) {
+        marker.chunks=0;
+        return marker;
+    }
+
+    // Данные части A
+    marker.chunks=1;
+    marker.verticlesA=getBoxVertex(contours[0]);
+    marker.massCenterA=QPointF(contours[0].box.center.x, contours[0].box.center.y);
+    marker.angleA=contours[0].box.angle;
+    marker.sizeA=QSizeF(contours[0].box.size.width, contours[0].box.size.height);
+    marker.areaA=contours[0].box.size.width*contours[0].box.size.height;
+
+    if(contours.size()==1)
+        return marker;
+
+    // Данные части B
+    marker.chunks=2; // Количество частей изменяется на 2. Далее заполняется только часть B, потому что часть A уже заполнена
+    marker.verticlesB=getBoxVertex(contours[1]);
+    marker.massCenterB=QPointF(contours[1].box.center.x, contours[1].box.center.y);
+    marker.angleB=contours[1].box.angle;
+    marker.sizeB=QSizeF(contours[1].box.size.width, contours[1].box.size.height);
+    marker.areaB=contours[1].box.size.width*contours[1].box.size.height;
+
     return marker;
+}
+
+
+// Получиение Qt-совместимых координат минимального прямоугольника
+QList<QPointF> MoveDetector::getBoxVertex(ContourData contour)
+{
+     QList<QPointF> v;
+
+     cv::Point2f vertices[4];
+     contour.box.points(vertices); // В массив vertices засовываются точки углов минимального прямоугольника
+     for (int i = 0; i < 4; i++) { // Из массива vertices значения записываются в итоговый список
+         v << QPointF(vertices[i].x, vertices[i].y);
+     }
+
+     return v;
 }
 
 
@@ -106,13 +152,13 @@ QVector<ContourData> MoveDetector::removeTooSmallBigCrookedContour(QVector<Conto
         qreal dispersion=qAbs(1.0 - ((qreal) currentData.area)/((qreal)(currentData.box.size.width*currentData.box.size.height)));
 
         if( relationArea<enableBoxMinArea ) {
-            qDebug() << "Etap 2. Remove if relationArea" << relationArea << "less than" << "enableBoxMinArea" << enableBoxMinArea;
+            // qDebug() << "Stage 2. Remove if relationArea" << relationArea << "less than" << "enableBoxMinArea" << enableBoxMinArea;
             iterator.remove(); // Текущий элемент уничтожается
         } else if( relationArea>enableBoxMaxArea ) {
-            qDebug() << "Etap 2. Remove if relationArea" << relationArea << "more than" << "enableBoxMaxArea" << enableBoxMaxArea;
+            // qDebug() << "Stage 2. Remove if relationArea" << relationArea << "more than" << "enableBoxMaxArea" << enableBoxMaxArea;
             iterator.remove();
         } else if( dispersion > enableDispersionBoxBtwContour ) {
-            qDebug() << "Etap 2. Remove if dispersion " << dispersion << "more than" << "enableDispersionBoxBtwContour" << enableDispersionBoxBtwContour;
+            // qDebug() << "Stage 2. Remove if dispersion " << dispersion << "more than" << "enableDispersionBoxBtwContour" << enableDispersionBoxBtwContour;
             iterator.remove();
         }
     }
@@ -143,7 +189,7 @@ QVector<ContourData> MoveDetector::removeBadAspectRatioContour(QVector<ContourDa
         }
 
         if(!isFind) {
-            qDebug() << "Etap 3. Remove object with bad adpect ratio" << aspectRatio;
+            // qDebug() << "Stage 3. Remove object with bad adpect ratio" << aspectRatio;
             iterator.remove();
         }
 
@@ -159,9 +205,10 @@ QVector<ContourData> MoveDetector::removeNoiseContour(QVector<ContourData> conto
 {
     // Сортировка по убыванию
     qSort(contoursData.begin(), contoursData.end(), contourMoreThan);
-    foreach(ContourData contourData, contoursData) {
-        qDebug() << "Sorted area:" << contourData.area;
-    }
+
+    // foreach(ContourData contourData, contoursData) {
+    //     qDebug() << "Stage 4. Sorted area:" << contourData.area;
+    // }
 
     // Оставляется только два элемента
     if(contoursData.size()>2)
