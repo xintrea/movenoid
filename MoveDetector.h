@@ -50,7 +50,7 @@ public:
     virtual ~MoveDetector();
     QPointF getRocketBitPos();
     qreal getRocketBitAngle();
-    void detectMarker();
+    void update();
 
 protected:
     QPointF getFakeRocketBitPos();

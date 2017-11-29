@@ -47,7 +47,7 @@ MoveDetector::~MoveDetector()
 }
 
 
-void MoveDetector::detectMarker()
+void MoveDetector::update()
 {
     // Этап 1 - Получение упрощенных данных о контурах на картинке, дальше работа только с этими данными
     QVector<ContourData> contoursData=getSimplificatedContourData();
