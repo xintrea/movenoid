@@ -7,7 +7,7 @@ GameField::GameField(QObject *parent) : QGraphicsScene(parent)
     this->setSceneRect(0.0, 0.0, 10.0, 10.0);
 
     // Сила гравитации на игровом поле
-    b2Vec2 gravity(0.0, 3.0);
+    b2Vec2 gravity(0.0, 5.0);
     physicsWorld=new b2World(gravity);
 
     contactListener=new ContactListener;

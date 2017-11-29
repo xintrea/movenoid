@@ -70,6 +70,7 @@ protected:
     static QList<QPointF> getBoxVertex(ContourData contour);
     static Marker getMarker(QVector<ContourData> contours);
     void detectMarkerLocation(Marker marker);
+    QPointF convertToSafetyCoord(QPointF iPos);
 
     QPointF getFakeRocketBitPos();
     qreal getFakeRocketBitAngle();
@@ -96,8 +97,8 @@ protected:
     qreal dynamicAngleDispersion; // Величина для подбора угла на основе предыдущего значения,
                                   // с учетом того, что opencv может дать значение кратное 90
 
-    qreal borderCaptureX; // Границы безопасности от края кадра, за которыми не должно срабатывать распознавание маркера
-    qreal borderCaptureY;
+    qreal borderSafetyX; // Границы безопасности от края кадра, за которыми не должно срабатывать распознавание маркера
+    qreal borderSafetyY;
 
     CaptureWindow *debugWindow;
 

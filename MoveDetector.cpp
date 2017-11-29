@@ -26,8 +26,8 @@ MoveDetector::MoveDetector(QObject *parent) : QObject(parent)
 
     dynamicAngleDispersion=11.0;
 
-    borderCaptureX=0.05;
-    borderCaptureY=0.05;
+    borderSafetyX=0.12;
+    borderSafetyY=0.12;
 
     // Инициализируется устройство захвата изображения
     captureDevice.init( appConfig.getParameter("captureDeviceFileName") );
@@ -286,7 +286,6 @@ bool MoveDetector::contourMoreThan(const ContourData &c1, const ContourData &c2)
 }
 
 
-// Упрощенный варинат - пока бегется центр масс одной или двух частей
 void MoveDetector::detectMarkerLocation(Marker marker)
 {
     static Marker previousMarker=marker;
@@ -294,8 +293,12 @@ void MoveDetector::detectMarkerLocation(Marker marker)
     if(enableDebug) qDebug() << "Marker chunks: " << marker.chunks;
 
     if(marker.chunks==1) {
-        qreal x=marker.massCenterA.x()*10.0/(qreal)captureDevice.getFrameSize().width(); // Где 10.0 - это размер игры, заменить на дефайн
-        qreal y=marker.massCenterA.y()*10.0/(qreal)captureDevice.getFrameSize().height();
+        // Приведение координат к виртуальному экрану
+        QPointF centerMass=convertToSafetyCoord( QPointF(marker.massCenterA.x(), marker.massCenterA.y()) );
+
+        // Приведение координат к игровому полю
+        qreal x=centerMass.x()*10.0/(qreal)captureDevice.getFrameSize().width(); // Где 10.0 - это размер игры, заменить на дефайн
+        qreal y=centerMass.y()*10.0/(qreal)captureDevice.getFrameSize().height();
         rocetBitXY=QPointF(x, y);
 
         // Если происходит переключение с двух видимых частей маркера на одну часть,
@@ -320,8 +323,12 @@ void MoveDetector::detectMarkerLocation(Marker marker)
         qreal xMass=(xA+xB)/2.0;
         qreal yMass=(yA+yB)/2.0;
 
-        qreal x=xMass*10.0/(qreal)captureDevice.getFrameSize().width(); // Где 10.0 - это размер игры, заменить на дефайн
-        qreal y=yMass*10.0/(qreal)captureDevice.getFrameSize().height();
+        // Приведение координат к виртуальному экрану
+        QPointF centerMass=convertToSafetyCoord( QPointF(xMass, yMass) );
+
+        // Приведение координат к игровому полю
+        qreal x=centerMass.x()*10.0/(qreal)captureDevice.getFrameSize().width(); // Где 10.0 - это размер игры, заменить на дефайн
+        qreal y=centerMass.y()*10.0/(qreal)captureDevice.getFrameSize().height();
 
         rocetBitXY=QPointF(x, y);
 
@@ -329,6 +336,39 @@ void MoveDetector::detectMarkerLocation(Marker marker)
     }
 
     previousMarker=marker;
+}
+
+
+QPointF MoveDetector::convertToSafetyCoord(QPointF iPos)
+{
+    qreal x=iPos.x();
+    qreal y=iPos.y();
+
+    qreal borderPixX=(qreal)captureDevice.getFrameSize().width()*borderSafetyX;
+    qreal borderPixY=(qreal)captureDevice.getFrameSize().height()*borderSafetyY;
+
+    qreal newScrSizeX=(qreal)captureDevice.getFrameSize().width()-borderPixX*2.0;
+    qreal newScrSizeY=(qreal)captureDevice.getFrameSize().height()-borderPixY*2.0;
+
+    // Координаты точки в уменьшенном прямоугольнике
+    x=x-borderPixX;
+    y=y-borderPixY;
+
+    // Нормальзация
+    if(x<0.0)x=0.0;
+    if(x>newScrSizeX)x=newScrSizeX;
+    if(y<0.0)y=0.0;
+    if(y>newScrSizeY)y=newScrSizeY;
+
+    // Получение нормированных на единицу координат
+    x=x/newScrSizeX;
+    y=y/newScrSizeY;
+
+    // Получение координат в размере захватываемого фрейма
+    x=x*(qreal)captureDevice.getFrameSize().width();
+    y=y*(qreal)captureDevice.getFrameSize().height();
+
+    return QPointF(x, y);
 }
 
 
