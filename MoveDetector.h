@@ -5,6 +5,7 @@
 #include <QRectF>
 #include "opencv2/opencv.hpp"
 #include "CaptureDevice.h"
+#include "CaptureWindow.h"
 
 // Итоговые сведения об обнаруженном маркере
 // Физически маркер состоит из двух белых прямоугольников
@@ -46,6 +47,7 @@ class MoveDetector
 {
 public:
     MoveDetector();
+    virtual ~MoveDetector();
     QPointF getRocketBitPos();
     qreal getRocketBitAngle();
     void detectMarker();
@@ -64,7 +66,6 @@ protected:
     static QList<QPointF> getBoxVertex(ContourData contour);
     static Marker getMarker(QVector<ContourData> contours);
     void detectMarkerLocation(Marker marker);
-
 
     QPointF rocetBitXY;
     qreal rocetBitAngle;
@@ -85,10 +86,15 @@ protected:
     QList<qreal> enableAspectRatio; // Допустимые соотношения сторон для ограничивающих прямоугольников
     qreal enableAspectRatioDispersion; // Допустимая погрешность при проверке соотношения сторон ограничивающих прямоугольников
 
-    qreal dynamicAngleDispersion; // Не используется пока...
+    qreal dynamicAngleDispersion; // Величина для подбора угла на основе предыдущего значения,
+                                  // с учетом того, что opencv может дать значение кратное 90
 
     qreal borderCaptureX; // Границы безопасности от края кадра, за которыми не должно срабатывать распознавание маркера
     qreal borderCaptureY;
+
+    CaptureWindow *debugWindow;
+
+    bool enableDebug;
 
 };
 

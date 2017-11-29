@@ -12,6 +12,8 @@ extern AppConfig appConfig;
 
 MoveDetector::MoveDetector()
 {
+    enableDebug=true;
+
     rocetBitXY=QPointF(5.0, 8.0);
     rocetBitAngle=0.0;
 
@@ -22,7 +24,7 @@ MoveDetector::MoveDetector()
     enableAspectRatio << 1.0/1.0 << 2.0/1.0 << 10.0/3.0; // Прямоугольники 3x3, 6x3, 10x3
     enableAspectRatioDispersion=0.15;
 
-    dynamicAngleDispersion=8.0;
+    dynamicAngleDispersion=11.0;
 
     borderCaptureX=0.05;
     borderCaptureY=0.05;
@@ -30,6 +32,18 @@ MoveDetector::MoveDetector()
     // Инициализируется устройство захвата изображения
     captureDevice.init( appConfig.getParameter("captureDeviceFileName") );
     captureDevice.setBrigthnessThreshold( appConfig.getParameter("brigthnessThreshold").toInt() );
+
+    debugWindow=nullptr;
+    if(enableDebug) {
+        debugWindow=new CaptureWindow;
+        debugWindow->show();
+    }
+}
+
+
+MoveDetector::~MoveDetector()
+{
+    delete debugWindow;
 }
 
 
@@ -50,7 +64,7 @@ void MoveDetector::detectMarker()
 
     // Этап 4 - в массиве должны остаться только два самых больших контура, остальные отбрасываются как помехи
     contoursData=removeNoiseContour(contoursData);
-    // qDebug() << "Detect object stage 4: " << contoursData.size();
+    if(enableDebug) qDebug() << "Detect object stage 4: " << contoursData.size();
 
     // Метод определяет местоположение и угол маркера на основе его частей и запоминает его как игровые координаты
     detectMarkerLocation( getMarker(contoursData) );
@@ -67,11 +81,18 @@ Marker MoveDetector::getMarker(QVector<ContourData> contours)
         return marker;
     }
 
+    qreal angle;
+
     // Данные части A
     marker.chunks=1;
     marker.verticlesA=getBoxVertex(contours[0]);
     marker.massCenterA=QPointF(contours[0].box.center.x, contours[0].box.center.y);
-    marker.angleA=contours[0].box.angle;
+
+    angle=contours[0].box.angle; // Нормализация угла
+    if(angle < 0.0)   angle+=360.0;
+    if(angle > 360.0) angle-=360.0;
+    marker.angleA=angle;
+
     marker.sizeA=QSizeF(contours[0].box.size.width, contours[0].box.size.height);
     marker.areaA=contours[0].box.size.width*contours[0].box.size.height;
     // marker.boundingBox=contours[0].box.boundingRect();
@@ -83,7 +104,12 @@ Marker MoveDetector::getMarker(QVector<ContourData> contours)
     marker.chunks=2; // Количество частей изменяется на 2. Далее заполняется только часть B, потому что часть A уже заполнена
     marker.verticlesB=getBoxVertex(contours[1]);
     marker.massCenterB=QPointF(contours[1].box.center.x, contours[1].box.center.y);
-    marker.angleB=contours[1].box.angle;
+
+    angle=contours[1].box.angle; // Нормализация угла
+    if(angle < 0.0)   angle+=360.0;
+    if(angle > 360.0) angle-=360.0;
+    marker.angleB=angle;
+
     marker.sizeB=QSizeF(contours[1].box.size.width, contours[1].box.size.height);
     marker.areaB=contours[1].box.size.width*contours[1].box.size.height;
 
@@ -112,9 +138,6 @@ QVector<ContourData> MoveDetector::getSimplificatedContourData()
 {
     cv::Mat* currentBwFrame=captureDevice.getBwFrame();
 
-    // Картинка для отладки
-    // cv::imshow("Binary", *currentBwFrame);
-
     vector<vector<cv::Point> > contours; // Массив для нахождения вершин минимальных прямоугольников
     vector<cv::Vec4i> hierarchy; // Массив иерархии, передается как формальный параметр потому что иерархия в данном случае не используется
 
@@ -132,10 +155,6 @@ QVector<ContourData> MoveDetector::getSimplificatedContourData()
     // for(unsigned int idx = 0; idx >= 0; idx = hierarchy[idx][0] ) - это код для иерархических контуров
     for(unsigned int idx = 0; idx < contours.size(); idx++)
     {
-        cv::Scalar color( rand()&255, rand()&255, rand()&255 );
-
-        // cv::drawContours( image, contours, idx, color, CV_FILLED, 8, hierarchy );
-
         ContourData data;
 
         // Для каждого контура определяется минимальный прямоугольник
@@ -144,6 +163,21 @@ QVector<ContourData> MoveDetector::getSimplificatedContourData()
         data.area=contourArea(points); // Площадь текущего произвольного контура
 
         contoursData.append(data);
+
+        if(enableDebug) {
+            cv::Scalar color( rand()&255, rand()&255, rand()&255 );
+
+            cv::Point2f vertices[4];
+            data.box.points(vertices); // В массив vertices засовываются точки углов минимального прямоугольника
+            for (int i = 0; i < 4; i++)
+               cv::line(*currentBwFrame, vertices[i], vertices[(i+1)%4], color);
+        }
+    }
+
+    // Картинка для отладки
+    if(enableDebug) {
+        QImage img((uchar*)currentBwFrame->data, currentBwFrame->cols, currentBwFrame->rows, currentBwFrame->step, QImage::Format_Grayscale8);
+        debugWindow->setImage(&img);
     }
 
     return contoursData;
@@ -249,13 +283,25 @@ void MoveDetector::detectMarkerLocation(Marker marker)
 {
     static Marker previousMarker=marker;
 
+    if(enableDebug) qDebug() << "Marker chunks: " << marker.chunks;
+
     if(marker.chunks==1) {
         qreal x=marker.massCenterA.x()*10.0/(qreal)captureDevice.getFrameSize().width(); // Где 10.0 - это размер игры, заменить на дефайн
         qreal y=marker.massCenterA.y()*10.0/(qreal)captureDevice.getFrameSize().height();
         rocetBitXY=QPointF(x, y);
 
-        rocetBitAngle=marker.angleA;
-        rocetBitAngle+=90;
+        // Если происходит переключение с двух видимых частей маркера на одну часть,
+        // предполагается, что угол на двух частях был определен точно, и угол поворота одной части
+        // надо подобрать с шагом 90 градусов так, чтобы он примерно соответствовал предыдущему значению
+        // if(previousMarker.chunks==2) {
+        // }
+
+        // Угол подбирается так, чтобы он был ближайшим к предыдущему значению
+        // В момент вызова объект еще хранит предыдущее значение угла
+        qreal previousAngle=rocetBitAngle;
+        rocetBitAngle=selectNearestAngle(marker.angleA, previousAngle, dynamicAngleDispersion);
+
+        if(enableDebug) qDebug() << "Marker angle: " << marker.angleA << "prev:" << previousAngle << "disp:" << dynamicAngleDispersion << "res:" << rocetBitAngle;
 
     } else if(marker.chunks==2) {
         qreal xA=marker.massCenterA.x();
@@ -271,13 +317,7 @@ void MoveDetector::detectMarkerLocation(Marker marker)
 
         rocetBitXY=QPointF(x, y);
 
-        // qreal middleAngle=(marker.angleA+marker.angleB)/2.0;
-        qreal middleAngle=radToDeg( atan2( -(xA-xB), yA-yB) );
-        middleAngle-=90;
-        if(middleAngle < 0.0)
-            middleAngle = 360.0 + middleAngle;
-
-        rocetBitAngle=middleAngle;
+        rocetBitAngle=getAngleByPoints(xA, yA, xB, yB);
     }
 
     previousMarker=marker;

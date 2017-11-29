@@ -56,6 +56,16 @@
         <widget class="QLCDNumber" name="lcdNumber"/>
        </item>
        <item>
+        <widget class="QLabel" name="capturePixmapLabel">
+         <property name="text">
+          <string>Capture</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item>
         <spacer name="verticalSpacer">
          <property name="orientation">
           <enum>Qt::Vertical</enum>

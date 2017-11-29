@@ -13,7 +13,10 @@
 
 qreal radToDeg(qreal rad);
 qreal degToRad(qreal deg);
+qreal selectNearestAngle(qreal angle, qreal wayMarkAngle, qreal angleDispersion);
+qreal getAngleByPoints(const qreal xA, const qreal yA, const qreal xB, const qreal yB);
 
 void criticalError(QString message);
+
 
 #endif // MAIN_H

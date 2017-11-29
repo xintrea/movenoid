@@ -37,7 +37,8 @@ SOURCES += \
     GraphicsPhysicsItem.cpp \
     ContactListener.cpp \
     CaptureDevice.cpp \
-    MoveDetector.cpp
+    MoveDetector.cpp \
+    CaptureWindow.cpp
 
 HEADERS += \
         MainWindow.h \
@@ -53,12 +54,14 @@ HEADERS += \
     GraphicsPhysicsItem.h \
     ContactListener.h \
     CaptureDevice.h \
-    MoveDetector.h
+    MoveDetector.h \
+    CaptureWindow.h
 
 FORMS += \
         MainWindow.ui \
     SettingsWindow.ui \
-    GameWindow.ui
+    GameWindow.ui \
+    CaptureWindow.ui
 
 CONFIG += mobility
 MOBILITY = 
