@@ -6,6 +6,8 @@
 #include <QStyleOptionGraphicsItem>
 #include <QWidget>
 
+#include "opencv2/opencv.hpp"
+
 #include "GraphicsPhysicsItem.h"
 #include "MoveDetector.h"
 
@@ -34,6 +36,8 @@ protected:
     QColor color;
 
     MoveDetector *moveDetector;
+
+    b2MouseJoint *mouseJoint;
 };
 
 #endif // ROCKETBIT_H

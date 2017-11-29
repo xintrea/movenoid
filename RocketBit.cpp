@@ -12,6 +12,7 @@ RocketBit::RocketBit(QGraphicsItem *parent)
     color=QColor(31, 56, 94);
 
     moveDetector=nullptr;
+    mouseJoint=nullptr;
 }
 
 
@@ -85,10 +86,10 @@ void RocketBit::putToPhysicsWorld()
         physicsWorld->DestroyBody(physicsBody);
     }
 
+    // Вычисляется вектор движения ракетки, чтобы преобразовать его в вектор скорости
     b2Vec2 velocityVector(this->x()-previousX, this->y()-previousY);
     previousX=this->x();
     previousY=this->y();
-
 
     // Ракетка создается
     b2BodyDef bodyDef;
@@ -100,7 +101,12 @@ void RocketBit::putToPhysicsWorld()
     b2PolygonShape polygonShape;
     polygonShape.SetAsBox(width/2.0, height/2.0);
 
-    body->CreateFixture(&polygonShape, 1.0);
+    b2FixtureDef fixtureDef;
+    fixtureDef.shape = &polygonShape;
+    fixtureDef.density = 1.0; // Плотность
+    fixtureDef.restitution=0.99; // Коэфициент отскока?
+
+    body->CreateFixture(&fixtureDef);
     body->SetLinearVelocity(velocityVector);
 
     // Запоминается настроенное тело
@@ -111,11 +117,6 @@ void RocketBit::putToPhysicsWorld()
 void RocketBit::updatePosByMovieDetector()
 {
     // moveDetector.update(); // Теперь этот вызов ненужен, потому что moveDetector работает в треде
-
-
-
-    // Вычисляется вектор движения ракетки, чтобы преобразовать его в вектор скорости
-
 
     // Местоположение ракетки
     QPointF pos=moveDetector->getRocketBitPos();
