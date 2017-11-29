@@ -74,14 +74,21 @@ void RocketBit::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidg
 }
 
 
+// Ракетка при каждом обращении удаляется и снова создается в физическом мире
 void RocketBit::putToPhysicsWorld()
 {
-    // Ракетка при каждом обращении удаляется и снова создается в физическом мире
+    static qreal previousX=5.0;
+    static qreal previousY=5.0;
 
-    // Если ракетка уже была проинициализирована, она удаляется
+    // Если ракетка уже была проинициализирована, она удаляется (чтобы произошло пересоздание)
     if(physicsBody!=nullptr) {
         physicsWorld->DestroyBody(physicsBody);
     }
+
+    b2Vec2 velocityVector(this->x()-previousX, this->y()-previousY);
+    previousX=this->x();
+    previousY=this->y();
+
 
     // Ракетка создается
     b2BodyDef bodyDef;
@@ -93,7 +100,8 @@ void RocketBit::putToPhysicsWorld()
     b2PolygonShape polygonShape;
     polygonShape.SetAsBox(width/2.0, height/2.0);
 
-    body->CreateFixture(&polygonShape, 0.0);
+    body->CreateFixture(&polygonShape, 1.0);
+    body->SetLinearVelocity(velocityVector);
 
     // Запоминается настроенное тело
     physicsBody=body;
@@ -104,10 +112,22 @@ void RocketBit::updatePosByMovieDetector()
 {
     // moveDetector.update(); // Теперь этот вызов ненужен, потому что moveDetector работает в треде
 
-    this->setPos( moveDetector->getRocketBitPos() );
+
+
+    // Вычисляется вектор движения ракетки, чтобы преобразовать его в вектор скорости
+
+
+    // Местоположение ракетки
+    QPointF pos=moveDetector->getRocketBitPos();
+    if(pos.y()<5.0)
+        pos.setY(5.0);
+    this->setPos( pos );
+
+    // Поворот ракетки
     this->setRotation( moveDetector->getRocketBitAngle() );
 
     putToPhysicsWorld(); // Чтобы ракетка пересоздавалась в новом месте
+
 
     // qDebug() << "RocketBit coordinats 1: " << moveDetector.getRocketBitPos();
     // qDebug() << "RocketBit coordinats 2: " << this->x() << this->y();

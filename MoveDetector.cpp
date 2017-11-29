@@ -12,7 +12,7 @@ extern AppConfig appConfig;
 
 MoveDetector::MoveDetector(QObject *parent) : QObject(parent)
 {
-    enableDebug=true;
+    enableDebug=false;
 
     rocetBitXY=QPointF(5.0, 8.0);
     rocetBitAngle=0.0;
