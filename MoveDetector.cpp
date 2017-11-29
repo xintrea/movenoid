@@ -19,10 +19,10 @@ MoveDetector::MoveDetector()
 
     enableBoxMinArea=0.0008333;
     enableBoxMaxArea=0.25;
-    enableDispersionBoxBtwContour=0.15;
+    enableDispersionBoxBtwContour=0.25;
 
     enableAspectRatio << 1.0/1.0 << 2.0/1.0 << 10.0/3.0; // Прямоугольники 3x3, 6x3, 10x3
-    enableAspectRatioDispersion=0.15;
+    enableAspectRatioDispersion=0.46;
 
     dynamicAngleDispersion=11.0;
 
@@ -51,16 +51,16 @@ void MoveDetector::detectMarker()
 {
     // Этап 1 - Получение упрощенных данных о контурах на картинке, дальше работа только с этими данными
     QVector<ContourData> contoursData=getSimplificatedContourData();
-    // qDebug() << "Detect object stage 1: " << contoursData.size();
+    if(enableDebug) qDebug() << "Detect object stage 1: " << contoursData.size();
 
     // Этап 2 - удаление контуров со слишком большим или слишком маленьким ограничивающим прямоугольником
     // и контуров у которых разница с ограничивающим прямоугольником слишком большая
     contoursData=removeTooSmallBigCrookedContour(contoursData);
-    // qDebug() << "Detect object stage 2: " << contoursData.size();
+    if(enableDebug) qDebug() << "Detect object stage 2: " << contoursData.size();
 
     // Этап 3 - удаление контуров с недопустимыми пропорциями
     contoursData=removeBadAspectRatioContour(contoursData);
-    // qDebug() << "Detect object stage 3: " << contoursData.size();
+    if(enableDebug) qDebug() << "Detect object stage 3: " << contoursData.size();
 
     // Этап 4 - в массиве должны остаться только два самых больших контура, остальные отбрасываются как помехи
     contoursData=removeNoiseContour(contoursData);
@@ -197,13 +197,13 @@ QVector<ContourData> MoveDetector::removeTooSmallBigCrookedContour(QVector<Conto
         // Разница между площадью контура и площадью ограничивающего прямоугольника
         qreal dispersion=qAbs(1.0 - ((qreal) currentData.area)/((qreal)(currentData.box.size.width*currentData.box.size.height)));
 
-        if( relationArea<enableBoxMinArea ) {
+        if( relationArea<enableBoxMinArea ) { // Объект очень маленький
             // qDebug() << "Stage 2. Remove if relationArea" << relationArea << "less than" << "enableBoxMinArea" << enableBoxMinArea;
             iterator.remove(); // Текущий элемент уничтожается
-        } else if( relationArea>enableBoxMaxArea ) {
+        } else if( relationArea>enableBoxMaxArea ) { // Очень большой
             // qDebug() << "Stage 2. Remove if relationArea" << relationArea << "more than" << "enableBoxMaxArea" << enableBoxMaxArea;
             iterator.remove();
-        } else if( dispersion > enableDispersionBoxBtwContour ) {
+        } else if( dispersion > enableDispersionBoxBtwContour ) { // Площадь контура далека от площади ограничивающего прямоугольника
             // qDebug() << "Stage 2. Remove if dispersion " << dispersion << "more than" << "enableDispersionBoxBtwContour" << enableDispersionBoxBtwContour;
             iterator.remove();
         }
@@ -235,7 +235,7 @@ QVector<ContourData> MoveDetector::removeBadAspectRatioContour(QVector<ContourDa
         }
 
         if(!isFind) {
-            // qDebug() << "Stage 3. Remove object with bad adpect ratio" << aspectRatio;
+            if(enableDebug) qDebug() << "Stage 3. Remove object with bad adpect ratio" << aspectRatio;
             iterator.remove();
         }
 

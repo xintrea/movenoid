@@ -85,8 +85,6 @@ int main(int argc, char *argv[])
 {
     qDebug() << "MoveNoid start...";
 
-    // qDebug() << "Result:" << selectNearestAngle(301.608, 31.5797, 11.0);
-
     QApplication a(argc, argv);
     MainWindow w;
     pMainWindow=&w;
