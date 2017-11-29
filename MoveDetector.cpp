@@ -10,7 +10,7 @@ using namespace std;
 
 extern AppConfig appConfig;
 
-MoveDetector::MoveDetector()
+MoveDetector::MoveDetector(QObject *parent) : QObject(parent)
 {
     enableDebug=true;
 
@@ -44,6 +44,14 @@ MoveDetector::MoveDetector()
 MoveDetector::~MoveDetector()
 {
     delete debugWindow;
+}
+
+
+void MoveDetector::run()
+{
+    for(;;){
+        update();
+    }
 }
 
 

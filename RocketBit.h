@@ -13,6 +13,7 @@ class RocketBit : public GraphicsPhysicsItem
 {
 public:
     RocketBit(QGraphicsItem *parent = Q_NULLPTR);
+    virtual ~RocketBit();
 
     QRectF boundingRect() const override;
     QPainterPath shape() const override;
@@ -24,14 +25,15 @@ public:
 
     void updatePosByMovieDetector();
 
+    void setMoveDetector(MoveDetector *iMoveDetector);
+
 protected:
 
     qreal width;
     qreal height;
     QColor color;
 
-    MoveDetector moveDetector;
-
+    MoveDetector *moveDetector;
 };
 
 #endif // ROCKETBIT_H

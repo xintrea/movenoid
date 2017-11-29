@@ -1,6 +1,7 @@
 #ifndef MOVEDETECTOR_H
 #define MOVEDETECTOR_H
 
+#include <QObject>
 #include <QPointF>
 #include <QRectF>
 #include "opencv2/opencv.hpp"
@@ -43,18 +44,21 @@ struct ContourData {
 };
 
 
-class MoveDetector
+class MoveDetector : public QObject
 {
+    Q_OBJECT
+
 public:
-    MoveDetector();
+    explicit MoveDetector(QObject *parent = 0);
     virtual ~MoveDetector();
+
+public slots:
+    void run(); // Метод, используемый для запуска в треде
     QPointF getRocketBitPos();
     qreal getRocketBitAngle();
-    void update();
 
 protected:
-    QPointF getFakeRocketBitPos();
-    qreal getFakeRocketBitAngle();
+    void update();
     QVector<ContourData> getSimplificatedContourData();
     QVector<ContourData> removeTooSmallBigCrookedContour(QVector<ContourData> contoursData);
     QVector<ContourData> removeBadAspectRatioContour(QVector<ContourData> contoursData);
@@ -66,6 +70,9 @@ protected:
     static QList<QPointF> getBoxVertex(ContourData contour);
     static Marker getMarker(QVector<ContourData> contours);
     void detectMarkerLocation(Marker marker);
+
+    QPointF getFakeRocketBitPos();
+    qreal getFakeRocketBitAngle();
 
     QPointF rocetBitXY;
     qreal rocetBitAngle;

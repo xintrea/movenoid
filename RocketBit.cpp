@@ -10,6 +10,20 @@ RocketBit::RocketBit(QGraphicsItem *parent)
     width=1.1;
     height=0.45;
     color=QColor(31, 56, 94);
+
+    moveDetector=nullptr;
+}
+
+
+RocketBit::~RocketBit()
+{
+
+}
+
+
+void RocketBit::setMoveDetector(MoveDetector *iMoveDetector)
+{
+    moveDetector=iMoveDetector;
 }
 
 
@@ -88,10 +102,10 @@ void RocketBit::putToPhysicsWorld()
 
 void RocketBit::updatePosByMovieDetector()
 {
-    moveDetector.update();
+    // moveDetector.update(); // Теперь этот вызов ненужен, потому что moveDetector работает в треде
 
-    this->setPos( moveDetector.getRocketBitPos() );
-    this->setRotation( moveDetector.getRocketBitAngle() ); // radToDeg(moveDetector.getRocketBitAngle())
+    this->setPos( moveDetector->getRocketBitPos() );
+    this->setRotation( moveDetector->getRocketBitAngle() );
 
     putToPhysicsWorld(); // Чтобы ракетка пересоздавалась в новом месте
 

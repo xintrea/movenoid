@@ -5,6 +5,7 @@
 #include <QGraphicsScene>
 #include <QList>
 #include <QTimer>
+#include <QThread>
 #include <Box2D/Box2D.h>
 
 #include "ContactListener.h"
@@ -12,6 +13,7 @@
 #include "Brick.h"
 #include "RocketBit.h"
 #include "Ball.h"
+#include "MoveDetector.h"
 
 class GameField : public QGraphicsScene
 {
@@ -41,6 +43,9 @@ protected:
     ContactListener *contactListener;
 
     QTimer updateWorldTimer;
+
+    QThread moveDetectorThread;
+    MoveDetector moveDetector;
 };
 
 #endif // GAMEFIELD_H

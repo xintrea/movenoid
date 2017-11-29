@@ -14,6 +14,12 @@ GameField::GameField(QObject *parent) : QGraphicsScene(parent)
     contactListener->setBricks(&bricks);
     physicsWorld->SetContactListener(contactListener);
 
+    // Определитель положения ракетки пришлось размещать здесь, так как GameField наследуется от QObject и здесь работает connect
+    // Основной цикл определителя положения ракетки будет запускаться при старте треда, в который его помещают
+    connect(&moveDetectorThread, &QThread::started, &moveDetector, &MoveDetector::run);
+    moveDetector.moveToThread(&moveDetectorThread); // Определитель положения ракетки переносится в тред
+    moveDetectorThread.start(); // Тред запускается, при этом в нем автоматически будет запущен объект moveDetector
+
     loadLevel(1);
 }
 
@@ -22,6 +28,8 @@ GameField::~GameField()
     clearLevel();
     delete contactListener;
     delete physicsWorld;
+
+    moveDetectorThread.terminate();
 }
 
 
@@ -114,6 +122,7 @@ void GameField::loadLevel(int levelNum)
         rocketBit.setPos(5.0, 8.0);
         this->addItem(&rocketBit); // Ракетка кладется на поле
         rocketBit.setPhysicsWorld(physicsWorld);
+        rocketBit.setMoveDetector(&moveDetector);
     }
 }
 

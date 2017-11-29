@@ -3,8 +3,9 @@
 # Project created by QtCreator 2017-11-22T14:24:20
 #
 #-------------------------------------------------
-QMAKE_CXXFLAGS_DEBUG += -pg -no-pie
-QMAKE_LFLAGS_DEBUG += -pg -no-pie
+
+#QMAKE_CXXFLAGS_DEBUG += -pg -no-pie
+#MAKE_LFLAGS_DEBUG += -pg -no-pie
 
 QT       += core gui
 
