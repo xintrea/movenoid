@@ -11,6 +11,10 @@
 
 #define PI 3.14159265358979323846264338327950288419717
 
+#define MOVE_NOID_START_BALL_POS_X 6.0
+#define MOVE_NOID_START_BALL_POS_Y 2.0
+
+
 qreal radToDeg(qreal rad);
 qreal degToRad(qreal deg);
 qreal selectNearestAngle(qreal angle, qreal wayMarkAngle, qreal angleDispersion);

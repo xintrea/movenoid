@@ -19,8 +19,9 @@ public:
                QWidget *widget) override;
 
     void setRadius(const qreal iRadius);
-    void putToPhysicsWorld();
     void updatePosByPhysicsWorld();
+    void moveToDefaultPos();
+    void putToPhysicsWorld();
 
     b2ContactEdge* getContactList(); // Точки столкновения мячика и других тел
 

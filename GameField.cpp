@@ -1,4 +1,7 @@
 #include <QDebug>
+
+#include "main.h"
+#include "ReadyPoster.h"
 #include "GameField.h"
 
 GameField::GameField(QObject *parent) : QGraphicsScene(parent)
@@ -26,7 +29,7 @@ GameField::GameField(QObject *parent) : QGraphicsScene(parent)
     moveDetector.moveToThread(&moveDetectorThread); // Определитель положения ракетки переносится в тред
     moveDetectorThread.start(); // Тред запускается, при этом в нем автоматически будет запущен объект moveDetector
 
-    loadLevel(1);
+    // loadLevel(1);
 }
 
 GameField::~GameField()
@@ -71,6 +74,11 @@ void GameField::loadLevel(int levelNum)
     clearLevel();
 
     if(levelNum==1){
+
+        score=0;
+        emit setScore(105);
+        lives=5;
+        emit setLives(lives);
 
         // Создание препятствий
         QPolygonF polygon;
@@ -133,7 +141,7 @@ void GameField::loadLevel(int levelNum)
         // Установки мячика
         ball.setRadius(0.15);
         // ball.setPos(7.0, 2.0);
-        ball.setPos(6.0, 2.0);
+        ball.setPos(MOVE_NOID_START_BALL_POS_X, MOVE_NOID_START_BALL_POS_Y);
         this->addItem(&ball); // Мячик кладется на поле
         ball.setPhysicsWorld(physicsWorld);
 
@@ -195,10 +203,24 @@ void GameField::updateWorld()
     ball.updatePosByPhysicsWorld();
     rocketBit.updatePosByMovieDetector();
 
+    checkBallPosition();
+
     // Обновляется сцена
     this->update();
 }
 
 
+// Проверка местоположения мяча
+void GameField::checkBallPosition()
+{
+    // Если мячь улетел
+    if(ball.y()>10.0) {
+        emit livesDn();
 
+        ReadyPoster readyPoster;
+        readyPoster.exec();
+
+        ball.moveToDefaultPos();
+    }
+}
 

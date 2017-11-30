@@ -1,5 +1,6 @@
 #include <QDebug>
 #include <Box2D/Box2D.h>
+#include "main.h"
 #include "Ball.h"
 
 Ball::Ball(QGraphicsItem *parent)
@@ -51,6 +52,20 @@ void Ball::updatePosByPhysicsWorld()
     this->setY( physicsBody->GetPosition().y );
 
     // qDebug() << "Ball coordinats: " << this->x() << this->y();
+}
+
+
+void Ball::moveToDefaultPos()
+{
+    // Если мячик уже есть, его надо удалить перед перемещением
+    if(physicsBody!=nullptr) {
+        physicsWorld->DestroyBody(physicsBody);
+    }
+
+    this->setX(MOVE_NOID_START_BALL_POS_X);
+    this->setY(MOVE_NOID_START_BALL_POS_Y);
+
+    putToPhysicsWorld();
 }
 
 

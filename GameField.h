@@ -32,11 +32,17 @@ private slots:
     void updateWorld();
 
 signals:
-    void scoreUp(int score);
+    void setScore(int iScore);
+    void scoreUp(int iScore);
+
+    void setLives(int iLives);
+    void livesUp();
+    void livesDn();
 
 protected:
     void createBrick(qreal x, qreal y);
     void destroyBricks();
+    void checkBallPosition();
 
     QList<Barrier*> barriers;
     QList<Brick*> bricks;
@@ -50,6 +56,9 @@ protected:
 
     QThread moveDetectorThread;
     MoveDetector moveDetector;
+
+    int score;
+    int lives;
 };
 
 #endif // GAMEFIELD_H

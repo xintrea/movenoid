@@ -41,7 +41,8 @@ SOURCES += \
     ContactListener.cpp \
     CaptureDevice.cpp \
     MoveDetector.cpp \
-    CaptureWindow.cpp
+    CaptureWindow.cpp \
+    ReadyPoster.cpp
 
 HEADERS += \
         MainWindow.h \
@@ -58,13 +59,15 @@ HEADERS += \
     ContactListener.h \
     CaptureDevice.h \
     MoveDetector.h \
-    CaptureWindow.h
+    CaptureWindow.h \
+    ReadyPoster.h
 
 FORMS += \
         MainWindow.ui \
     SettingsWindow.ui \
     GameWindow.ui \
-    CaptureWindow.ui
+    CaptureWindow.ui \
+    ReadyPoster.ui
 
 CONFIG += mobility
 MOBILITY = 
