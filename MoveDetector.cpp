@@ -49,9 +49,22 @@ MoveDetector::~MoveDetector()
 
 void MoveDetector::run()
 {
+    exitFlag=false;
+
     for(;;){
         update();
+
+        if(exitFlag) {
+            emit finished();
+            return;
+         }
     }
+}
+
+
+void MoveDetector::doExit()
+{
+    exitFlag=true;
 }
 
 

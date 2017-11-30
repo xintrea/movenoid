@@ -1,3 +1,4 @@
+#include <QDebug>
 #include "GameField.h"
 
 GameField::GameField(QObject *parent) : QGraphicsScene(parent)
@@ -18,6 +19,12 @@ GameField::GameField(QObject *parent) : QGraphicsScene(parent)
     // Определитель положения ракетки пришлось размещать здесь, так как GameField наследуется от QObject и здесь работает connect
     // Основной цикл определителя положения ракетки будет запускаться при старте треда, в который его помещают
     connect(&moveDetectorThread, &QThread::started, &moveDetector, &MoveDetector::run);
+    
+    // Соединения для корректного завершения потока
+    connect(&moveDetector, SIGNAL(finished()), &moveDetectorThread, SLOT(quit()));
+    // connect(&moveDetector, SIGNAL(finished()), &moveDetector, SLOT(deleteLater()));
+    // connect(&moveDetectorThread, SIGNAL(finished()), &moveDetectorThread, SLOT(deleteLater()));
+    
     moveDetector.moveToThread(&moveDetectorThread); // Определитель положения ракетки переносится в тред
     moveDetectorThread.start(); // Тред запускается, при этом в нем автоматически будет запущен объект moveDetector
 
@@ -30,7 +37,13 @@ GameField::~GameField()
     delete contactListener;
     delete physicsWorld;
 
-    moveDetectorThread.terminate();
+    moveDetector.doExit();
+    moveDetectorThread.quit();
+    moveDetectorThread.wait();
+    while(!moveDetectorThread.isFinished()) {
+        qDebug() << "Wait finished move detector...";
+    }
+    qDebug() << "Success move detector finished.";
 }
 
 

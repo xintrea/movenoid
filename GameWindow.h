@@ -14,6 +14,9 @@ class GameWindow : public QDialog
 {
     Q_OBJECT
 
+public slots:
+    void reject();
+
 public:
     explicit GameWindow(QWidget *parent = 0);
     ~GameWindow();

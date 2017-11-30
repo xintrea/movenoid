@@ -56,6 +56,10 @@ public slots:
     void run(); // Метод, используемый для запуска в треде
     QPointF getRocketBitPos();
     qreal getRocketBitAngle();
+    void doExit();
+
+signals:
+    void finished(); // Сигнал о реальном завершении работы (метод run() останавливается и происходит выход из него)
 
 protected:
     void update();
@@ -103,6 +107,7 @@ protected:
     CaptureWindow *debugWindow;
 
     bool enableDebug;
+    bool exitFlag;
 
 };
 

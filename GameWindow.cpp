@@ -1,6 +1,7 @@
 #include <QGraphicsScene>
 #include <QLinearGradient>
 #include <QBrush>
+#include <QDebug>
 
 #include "GameWindow.h"
 #include "ui_GameWindow.h"
@@ -44,3 +45,11 @@ GameWindow::~GameWindow()
     delete gameField;
     delete ui;
 }
+
+
+void GameWindow::reject()
+{
+    qDebug() << "Reject game window";
+    QDialog::reject();
+}
+
