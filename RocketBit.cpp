@@ -159,8 +159,10 @@ void RocketBit::updatePosByMovieDetector()
     // Координаты, полученные с камеры, сплющиваются по вертикали и сдвигаются до оси в игре
     qreal yPos=pos.y()/yKoeff+yShift;
 
-    if(yPos<5.0)
-        yPos=5.0;
+    // Ракетка не должна подниматься выше середины поля
+    if(yPos<(10.0/2.0)) yPos=10.0/2.0;
+
+    // Устанавливаются координаты ракетки
     this->setPos( QPointF(pos.x(), yPos) );
 
     // Поворот ракетки

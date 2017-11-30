@@ -115,11 +115,19 @@ void GameField::loadLevel(int levelNum)
 
         // Создание кирпичей
         for(int i=0; i<5; i++) {
-            Brick *brick=new Brick;
-            brick->setPos((qreal) i*2+1.0, 4.0);
-            bricks.append( brick ); // Запоминается указатель на кирпич
-            this->addItem(brick); // Кирпич кладется на поле
-            brick->setPhysicsWorld(physicsWorld);
+            qreal x=i*2+1.0;
+            qreal y=4.0;
+            createBrick(x,y);
+        }
+        for(int i=0; i<5; i++) {
+            qreal x=i*2+1.5;
+            qreal y=3.0;
+            createBrick(x,y);
+        }
+        for(int i=0; i<5; i++) {
+            qreal x=i*2+1.0;
+            qreal y=2.0;
+            createBrick(x,y);
         }
 
         // Установки мячика
@@ -136,6 +144,16 @@ void GameField::loadLevel(int levelNum)
         rocketBit.setPhysicsWorld(physicsWorld);
         rocketBit.setMoveDetector(&moveDetector);
     }
+}
+
+
+void GameField::createBrick(qreal x, qreal y)
+{
+    Brick *brick=new Brick;
+    brick->setPos(x, y);
+    bricks.append( brick ); // Запоминается указатель на кирпич
+    this->addItem(brick); // Кирпич кладется на поле
+    brick->setPhysicsWorld(physicsWorld);
 }
 
 
@@ -180,6 +198,7 @@ void GameField::updateWorld()
     // Обновляется сцена
     this->update();
 }
+
 
 
 
