@@ -37,6 +37,8 @@ GameWindow::GameWindow(QWidget *parent) :
     ui->graphicsView->fitInView(0.0, 0.0, 5.0, 5.0, Qt::KeepAspectRatio);
     // ui->graphicsView->fitInView(0.0, 0.0, 1.0, 1.0, Qt::KeepAspectRatio);
 
+    connect(gameField, SIGNAL(scoreUp(int)), this, SLOT(onScoreUp(int)));
+
     gameField->runGame();
 }
 
@@ -53,3 +55,9 @@ void GameWindow::reject()
     QDialog::reject();
 }
 
+
+void GameWindow::onScoreUp(int score)
+{
+    int currScore=ui->lcdScreen->intValue();
+    ui->lcdScreen->display(currScore+score);
+}

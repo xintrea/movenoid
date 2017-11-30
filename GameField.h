@@ -31,6 +31,9 @@ public:
 private slots:
     void updateWorld();
 
+signals:
+    void scoreUp(int score);
+
 protected:
     void destroyBricks();
 

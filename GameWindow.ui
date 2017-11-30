@@ -53,7 +53,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QLCDNumber" name="lcdNumber"/>
+        <widget class="QLCDNumber" name="lcdScreen"/>
        </item>
        <item>
         <widget class="QLabel" name="capturePixmapLabel">

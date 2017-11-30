@@ -15,6 +15,7 @@ class GameWindow : public QDialog
     Q_OBJECT
 
 public slots:
+    void onScoreUp(int score);
     void reject();
 
 public:

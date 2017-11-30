@@ -152,6 +152,8 @@ void GameField::destroyBricks()
             physicsWorld->DestroyBody( brick->getPhysicsBody() ); // Кирпич удаяется из физического мира
             delete brick; // Кирпич удаляется как объект
             i = bricks.erase(i); // Кирпич удаляется из списка кирпичей
+
+            emit scoreUp(10);
         }
         else
             ++i;
