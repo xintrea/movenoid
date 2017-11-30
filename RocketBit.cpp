@@ -93,7 +93,7 @@ void RocketBit::putToPhysicsWorld()
 
     // Ракетка создается
     b2BodyDef bodyDef;
-    bodyDef.type=b2_dynamicBody;
+    bodyDef.type=b2_staticBody; // b2_dynamicBody
     bodyDef.position.Set(this->x(), this->y());
     bodyDef.angle=degToRad(this->rotation());
     b2Body *body=physicsWorld->CreateBody(&bodyDef);
@@ -113,6 +113,30 @@ void RocketBit::putToPhysicsWorld()
     physicsBody=body;
 }
 
+
+/*
+void RocketBit::putToPhysicsWorld()
+{
+    // Создается тело ракетки
+    b2BodyDef bodyDef;
+    bodyDef.type=b2_dynamicBody;
+    bodyDef.position.Set(this->x(), this->y());
+    bodyDef.angle=degToRad(this->rotation());
+    b2Body *body=physicsWorld->CreateBody(&bodyDef);
+
+
+
+    b2MouseJointDef mouseJointDef;
+
+    // Получение ground body в C++ в box2d 2.x.x, чтобы прикрепиться к миру
+    b2BodyDef groundBodyDef;
+    b2Body groundBody = CreateBody(&groundBodyDef);
+
+    mouseJointDef.bodyA=groundBody;
+    }
+
+}
+*/
 
 void RocketBit::updatePosByMovieDetector()
 {
