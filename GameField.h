@@ -59,6 +59,7 @@ protected:
 
     int score;
     int lives;
+    int level;
 };
 
 #endif // GAMEFIELD_H

@@ -44,7 +44,6 @@ GameWindow::GameWindow(QWidget *parent) :
     connect(gameField, SIGNAL(livesUp()), this, SLOT(onLivesUp()));
     connect(gameField, SIGNAL(livesDn()), this, SLOT(onLivesDn()));
 
-    gameField->loadLevel(1);
     gameField->runGame();
 }
 

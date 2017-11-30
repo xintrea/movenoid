@@ -39,6 +39,9 @@ void Ball::putToPhysicsWorld()
     fixture.restitution = 1.0;    // Коэффициент упругости (0.0 - нет отскока, 1.0 - максимальный отскок)
     body->CreateFixture(&fixture);
 
+    b2Vec2 velocityVector(MOVE_NOID_START_BALL_VELOCITY_X, MOVE_NOID_START_BALL_VELOCITY_Y);
+    body->SetLinearVelocity(velocityVector);
+
     qDebug() << "Ball mass: " << body->GetMass();
 
     // Запоминается настроенное тело

@@ -10,8 +10,8 @@ GameField::GameField(QObject *parent) : QGraphicsScene(parent)
 
     this->setSceneRect(0.0, 0.0, 10.0, 10.0);
 
-    // Сила гравитации на игровом поле
-    b2Vec2 gravity(0.0, 5.0);
+    // Инициализация физического движка
+    b2Vec2 gravity(0.0, 1.0); // Сила гравитации на игровом поле
     physicsWorld=new b2World(gravity);
 
     contactListener=new ContactListener;
@@ -29,7 +29,7 @@ GameField::GameField(QObject *parent) : QGraphicsScene(parent)
     moveDetector.moveToThread(&moveDetectorThread); // Определитель положения ракетки переносится в тред
     moveDetectorThread.start(); // Тред запускается, при этом в нем автоматически будет запущен объект moveDetector
 
-    // loadLevel(1);
+    level=0;
 }
 
 GameField::~GameField()
@@ -111,6 +111,7 @@ void GameField::loadLevel(int levelNum)
         barrierTop->setPhysicsWorld(physicsWorld);
 
         // Временная балка снизу
+        /*
         Barrier *barrierBottom=new Barrier();
         polygon.clear();
         polygon << QPointF(0.0, 0.0) << QPointF(0.0, 0.15) << QPointF(8.0, 0.15) << QPointF(8.0, 0.0);
@@ -120,6 +121,7 @@ void GameField::loadLevel(int levelNum)
         barriers.append( barrierBottom );
         this->addItem(barrierBottom);
         barrierBottom->setPhysicsWorld(physicsWorld);
+        */
 
         // Создание кирпичей
         for(int i=0; i<5; i++) {
@@ -189,6 +191,9 @@ void GameField::destroyBricks()
 
 void GameField::runGame()
 {
+    level=1;
+    loadLevel(level);
+
     updateWorldTimer.start(1000/60);
 }
 

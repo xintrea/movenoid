@@ -7,6 +7,8 @@ ReadyPoster::ReadyPoster(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    this->setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
+
     count=5;
     ui->countDownLabel->setText(QString::number(count));
 
@@ -31,7 +33,7 @@ void ReadyPoster::updateCountDown()
 {
     count--;
 
-    if(count==-1)
+    if(count==0)
         this->close();
     else
         ui->countDownLabel->setText(QString::number(count));
