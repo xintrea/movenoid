@@ -72,7 +72,7 @@ void Ball::moveToDefaultPos()
 }
 
 
-b2ContactEdge *Ball::getContactList()
+b2ContactEdge *Ball::getContactList() const
 {
     return physicsBody->GetContactList();
 }

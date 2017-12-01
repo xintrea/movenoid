@@ -21,14 +21,14 @@ MainWindow::~MainWindow()
 }
 
 
-void MainWindow::onSettingsButtonClicked()
+void MainWindow::onSettingsButtonClicked() const
 {
     SettingsWindow settingsWindow;
     settingsWindow.exec();
 }
 
 
-void MainWindow::onPlayButtonClicked()
+void MainWindow::onPlayButtonClicked() const
 {
     GameWindow gameWindow;
     gameWindow.exec();

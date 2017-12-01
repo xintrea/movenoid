@@ -54,8 +54,8 @@ public:
 
 public slots:
     void run(); // Метод, используемый для запуска в треде
-    QPointF getRocketBitPos();
-    qreal getRocketBitAngle();
+    QPointF getRocketBitPos() const;
+    qreal getRocketBitAngle() const;
     void doExit();
 
 signals:
@@ -71,13 +71,13 @@ protected:
     static bool contourLessThan(const ContourData &c1, const ContourData &c2);
     static bool contourMoreThan(const ContourData &c1, const ContourData &c2);
 
-    static QList<QPointF> getBoxVertex(ContourData contour);
-    static Marker getMarker(QVector<ContourData> contours);
-    void detectMarkerLocation(Marker marker);
-    QPointF convertToSafetyCoord(QPointF iPos);
+    static QList<QPointF> getBoxVertex(const ContourData contour);
+    static Marker getMarker(const QVector<ContourData> contours);
+    void detectMarkerLocation(const Marker marker);
+    QPointF convertToSafetyCoord(const QPointF iPos);
 
-    QPointF getFakeRocketBitPos();
-    qreal getFakeRocketBitAngle();
+    QPointF getFakeRocketBitPos() const;
+    qreal getFakeRocketBitAngle() const;
 
     QPointF rocetBitXY;
     qreal rocetBitAngle;

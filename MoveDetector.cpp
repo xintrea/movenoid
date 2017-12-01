@@ -93,7 +93,7 @@ void MoveDetector::update()
 
 
 // Конструирование маркера, описание его частей
-Marker MoveDetector::getMarker(QVector<ContourData> contours)
+Marker MoveDetector::getMarker(const QVector<ContourData> contours)
 {
     Marker marker;
 
@@ -139,7 +139,7 @@ Marker MoveDetector::getMarker(QVector<ContourData> contours)
 
 
 // Получиение Qt-совместимых координат минимального прямоугольника
-QList<QPointF> MoveDetector::getBoxVertex(ContourData contour)
+QList<QPointF> MoveDetector::getBoxVertex(const ContourData contour)
 {
      QList<QPointF> v;
 
@@ -299,7 +299,7 @@ bool MoveDetector::contourMoreThan(const ContourData &c1, const ContourData &c2)
 }
 
 
-void MoveDetector::detectMarkerLocation(Marker marker)
+void MoveDetector::detectMarkerLocation(const Marker marker)
 {
     static Marker previousMarker=marker;
 
@@ -352,7 +352,7 @@ void MoveDetector::detectMarkerLocation(Marker marker)
 }
 
 
-QPointF MoveDetector::convertToSafetyCoord(QPointF iPos)
+QPointF MoveDetector::convertToSafetyCoord(const QPointF iPos)
 {
     qreal x=iPos.x();
     qreal y=iPos.y();
@@ -386,7 +386,7 @@ QPointF MoveDetector::convertToSafetyCoord(QPointF iPos)
 
 
 // Координаты ракетки
-QPointF MoveDetector::getRocketBitPos()
+QPointF MoveDetector::getRocketBitPos() const
 {
     // return getFakeRocketBitPos();
     return rocetBitXY;
@@ -394,14 +394,14 @@ QPointF MoveDetector::getRocketBitPos()
 
 
 // Наклон ракетки, в градусах
-qreal MoveDetector::getRocketBitAngle()
+qreal MoveDetector::getRocketBitAngle() const
 {
     // return getFakeRocketBitAngle();
     return rocetBitAngle;
 }
 
 
-QPointF MoveDetector::getFakeRocketBitPos()
+QPointF MoveDetector::getFakeRocketBitPos() const
 {
     static qreal angleShiftX=0.0;
     static qreal angleShiftY=0.0;
@@ -420,7 +420,7 @@ QPointF MoveDetector::getFakeRocketBitPos()
 }
 
 
-qreal MoveDetector::getFakeRocketBitAngle()
+qreal MoveDetector::getFakeRocketBitAngle() const
 {
     static qreal angle=0.0;
     static int direction=1;

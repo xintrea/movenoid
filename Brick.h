@@ -21,9 +21,9 @@ public:
 
     void putToPhysicsWorld();
 
-    void setSize(qreal iWidth, qreal iHeight);
+    void setSize(const qreal iWidth, const qreal iHeight);
     void setToRemove();
-    bool isToRemove();
+    bool isToRemove() const;
 
 protected:
     qreal width;

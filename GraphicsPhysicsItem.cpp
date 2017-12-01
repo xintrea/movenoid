@@ -30,7 +30,7 @@ void GraphicsPhysicsItem::putToPhysicsWorld()
 }
 
 
-b2Body *GraphicsPhysicsItem::getPhysicsBody()
+b2Body *GraphicsPhysicsItem::getPhysicsBody() const
 {
     return physicsBody;
 }

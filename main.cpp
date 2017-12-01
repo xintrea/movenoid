@@ -19,7 +19,8 @@ QObject *pMainWindow;
 // Конфигурация программы (считанная из файла конфигурации)
 AppConfig appConfig;
 
-void criticalError(QString message)
+
+void criticalError(const QString message)
 {
     qDebug() << " ";
     qDebug() << "---------------";
@@ -50,7 +51,7 @@ qreal degToRad(const qreal deg)
 
 // Функция преобразует угол angle с шагом 90 градусов так, чтобы он
 // примерно соответствовал углу wayMarkAngle, на который он должен ориентироваться
-qreal selectNearestAngle(qreal angle, qreal wayMarkAngle, qreal angleDispersion)
+qreal selectNearestAngle(qreal angle, const qreal wayMarkAngle, const qreal angleDispersion)
 {
     // На вход может быть подан отрицательный угол, его надо нормировать
     if(angle < 0.0)   angle+=360.0;

@@ -35,7 +35,7 @@ private slots:
     void onCaptureDeviceDefaultButtonClicked();
     void onCaptureDeviceApplyButtonClicked();
     void onTimerFinish();
-    void onBrigthnessThresholdSliderMoved(int position);
+    void onBrigthnessThresholdSliderMoved(const int position);
 };
 
 #endif // SETTINGSWINDOW_H

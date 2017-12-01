@@ -16,8 +16,8 @@ public:
     ~MainWindow();
 
 private slots:
-    void onSettingsButtonClicked();
-    void onPlayButtonClicked();
+    void onSettingsButtonClicked() const;
+    void onPlayButtonClicked() const;
 
 private:
     Ui::MainWindow *ui;

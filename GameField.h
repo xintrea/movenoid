@@ -24,7 +24,7 @@ public:
     ~GameField();
 
     void clearLevel();
-    void loadLevel(int levelNum);
+    void loadLevel(const int levelNum);
 
     void runGame();
 
@@ -40,7 +40,7 @@ signals:
     void livesDn();
 
 protected:
-    void createBrick(qreal x, qreal y);
+    void createBrick(const qreal x, const qreal y);
     void destroyBricks();
     void checkBallPosition();
 

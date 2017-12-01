@@ -69,7 +69,7 @@ void GameField::clearLevel()
 }
 
 
-void GameField::loadLevel(int levelNum)
+void GameField::loadLevel(const int levelNum)
 {
     clearLevel();
 
@@ -157,7 +157,7 @@ void GameField::loadLevel(int levelNum)
 }
 
 
-void GameField::createBrick(qreal x, qreal y)
+void GameField::createBrick(const qreal x, const qreal y)
 {
     Brick *brick=new Brick;
     brick->setPos(x, y);

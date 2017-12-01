@@ -9,8 +9,8 @@ class CaptureDevice
 {
 public:
     CaptureDevice();
-    void init(QString iDeviceFileName);
-    void setBrigthnessThreshold(int iBrigthnessThreshold);
+    void init(const QString iDeviceFileName);
+    void setBrigthnessThreshold(const int iBrigthnessThreshold);
 
     QSize getFrameSize(void);
 

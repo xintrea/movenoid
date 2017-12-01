@@ -17,12 +17,12 @@
 #define MOVE_NOID_START_BALL_VELOCITY_Y -6.0
 
 
-qreal radToDeg(qreal rad);
-qreal degToRad(qreal deg);
-qreal selectNearestAngle(qreal angle, qreal wayMarkAngle, qreal angleDispersion);
+qreal radToDeg(const qreal rad);
+qreal degToRad(const qreal deg);
+qreal selectNearestAngle(qreal angle, const qreal wayMarkAngle, const qreal angleDispersion);
 qreal getAngleByPoints(const qreal xA, const qreal yA, const qreal xB, const qreal yB);
 
-void criticalError(QString message);
+void criticalError(const QString message);
 
 
 #endif // MAIN_H

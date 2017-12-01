@@ -15,9 +15,9 @@ class GameWindow : public QDialog
     Q_OBJECT
 
 public slots:
-    void onSetScore(int iScore);
-    void onScoreUp(int iScore);
-    void onSetLives(int iLives);
+    void onSetScore(const int iScore);
+    void onScoreUp(const int iScore);
+    void onSetLives(const int iLives);
     void onLivesUp();
     void onLivesDn();
     void reject();

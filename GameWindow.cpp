@@ -61,20 +61,20 @@ void GameWindow::reject()
 }
 
 
-void GameWindow::onSetScore(int iScore)
+void GameWindow::onSetScore(const int iScore)
 {
     ui->lcdScreenScore->display(iScore);
 }
 
 
-void GameWindow::onScoreUp(int iScore)
+void GameWindow::onScoreUp(const int iScore)
 {
     int currScore=ui->lcdScreenScore->intValue();
     ui->lcdScreenScore->display(currScore+iScore);
 }
 
 
-void GameWindow::onSetLives(int iLives)
+void GameWindow::onSetLives(const int iLives)
 {
     ui->lcdScreenLives->display(iLives);
 }

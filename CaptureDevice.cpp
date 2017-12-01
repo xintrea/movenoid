@@ -12,7 +12,7 @@ CaptureDevice::CaptureDevice()
 }
 
 
-void CaptureDevice::init(QString iDeviceFileName)
+void CaptureDevice::init(const QString iDeviceFileName)
 {
     qDebug() << "Start capture device init time: "<< QDateTime::currentDateTime();
 
@@ -40,7 +40,7 @@ void CaptureDevice::init(QString iDeviceFileName)
 }
 
 
-void CaptureDevice::setBrigthnessThreshold(int iBrigthnessThreshold)
+void CaptureDevice::setBrigthnessThreshold(const int iBrigthnessThreshold)
 {
     brigthnessThreshold=iBrigthnessThreshold;
 }

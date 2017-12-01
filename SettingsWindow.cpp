@@ -101,7 +101,7 @@ void SettingsWindow::onCaptureDeviceApplyButtonClicked()
 }
 
 
-void SettingsWindow::onBrigthnessThresholdSliderMoved(int position)
+void SettingsWindow::onBrigthnessThresholdSliderMoved(const int position)
 {
     qDebug() << "In onBrigthnessThresholdSliderMoved slot";
 

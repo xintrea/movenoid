@@ -61,7 +61,7 @@ void Brick::putToPhysicsWorld()
 }
 
 
-void Brick::setSize(qreal iWidth, qreal iHeight)
+void Brick::setSize(const qreal iWidth, const qreal iHeight)
 {
     width=iWidth;
     height=iHeight;
@@ -74,7 +74,7 @@ void Brick::setToRemove()
 }
 
 
-bool Brick::isToRemove()
+bool Brick::isToRemove() const
 {
     return flagToRemove;
 }

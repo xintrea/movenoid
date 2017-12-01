@@ -23,7 +23,7 @@ public:
     void moveToDefaultPos();
     void putToPhysicsWorld();
 
-    b2ContactEdge* getContactList(); // Точки столкновения мячика и других тел
+    b2ContactEdge* getContactList() const; // Точки столкновения мячика и других тел
 
 protected:
 
