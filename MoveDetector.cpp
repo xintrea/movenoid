@@ -26,7 +26,7 @@ MoveDetector::MoveDetector(QObject *parent) : QObject(parent)
 
     dynamicAngleDispersion=11.0;
 
-    borderSafetyX=0.12;
+    borderSafetyX=0.15;
     borderSafetyY=0.12;
 
     // Инициализируется устройство захвата изображения
