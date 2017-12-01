@@ -26,6 +26,7 @@ public:
     void putToPhysicsWorld();
 
     void updatePosByMovieDetector();
+    void moveToDefaultPos();
 
     void setMoveDetector(MoveDetector *iMoveDetector);
 

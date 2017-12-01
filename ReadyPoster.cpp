@@ -7,6 +7,7 @@ ReadyPoster::ReadyPoster(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    // Убирается рамка окна
     this->setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
 
     count=5;

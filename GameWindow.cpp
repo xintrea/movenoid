@@ -38,11 +38,8 @@ GameWindow::GameWindow(QWidget *parent) :
     // ui->graphicsView->fitInView(0.0, 0.0, 1.0, 1.0, Qt::KeepAspectRatio);
 
     connect(gameField, SIGNAL(setScore(int)), this, SLOT(onSetScore(int)));
-    connect(gameField, SIGNAL(scoreUp(int)), this, SLOT(onScoreUp(int)));
-
     connect(gameField, SIGNAL(setLives(int)), this, SLOT(onSetLives(int)));
-    connect(gameField, SIGNAL(livesUp()), this, SLOT(onLivesUp()));
-    connect(gameField, SIGNAL(livesDn()), this, SLOT(onLivesDn()));
+    connect(gameField, SIGNAL(closeGame()), this, SLOT(reject()));
 
     gameField->runGame();
 }
@@ -67,28 +64,7 @@ void GameWindow::onSetScore(const int iScore)
 }
 
 
-void GameWindow::onScoreUp(const int iScore)
-{
-    int currScore=ui->lcdScreenScore->intValue();
-    ui->lcdScreenScore->display(currScore+iScore);
-}
-
-
 void GameWindow::onSetLives(const int iLives)
 {
     ui->lcdScreenLives->display(iLives);
-}
-
-
-void GameWindow::onLivesUp()
-{
-    int currLives=ui->lcdScreenLives->intValue();
-    ui->lcdScreenLives->display(currLives+1);
-}
-
-
-void GameWindow::onLivesDn()
-{
-    int currLives=ui->lcdScreenLives->intValue();
-    ui->lcdScreenLives->display(currLives-1);
 }

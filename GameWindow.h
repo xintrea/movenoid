@@ -16,10 +16,7 @@ class GameWindow : public QDialog
 
 public slots:
     void onSetScore(const int iScore);
-    void onScoreUp(const int iScore);
     void onSetLives(const int iLives);
-    void onLivesUp();
-    void onLivesDn();
     void reject();
 
 public:

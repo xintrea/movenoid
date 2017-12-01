@@ -42,7 +42,8 @@ SOURCES += \
     CaptureDevice.cpp \
     MoveDetector.cpp \
     CaptureWindow.cpp \
-    ReadyPoster.cpp
+    ReadyPoster.cpp \
+    GameOverPoster.cpp
 
 HEADERS += \
         MainWindow.h \
@@ -60,14 +61,16 @@ HEADERS += \
     CaptureDevice.h \
     MoveDetector.h \
     CaptureWindow.h \
-    ReadyPoster.h
+    ReadyPoster.h \
+    GameOverPoster.h
 
 FORMS += \
         MainWindow.ui \
     SettingsWindow.ui \
     GameWindow.ui \
     CaptureWindow.ui \
-    ReadyPoster.ui
+    ReadyPoster.ui \
+    GameOverPoster.ui
 
 CONFIG += mobility
 MOBILITY = 

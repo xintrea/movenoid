@@ -138,6 +138,16 @@ void RocketBit::putToPhysicsWorld()
 }
 */
 
+
+void RocketBit::moveToDefaultPos()
+{
+    this->setX(MOVE_NOID_START_ROCKET_BIT_POS_X);
+    this->setY(MOVE_NOID_START_ROCKET_BIT_POS_Y);
+
+    putToPhysicsWorld();
+}
+
+
 void RocketBit::updatePosByMovieDetector()
 {
     // moveDetector.update(); // Теперь этот вызов ненужен, потому что moveDetector работает в треде

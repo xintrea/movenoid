@@ -12,7 +12,9 @@ GraphicsPhysicsItem::GraphicsPhysicsItem(QGraphicsItem *parent)
 
 GraphicsPhysicsItem::~GraphicsPhysicsItem()
 {
-
+    // Элемент убирается из физического симулятора
+    if(physicsBody!=nullptr)
+        physicsWorld->DestroyBody(physicsBody);
 }
 
 

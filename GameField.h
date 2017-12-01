@@ -33,16 +33,19 @@ private slots:
 
 signals:
     void setScore(int iScore);
-    void scoreUp(int iScore);
-
     void setLives(int iLives);
-    void livesUp();
-    void livesDn();
+    void closeGame();
 
 protected:
     void createBrick(const qreal x, const qreal y);
     void destroyBricks();
-    void checkBallPosition();
+
+    void checkBallPosition(); // Проверка позиции мяча на предмет выхода его за игровое поле
+    void checkBricksCount(); // Проверка количества оставшихся кирпичей
+
+    void initBarriers();
+    void initBall();
+    void initRocketBit();
 
     QList<Barrier*> barriers;
     QList<Brick*> bricks;

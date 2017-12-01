@@ -16,6 +16,9 @@
 #define MOVE_NOID_START_BALL_VELOCITY_X -2.0
 #define MOVE_NOID_START_BALL_VELOCITY_Y -6.0
 
+#define MOVE_NOID_START_ROCKET_BIT_POS_X 5.0
+#define MOVE_NOID_START_ROCKET_BIT_POS_Y 8.5
+
 
 qreal radToDeg(const qreal rad);
 qreal degToRad(const qreal deg);
