@@ -64,7 +64,7 @@ void RocketBit::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidg
     QPolygonF polygon;
     qreal flameWidth=0.2;
     qreal flameHeight=0.25;
-    polygon << QPointF(-width/2.0*0.8, height/2+0.1)
+    polygon << QPointF(-width/2.0*0.8,                height/2+0.1)
             << QPointF(-width/2.0*0.8-flameWidth/2.0, height/2+0.1+flameHeight)
             << QPointF(-width/2.0*0.8+flameWidth/2.0, height/2+0.1+flameHeight);
     painter->drawPolygon( polygon );
