@@ -16,6 +16,9 @@ public:
     explicit ReadyPoster(QWidget *parent = 0);
     ~ReadyPoster();
 
+    void setLine1Text(const QString iText);
+    void setLine2Text(const QString iText);
+
 private:
     Ui::ReadyPoster *ui;
 

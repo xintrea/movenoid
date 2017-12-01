@@ -82,6 +82,12 @@
     <layout class="QVBoxLayout" name="verticalLayout">
      <item>
       <widget class="QLabel" name="gameOverLabel">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
        <property name="font">
         <font>
          <family>DejaVu Sans Mono</family>
@@ -113,15 +119,21 @@
        </item>
        <item>
         <widget class="QLabel" name="yourScoreLabel">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
          <property name="palette">
           <palette>
            <active>
             <colorrole role="WindowText">
              <brush brushstyle="SolidPattern">
               <color alpha="255">
-               <red>39</red>
-               <green>23</green>
-               <blue>209</blue>
+               <red>16</red>
+               <green>117</green>
+               <blue>249</blue>
               </color>
              </brush>
             </colorrole>
@@ -130,9 +142,9 @@
             <colorrole role="WindowText">
              <brush brushstyle="SolidPattern">
               <color alpha="255">
-               <red>39</red>
-               <green>23</green>
-               <blue>209</blue>
+               <red>16</red>
+               <green>117</green>
+               <blue>249</blue>
               </color>
              </brush>
             </colorrole>
@@ -226,31 +238,38 @@
        </item>
       </layout>
      </item>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_2">
+       <item>
+        <widget class="QPushButton" name="pushButton">
+         <property name="maximumSize">
+          <size>
+           <width>100</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>ОК</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
     </layout>
-   </item>
-   <item>
-    <widget class="QDialogButtonBox" name="buttonBox">
-     <property name="standardButtons">
-      <set>QDialogButtonBox::Ok</set>
-     </property>
-     <property name="centerButtons">
-      <bool>true</bool>
-     </property>
-    </widget>
    </item>
   </layout>
  </widget>
  <resources/>
  <connections>
   <connection>
-   <sender>buttonBox</sender>
-   <signal>accepted()</signal>
+   <sender>pushButton</sender>
+   <signal>clicked()</signal>
    <receiver>GameOverPoster</receiver>
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>235</x>
-     <y>278</y>
+     <x>234</x>
+     <y>277</y>
     </hint>
     <hint type="destinationlabel">
      <x>235</x>

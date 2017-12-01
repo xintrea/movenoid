@@ -10,7 +10,10 @@ ReadyPoster::ReadyPoster(QWidget *parent) :
     // Убирается рамка окна
     this->setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
 
-    count=5;
+    ui->line1Label->hide();
+    ui->line2Label->hide();
+
+    count=3;
     ui->countDownLabel->setText(QString::number(count));
 
     connect(&updateTimer, SIGNAL(timeout()), this, SLOT(updateCountDown()));
@@ -18,10 +21,26 @@ ReadyPoster::ReadyPoster(QWidget *parent) :
     runCountDown();
 }
 
+
 ReadyPoster::~ReadyPoster()
 {
     delete ui;
 }
+
+
+void ReadyPoster::setLine1Text(const QString iText)
+{
+    ui->line1Label->setText(iText);
+    ui->line1Label->show();
+}
+
+
+void ReadyPoster::setLine2Text(const QString iText)
+{
+    ui->line2Label->setText(iText);
+    ui->line2Label->show();
+}
+
 
 void ReadyPoster::runCountDown()
 {

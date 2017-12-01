@@ -81,14 +81,67 @@
    <item>
     <layout class="QVBoxLayout" name="verticalLayout">
      <item>
-      <widget class="QLabel" name="readyLabel">
+      <widget class="QLabel" name="line1Label">
        <property name="font">
         <font>
+         <family>DejaVu Sans Condensed</family>
          <pointsize>50</pointsize>
         </font>
        </property>
        <property name="text">
         <string>...READY...</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="line2Label">
+       <property name="palette">
+        <palette>
+         <active>
+          <colorrole role="WindowText">
+           <brush brushstyle="SolidPattern">
+            <color alpha="255">
+             <red>16</red>
+             <green>117</green>
+             <blue>249</blue>
+            </color>
+           </brush>
+          </colorrole>
+         </active>
+         <inactive>
+          <colorrole role="WindowText">
+           <brush brushstyle="SolidPattern">
+            <color alpha="255">
+             <red>16</red>
+             <green>117</green>
+             <blue>249</blue>
+            </color>
+           </brush>
+          </colorrole>
+         </inactive>
+         <disabled>
+          <colorrole role="WindowText">
+           <brush brushstyle="SolidPattern">
+            <color alpha="255">
+             <red>190</red>
+             <green>190</green>
+             <blue>190</blue>
+            </color>
+           </brush>
+          </colorrole>
+         </disabled>
+        </palette>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>32</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string>TextLabel</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
@@ -103,9 +156,9 @@
           <colorrole role="WindowText">
            <brush brushstyle="SolidPattern">
             <color alpha="255">
-             <red>171</red>
-             <green>79</green>
-             <blue>18</blue>
+             <red>200</red>
+             <green>71</green>
+             <blue>62</blue>
             </color>
            </brush>
           </colorrole>
@@ -123,9 +176,9 @@
           <colorrole role="WindowText">
            <brush brushstyle="SolidPattern">
             <color alpha="255">
-             <red>171</red>
-             <green>79</green>
-             <blue>18</blue>
+             <red>200</red>
+             <green>71</green>
+             <blue>62</blue>
             </color>
            </brush>
           </colorrole>

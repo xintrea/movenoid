@@ -37,8 +37,12 @@ GameField::GameField(QObject *parent) : QGraphicsScene(parent)
 GameField::~GameField()
 {
     clearLevel();
+
     delete contactListener;
+
     delete physicsWorld;
+    ball.setPhysicsWorld(nullptr);
+    rocketBit.setPhysicsWorld(nullptr);
 
     moveDetector.doExit();
     moveDetectorThread.quit();
@@ -252,6 +256,7 @@ void GameField::checkBallPosition()
             emit setLives(--lives);
 
             ReadyPoster readyPoster;
+            readyPoster.setLine1Text("...READY...");
             readyPoster.exec();
 
             ball.moveToDefaultPos();
@@ -273,9 +278,10 @@ void GameField::checkBricksCount()
     if(bricks.count()==0) {
         level++;
 
-        QMessageBox msgBox;
-        msgBox.setText("Congratulation! Go to level "+QString::number(level)+"!");
-        msgBox.exec();
+        ReadyPoster readyPoster;
+        readyPoster.setLine1Text("Congratulation!");
+        readyPoster.setLine2Text("Go to next level "+QString::number(level)+"!");
+        readyPoster.exec();
 
         ball.moveToDefaultPos();
         rocketBit.moveToDefaultPos();
