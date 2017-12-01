@@ -33,7 +33,7 @@ AppConfig::~AppConfig()
 
 
 // Получение параметра по имени в виде строки с проверкой его существования
-QString AppConfig::getParameter(QString name)
+QString AppConfig::getParameter(const QString name) const
 {
     // Если в конфиге есть запрашиваемый параметр
     if(conf->contains(name))
@@ -67,7 +67,7 @@ QString AppConfig::getParameter(QString name)
 }
 
 
-void AppConfig::setParameter(QString name, QString value)
+void AppConfig::setParameter(const QString name, const QString value) const
 {
     conf->setValue(name, value);
     conf->sync();

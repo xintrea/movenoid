@@ -14,8 +14,8 @@ public:
     AppConfig(QObject *pobj=0);
     ~AppConfig();
 
-    QString getParameter(QString name);
-    void setParameter(QString name, QString value);
+    QString getParameter(const QString name) const;
+    void setParameter(const QString name, const QString value) const;
 
 protected:
     QSettings *conf;
