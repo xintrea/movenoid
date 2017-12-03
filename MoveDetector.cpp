@@ -13,8 +13,11 @@ extern AppConfig appConfig;
 
 MoveDetector::MoveDetector(QObject *parent) : QObject(parent)
 {
+    // Для отладки можно сделать вывод в консоль и будет появляться дополнительное окно
+    // с обнаруженными объектами (окно игры надо сделать не на весь экран)
     enableDebug=false;
 
+    // Для устновки всех коэффициентов надо сделать отдельное окно настроек
     rocetBitXY=QPointF(5.0, 8.0);
     rocetBitAngle=0.0;
 
@@ -34,6 +37,7 @@ MoveDetector::MoveDetector(QObject *parent) : QObject(parent)
     captureDevice.init( appConfig.getParameter("captureDeviceFileName") );
     captureDevice.setBrigthnessThreshold( appConfig.getParameter("brigthnessThreshold").toInt() );
 
+    // Открытие окна с отлаживаемым изображением с камеры
     debugWindow=nullptr;
     if(enableDebug) {
         debugWindow=new CaptureWindow;
@@ -274,9 +278,8 @@ QVector<ContourData> MoveDetector::removeNoiseContour(QVector<ContourData> conto
     // Сортировка по убыванию
     qSort(contoursData.begin(), contoursData.end(), contourMoreThan);
 
-    // foreach(ContourData contourData, contoursData) {
+    // foreach(ContourData contourData, contoursData)
     //     qDebug() << "Stage 4. Sorted area:" << contourData.area;
-    // }
 
     // Оставляется только два элемента
     if(contoursData.size()>2)
@@ -314,12 +317,6 @@ void MoveDetector::detectMarkerLocation(const Marker marker)
         qreal x=centerMass.x()*10.0/(qreal)captureDevice.getFrameSize().width(); // Где 10.0 - это размер игры, заменить на дефайн
         qreal y=centerMass.y()*10.0/(qreal)captureDevice.getFrameSize().height();
         rocetBitXY=QPointF(x, y);
-
-        // Если происходит переключение с двух видимых частей маркера на одну часть,
-        // предполагается, что угол на двух частях был определен точно, и угол поворота одной части
-        // надо подобрать с шагом 90 градусов так, чтобы он примерно соответствовал предыдущему значению
-        // if(previousMarker.chunks==2) {
-        // }
 
         // Угол подбирается так, чтобы он был ближайшим к предыдущему значению
         // В момент вызова объект еще хранит предыдущее значение угла
