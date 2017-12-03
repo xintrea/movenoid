@@ -6,6 +6,7 @@
 #include <QString>
 
 
+// Конфигурация программы (переделать на синглтон)
 class AppConfig : public QObject
 {
     Q_OBJECT

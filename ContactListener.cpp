@@ -28,5 +28,5 @@ void ContactListener::EndContact(b2Contact* contact)
     // Нахождение кирпича, с которым перестал пересекаться мячик
     foreach( Brick* brick, *bricks )
         if( bodyA==brick->getPhysicsBody() || bodyB==brick->getPhysicsBody())
-            brick->setToRemove();
+            brick->setToRemove(); // Кирпич помачается на удаление. Сразу здесь в обработчике удалять нельзя
 }

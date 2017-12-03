@@ -11,10 +11,12 @@ GameOverPoster::GameOverPoster(QWidget *parent) :
     this->setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
 }
 
+
 GameOverPoster::~GameOverPoster()
 {
     delete ui;
 }
+
 
 void GameOverPoster::setScore(const int score)
 {

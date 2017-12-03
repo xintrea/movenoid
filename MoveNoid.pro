@@ -43,7 +43,8 @@ SOURCES += \
     MoveDetector.cpp \
     CaptureWindow.cpp \
     ReadyPoster.cpp \
-    GameOverPoster.cpp
+    GameOverPoster.cpp \
+    MathAn.cpp
 
 HEADERS += \
         MainWindow.h \
@@ -62,7 +63,8 @@ HEADERS += \
     MoveDetector.h \
     CaptureWindow.h \
     ReadyPoster.h \
-    GameOverPoster.h
+    GameOverPoster.h \
+    MathAn.h
 
 FORMS += \
         MainWindow.ui \

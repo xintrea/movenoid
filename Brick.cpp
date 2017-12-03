@@ -7,8 +7,7 @@ Brick::Brick(QGraphicsItem *parent)
     width=0.8;
     height=0.4;
 
-    // color=QColor(qrand() % 256, qrand() % 256, qrand() % 256);
-    color=QColor(156, 44, 44);
+    color=QColor(156, 44, 44); // QColor(qrand() % 256, qrand() % 256, qrand() % 256);
 
     flagToRemove=false;
 }

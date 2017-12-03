@@ -1,6 +1,7 @@
 #include <QDebug>
 
 #include "main.h"
+#include "MathAn.h"
 #include "RocketBit.h"
 
 RocketBit::RocketBit(QGraphicsItem *parent)
@@ -95,7 +96,7 @@ void RocketBit::putToPhysicsWorld()
     b2BodyDef bodyDef;
     bodyDef.type=b2_staticBody; // b2_dynamicBody
     bodyDef.position.Set(this->x(), this->y());
-    bodyDef.angle=degToRad(this->rotation());
+    bodyDef.angle=MathAn::degToRad(this->rotation());
     b2Body *body=physicsWorld->CreateBody(&bodyDef);
 
     b2PolygonShape polygonShape;
@@ -121,10 +122,8 @@ void RocketBit::putToPhysicsWorld()
     b2BodyDef bodyDef;
     bodyDef.type=b2_dynamicBody;
     bodyDef.position.Set(this->x(), this->y());
-    bodyDef.angle=degToRad(this->rotation());
+    bodyDef.angle=MathAn::degToRad(this->rotation());
     b2Body *body=physicsWorld->CreateBody(&bodyDef);
-
-
 
     b2MouseJointDef mouseJointDef;
 

@@ -3,6 +3,7 @@
 #include <math.h>
 
 #include "MoveDetector.h"
+#include "MathAn.h"
 #include "AppConfig.h"
 #include "main.h"
 
@@ -323,7 +324,7 @@ void MoveDetector::detectMarkerLocation(const Marker marker)
         // Угол подбирается так, чтобы он был ближайшим к предыдущему значению
         // В момент вызова объект еще хранит предыдущее значение угла
         qreal previousAngle=rocetBitAngle;
-        rocetBitAngle=selectNearestAngle(marker.angleA, previousAngle, dynamicAngleDispersion);
+        rocetBitAngle=MathAn::selectNearestAngle(marker.angleA, previousAngle, dynamicAngleDispersion);
 
         if(enableDebug) qDebug() << "Marker angle: " << marker.angleA << "prev:" << previousAngle << "disp:" << dynamicAngleDispersion << "res:" << rocetBitAngle;
 
@@ -345,7 +346,7 @@ void MoveDetector::detectMarkerLocation(const Marker marker)
 
         rocetBitXY=QPointF(x, y);
 
-        rocetBitAngle=getAngleByPoints(xA, yA, xB, yB);
+        rocetBitAngle=MathAn::getAngleByPoints(xA, yA, xB, yB);
     }
 
     previousMarker=marker;

@@ -20,15 +20,10 @@ void Barrier::putToPhysicsWorld()
 {
     b2BodyDef bodyDef;
     bodyDef.type=b2_staticBody;
-    // bodyDef.position.Set(this->x(), this->y());
     bodyDef.position.Set(0.0, 0.0);
     b2Body *body=physicsWorld->CreateBody(&bodyDef);
 
-    // b2PolygonDef shapeDef;
-
     QPolygonF scenePolygon=mapToScene(polygon);
-
-    qDebug() << "New polygon";
 
     b2Vec2 vertices[10];
     for(int i=0; i<scenePolygon.size(); i++) { // // for(int i=scenePolygon.size()-1; i>=0; i--)
@@ -59,7 +54,6 @@ QPainterPath Barrier::shape() const
     path.addPolygon( polygon );
     return path;
 }
-
 
 
 void Barrier::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)

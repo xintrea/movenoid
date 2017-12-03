@@ -8,10 +8,12 @@ CaptureWindow::CaptureWindow(QWidget *parent) :
     ui->setupUi(this);
 }
 
+
 CaptureWindow::~CaptureWindow()
 {
     delete ui;
 }
+
 
 void CaptureWindow::setImage(QImage *img)
 {
