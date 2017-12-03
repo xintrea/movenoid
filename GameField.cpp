@@ -9,7 +9,7 @@
 GameField::GameField(QObject *parent) : QGraphicsScene(parent)
 {
     // Параметры сцены
-    this->setSceneRect(0.0, 0.0, 10.0, 10.0);
+    this->setSceneRect(0.0, 0.0, MOVE_NOID_FIELD_WIDTH, MOVE_NOID_FIELD_HEIGHT);
 
     // Инициализация физического движка
     b2Vec2 gravity(0.0, 0.2); // Сила гравитации на игровом поле
@@ -87,7 +87,7 @@ void GameField::initBarriers()
 
     // Левая стена
     Barrier *barrierLeft=new Barrier();
-    polygon << QPointF(0.0, 0.0) << QPointF(0.0, 10.0) << QPointF(0.05, 10.0) << QPointF(0.05, 0.0);
+    polygon << QPointF(0.0, 0.0) << QPointF(0.0, MOVE_NOID_FIELD_HEIGHT) << QPointF(0.05, MOVE_NOID_FIELD_HEIGHT) << QPointF(0.05, 0.0);
     barrierLeft->setPolygon(polygon);
     barrierLeft->setPos(0.0, 0.0);
     barriers.append( barrierLeft ); // Запоминается указатель на препятствие
@@ -97,7 +97,7 @@ void GameField::initBarriers()
     // Правая стена
     Barrier *barrierRight=new Barrier();
     barrierRight->setPolygon(polygon);
-    barrierRight->setPos(10.0-0.049, 0.0);
+    barrierRight->setPos(MOVE_NOID_FIELD_WIDTH-0.049, 0.0);
     barriers.append( barrierRight );
     this->addItem(barrierRight);
     barrierRight->setPhysicsWorld(physicsWorld);
@@ -105,7 +105,7 @@ void GameField::initBarriers()
     // Верхняя стена
     Barrier *barrierTop=new Barrier();
     polygon.clear();
-    polygon << QPointF(0.0, 0.0) << QPointF(0.0, 0.05) << QPointF(10.0, 0.05) << QPointF(10.0, 0.0);
+    polygon << QPointF(0.0, 0.0) << QPointF(0.0, 0.05) << QPointF(MOVE_NOID_FIELD_WIDTH, 0.05) << QPointF(MOVE_NOID_FIELD_WIDTH, 0.0);
     barrierTop->setPolygon(polygon);
     barrierTop->setPos(0.0, 0.0);
     barriers.append( barrierTop );
@@ -260,7 +260,7 @@ void GameField::updateWorld()
 void GameField::checkBallPosition()
 {
     // Если мячь улетел
-    if(ball.y()>10.0+1.0) {
+    if(ball.y()>MOVE_NOID_FIELD_HEIGHT+1.0) {
         if(lives>0) { // Если еще есть попытки
             emit setLives(--lives);
 

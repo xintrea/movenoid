@@ -155,12 +155,12 @@ void RocketBit::updatePosByMovieDetector()
     // пропорционально растягивая прямоугольную картинку камеры до квадрата
 
     // Местоположение оси в игре, на которой должна отображаться горизонтальная центральная ось картинки с камеры
-    qreal yOpticAxis=7.5; // В координатах сцены
+    qreal yOpticAxis=MOVE_NOID_FIELD_HEIGHT*3.0/4.0; // В координатах сцены
 
     qreal yKoeff=1.5; // Коэффициент сплющивания координат по вертикали
 
-    qreal yShift=10.0-(10.0*yKoeff)/2.0; // Зазор от верхнего края экрана до сплющенного пространства
-    yShift=yShift+(10.0-yOpticAxis); // Зазор увеличиватся в соответствии с местоположением оси картинки с камеры
+    qreal yShift=MOVE_NOID_FIELD_HEIGHT-(MOVE_NOID_FIELD_HEIGHT*yKoeff)/2.0; // Зазор от верхнего края экрана до сплющенного пространства
+    yShift=yShift+(MOVE_NOID_FIELD_HEIGHT-yOpticAxis); // Зазор увеличиватся в соответствии с местоположением оси картинки с камеры
 
     // Местоположение ракетки
     QPointF pos=moveDetector->getRocketBitPos();
@@ -169,7 +169,8 @@ void RocketBit::updatePosByMovieDetector()
     qreal yPos=pos.y()/yKoeff+yShift;
 
     // Ракетка не должна подниматься выше середины поля
-    if(yPos<(10.0/2.0)) yPos=10.0/2.0;
+    if(yPos<(MOVE_NOID_FIELD_HEIGHT/2.0))
+        yPos=MOVE_NOID_FIELD_HEIGHT/2.0;
 
     // Устанавливаются координаты ракетки
     this->setPos( QPointF(pos.x(), yPos) );
@@ -178,7 +179,6 @@ void RocketBit::updatePosByMovieDetector()
     this->setRotation( moveDetector->getRocketBitAngle() );
 
     putToPhysicsWorld(); // Чтобы ракетка пересоздавалась в новом месте
-
 
     // qDebug() << "RocketBit coordinats 1: " << moveDetector.getRocketBitPos();
     // qDebug() << "RocketBit coordinats 2: " << this->x() << this->y();

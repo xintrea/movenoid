@@ -314,8 +314,8 @@ void MoveDetector::detectMarkerLocation(const Marker marker)
         QPointF centerMass=convertToSafetyCoord( QPointF(marker.massCenterA.x(), marker.massCenterA.y()) );
 
         // Приведение координат к игровому полю
-        qreal x=centerMass.x()*10.0/(qreal)captureDevice.getFrameSize().width(); // Где 10.0 - это размер игры, заменить на дефайн
-        qreal y=centerMass.y()*10.0/(qreal)captureDevice.getFrameSize().height();
+        qreal x=centerMass.x()*MOVE_NOID_FIELD_WIDTH/(qreal)captureDevice.getFrameSize().width();
+        qreal y=centerMass.y()*MOVE_NOID_FIELD_HEIGHT/(qreal)captureDevice.getFrameSize().height();
         rocetBitXY=QPointF(x, y);
 
         // Угол подбирается так, чтобы он был ближайшим к предыдущему значению
@@ -338,8 +338,8 @@ void MoveDetector::detectMarkerLocation(const Marker marker)
         QPointF centerMass=convertToSafetyCoord( QPointF(xMass, yMass) );
 
         // Приведение координат к игровому полю
-        qreal x=centerMass.x()*10.0/(qreal)captureDevice.getFrameSize().width(); // Где 10.0 - это размер игры, заменить на дефайн
-        qreal y=centerMass.y()*10.0/(qreal)captureDevice.getFrameSize().height();
+        qreal x=centerMass.x()*MOVE_NOID_FIELD_WIDTH/(qreal)captureDevice.getFrameSize().width();
+        qreal y=centerMass.y()*MOVE_NOID_FIELD_HEIGHT/(qreal)captureDevice.getFrameSize().height();
 
         rocetBitXY=QPointF(x, y);
 
