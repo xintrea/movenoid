@@ -8,42 +8,47 @@
 
 GameField::GameField(QObject *parent) : QGraphicsScene(parent)
 {
-    connect(&updateWorldTimer, SIGNAL(timeout()), this, SLOT(updateWorld()));
-
+    // Параметры сцены
     this->setSceneRect(0.0, 0.0, 10.0, 10.0);
 
     // Инициализация физического движка
     b2Vec2 gravity(0.0, 0.2); // Сила гравитации на игровом поле
     physicsWorld=new b2World(gravity);
 
+    // Инициализация обработчика пересечений
     contactListener=new ContactListener;
     contactListener->setBall(&ball);
     contactListener->setBricks(&bricks);
     physicsWorld->SetContactListener(contactListener);
 
-    // Определитель положения ракетки пришлось размещать здесь, так как GameField наследуется от QObject и здесь работает connect
-    // Основной цикл определителя положения ракетки будет запускаться при старте треда, в который его помещают
-    connect(&moveDetectorThread, &QThread::started, &moveDetector, &MoveDetector::run);
-    
-    // Соединения для корректного завершения потока
-    connect(&moveDetector, SIGNAL(finished()), &moveDetectorThread, SLOT(quit()));
-    
+    // Инициализация определителя положения ракетки (GameField наследуется от QObject, и здесь работает connect)
+    connect(&moveDetectorThread, &QThread::started, &moveDetector, &MoveDetector::run); // При старте треда запустится основной цикл в методе run()
+    connect(&moveDetector, SIGNAL(finished()), &moveDetectorThread, SLOT(quit())); // Соединение для корректного завершения потока
     moveDetector.moveToThread(&moveDetectorThread); // Определитель положения ракетки переносится в тред
     moveDetectorThread.start(); // Тред запускается, при этом в нем автоматически будет запущен объект moveDetector
+
+    // Таймер обновления сцены
+    connect(&updateWorldTimer, SIGNAL(timeout()), this, SLOT(updateWorld()));
 
     level=0;
 }
 
 GameField::~GameField()
 {
+    // Удаляются все динамические объекты, отображаемые на текущем уровне
     clearLevel();
 
+    // Удаление обработчика пересечений
     delete contactListener;
 
+    // Удаление движка физического моделирования
     delete physicsWorld;
+
+    // Отключение физических объектов на стеке
     ball.setPhysicsWorld(nullptr);
     rocketBit.setPhysicsWorld(nullptr);
 
+    // Отключение определителя положения ракетки
     moveDetector.doExit();
     moveDetectorThread.quit();
     moveDetectorThread.wait();
@@ -142,6 +147,7 @@ void GameField::initRocketBit()
 }
 
 
+// Загрузка уровня
 void GameField::loadLevel(const int levelNum)
 {
     clearLevel();
@@ -188,6 +194,7 @@ void GameField::loadLevel(const int levelNum)
 }
 
 
+// Создание кирпича по игровым координатам
 void GameField::createBrick(const qreal x, const qreal y)
 {
     Brick *brick=new Brick;
@@ -229,18 +236,20 @@ void GameField::runGame()
 }
 
 
-// Слот, срабатывающий по таймеру updateWorldTimer
+// Обновление мира, этот слот срабатывает по таймеру updateWorldTimer
 void GameField::updateWorld()
 {
+    // Обновляется физический мир
     physicsWorld->Step(1.0/60.0, 6, 2);
 
+    // Удаляются кирпичи, помеченные на удаление в обрабочике пересечений
     destroyBricks();
 
-    ball.updatePosByPhysicsWorld();
-    rocketBit.updatePosByMovieDetector();
+    ball.updatePosByPhysicsWorld();       // Обновляется месторасположение мяча
+    rocketBit.updatePosByMovieDetector(); // Обновляется месторасположение ракетки
 
-    checkBallPosition();
-    checkBricksCount();
+    checkBallPosition(); // Проверка, не улетел ли мяч
+    checkBricksCount();  // Проверка, не выбиты ли все кирпичи
 
     // Обновляется сцена
     this->update();
@@ -272,6 +281,7 @@ void GameField::checkBallPosition()
 }
 
 
+// Проверка выбитых кирпичей
 void GameField::checkBricksCount()
 {
     // Если все кирпичи выбиты
