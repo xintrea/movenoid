@@ -12,6 +12,11 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+
+    ui->gameVersion->setText("v."+
+                             QString::number(APPLICATION_RELEASE_VERSION)+"."+
+                             QString::number(APPLICATION_RELEASE_SUBVERSION)+"."+
+                             QString::number(APPLICATION_RELEASE_MICROVERSION));
 }
 
 
