@@ -4,6 +4,16 @@
 #include <QString>
 #include "opencv2/opencv.hpp"
 
+// ----------------------------------------------------------
+// MoveNoid - Арканоид с бесконтактным управлением
+// Волгодонск, 2017 г.
+// Контакты: xintrea@gmail.com, www.webhamster.ru
+// Данный исходный код распространяется под лицензиями:
+// - GPL v.3
+// - Modified BSD
+// © С. М. Степанов, 2017
+// ----------------------------------------------------------
+
 // Версия программы
 #define APPLICATION_RELEASE_VERSION         0
 #define APPLICATION_RELEASE_SUBVERSION      2
