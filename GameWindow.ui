@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>MoveNoid</string>
   </property>
   <property name="styleSheet">
    <string notr="true">background-color: rgb(70, 111, 136);</string>
@@ -109,7 +109,7 @@
             <colorrole role="Base">
              <brush brushstyle="SolidPattern">
               <color alpha="255">
-               <red>123</red>
+               <red>70</red>
                <green>111</green>
                <blue>136</blue>
               </color>
@@ -165,7 +165,7 @@
             <colorrole role="Base">
              <brush brushstyle="SolidPattern">
               <color alpha="255">
-               <red>123</red>
+               <red>70</red>
                <green>111</green>
                <blue>136</blue>
               </color>
