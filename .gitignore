@@ -1,0 +1,5 @@
+# Ignore IDE files
+*.Debug
+*.Release
+
+*.pro.user
